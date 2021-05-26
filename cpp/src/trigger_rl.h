@@ -10,6 +10,7 @@ class trigger_rl: public module
 public:
    
     Signal ly0, ly1, ly2, ly3, ly4, ly5;
+    Signal ly0m, ly1m, ly2m, ly3m, ly4m, ly5m;
 
 	Signal qca0, qca1, qca2, qca3, qa0, qa1, qa2, qa3;	   
 	Signal bwc1w, bwc2w, bqc1w, bqc2w, bwa1w, bwa2w, bqa1w, bqa2w;
@@ -32,6 +33,14 @@ public:
 		Signal acc_pretrig, Signal acc_trig,
 		Signal actv_feb_fg,
 		Signal trig_stop,
+		
+		Signal input_disr,
+		Signal ext_trig_en,
+		Signal ext_trig2,
+		Signal inject,
+		Signal ext_inject2,
+		Signal HCmask,
+
 		Signal clk
 	);
 

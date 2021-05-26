@@ -12,6 +12,14 @@ void trigger_rl::operator()
 	Signal acc_pretrig, Signal acc_trig,
 	Signal actv_feb_fg,
 	Signal trig_stop,
+
+	Signal input_disr,
+	Signal ext_trig_en,
+	Signal ext_trig2,
+	Signal inject,
+	Signal ext_inject2,
+	Signal HCmask,
+
 	Signal clk
 )
 
@@ -48,9 +56,24 @@ initio
 	Input_(acc_trig, 2, 0);
 	OutReg (actv_feb_fg);
 	Input (trig_stop);
+	
+	Input (input_disr );
+	Input (ext_trig_en);
+	Input (ext_trig2  );
+	Input (inject     );
+	Input (ext_inject2);
+	Input_(HCmask, HCMASKBITS-1, 0);
+	
 	Input (clk);
 
 beginmodule
+
+    Wire_(ly0m, LYWG-1, 0); 
+	Wire_(ly1m, LYWG-1, 0); 
+	Wire_(ly2m, LYWG-1, 0); 
+	Wire_(ly3m, LYWG-1, 0); 
+	Wire_(ly4m, LYWG-1, 0); 
+	Wire_(ly5m, LYWG-1, 0);
 
     Wire_(ly0, LYWG-1, 0); 
 	Wire_(ly1, LYWG-1, 0); 
@@ -91,6 +114,32 @@ beginmodule
    	Wire (fa2);
 	Wire (bv2);
 
+	comment("// apply hot channel mask")
+	always (posedge (clk))
+	begin
+   		If (!input_disr)
+    	begin
+			If ((ext_trig_en && !ext_trig2) || (inject && !ext_inject2))
+			begin
+				ly0m = 0;
+				ly1m = 0;
+				ly2m = 0;
+				ly3m = 0;
+				ly4m = 0;
+				ly5m = 0;
+			end
+			Else
+			begin
+				ly0m = ly0p & HCmask(0*LYWG+LYWG-1, 0*LYWG);
+				ly1m = ly1p & HCmask(1*LYWG+LYWG-1, 1*LYWG);
+				ly2m = ly2p & HCmask(2*LYWG+LYWG-1, 2*LYWG);
+				ly3m = ly3p & HCmask(3*LYWG+LYWG-1, 3*LYWG);
+				ly4m = ly4p & HCmask(4*LYWG+LYWG-1, 4*LYWG);
+				ly5m = ly5p & HCmask(5*LYWG+LYWG-1, 5*LYWG);
+			end
+
+   	    end
+	end
 
 	ExtendPulses.init ("Stage0",  "ExtendPulses");
 	FindPatterns.init ("Stage1_rl", "FindPatterns");
@@ -101,7 +150,7 @@ beginmodule
 
 	ExtendPulses
 	(
-		ly0p, ly1p, ly2p, ly3p, ly4p, ly5p,
+		ly0m, ly1m, ly2m, ly3m, ly4m, ly5m,
 		ly0, ly1, ly2, ly3, ly4, ly5,
 		trig_stop,
 		clk

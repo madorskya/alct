@@ -211,12 +211,6 @@ beginmodule
 	ly[3].reg(LYWG-1, 0, "ly3");
 	ly[4].reg(LYWG-1, 0, "ly4");
 	ly[5].reg(LYWG-1, 0, "ly5");
-	lyp[0].reg(LYWG-1, 0, "lyp0");
-	lyp[1].reg(LYWG-1, 0, "lyp1");
-	lyp[2].reg(LYWG-1, 0, "lyp2");
-	lyp[3].reg(LYWG-1, 0, "lyp3");
-	lyp[4].reg(LYWG-1, 0, "lyp4");
-	lyp[5].reg(LYWG-1, 0, "lyp5");
 	input_disr.reg("input_disr");
 	clkb.wire("clkb");
 	settst_dly.wire("settst_dly");
@@ -578,8 +572,8 @@ beginmodule
 				wgf = (j < 4) ? i * 16 : i * 16 + 8;
 #endif
 
-				lyp[lf[j]](wgf+7, wgf) = flip(lyp[li[j]](wgi+7, wgi));
-				lyp[li[j]](wgi+7, wgi) = (*lct[i])(j*8+7, j*8);
+				ly[lf[j]](wgf+7, wgf) = flip(ly[li[j]](wgi+7, wgi));
+				ly[li[j]](wgi+7, wgi) = (*lct[i])(j*8+7, j*8);
 			}
 		}
 
@@ -622,27 +616,8 @@ beginmodule
 
 	end
 
-	comment("// apply hot channel mask")
     always (posedge (clk))
    	begin
-
-
-   		If (!input_disr)
-    	begin
-			If ((ext_trig_en && !ext_trig2) || (inject && !ext_inject2))
-			begin
-				for (i = 0; i < LYN; i++) ly[i] = 0;
-			end
-			Else
-			begin
-
-				for (i = 0; i < LYN; i++)
-				{
-					ly[i] = lyp[i] & HCmask(i*LYWG+LYWG-1, i*LYWG);
-				}
-			end
-
-   	    end
 
 		(SyncAdb2, L1A2, ext_trig2, ext_inject2, bx0_2, dout_str2, subaddr_str2, brcst_str2, ccb_brcst2) = dec_out;
 		ecc_err_5 = (ecc_error, Signal (3, 0));
@@ -714,6 +689,14 @@ beginmodule
 #endif
 		actv_feb_fg,
 		fmm_trig_stop,
+	
+		input_disr,
+		ext_trig_en,
+		ext_trig2,
+		inject,
+		ext_inject2,
+		HCmask,
+
 		clk
 	);	
 
