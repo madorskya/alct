@@ -19,15 +19,17 @@
          <ClosedNode>/alct288 |home|hvuser|cernbox|projects|ise|alct|alct_LX100_288|alct288.v/core - trigger_rl/ExtendPulses - Stage0/lsh5 - LyOneShot</ClosedNode>
          <ClosedNode>/alct288 |home|hvuser|cernbox|projects|ise|alct|alct_LX100_288|alct288.v/core - trigger_rl/FindPatterns - Stage1_rl</ClosedNode>
          <ClosedNode>/alct288 |home|madorsky|cernbox|projects|ise|alct|alct_LX100_288|alct288.v/core - trigger_rl</ClosedNode>
+         <ClosedNode>/alct288 |media|sf_github_alct|alct_LX100_288|src|alct288.v/core - trigger_rl/ExtendPulses - Stage0</ClosedNode>
+         <ClosedNode>/alct288 |media|sf_github_alct|alct_LX100_288|src|alct288.v/core - trigger_rl/FindPatterns - Stage1_rl</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>Unassigned User Library Modules</SelectedItem>
+         <SelectedItem>alct288 (/media/sf_github_alct/alct_LX100_288/src/alct288.v)</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000202000000010000000100000064000001f0000000020000000000000000000000000200000064ffffffff000000810000000300000002000001f00000000100000003000000000000000100000003</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000202000000010000000100000064000002b0000000020000000000000000000000000200000064ffffffff000000810000000300000002000002b00000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
-      <CurrentItem>Unassigned User Library Modules</CurrentItem>
+      <CurrentItem>alct288 (/media/sf_github_alct/alct_LX100_288/src/alct288.v)</CurrentItem>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="" guiview="Process" >
       <ClosedNodes>
