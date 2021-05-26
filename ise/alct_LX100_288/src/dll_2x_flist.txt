@@ -1,0 +1,3 @@
+# Output products list for <dll_2x>
+dll_2x.xco
+dll_2x_flist.txt
