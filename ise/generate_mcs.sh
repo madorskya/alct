@@ -1,6 +1,4 @@
 #!/bin/bash
-#export XILINX=F:\\Xilinx\\14.7\\ISE_DS\\ISE
-#export XILINX=C:\\Xilinx\\10.1\\ISE
 export IMPACT=/home/hvuser/software/xilinx/14.7/ISE_DS/ISE/bin/lin64/impact
 source /home/hvuser/software/xilinx/14.7/ISE_DS/settings64.sh
 
