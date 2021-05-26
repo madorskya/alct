@@ -1,0 +1,9 @@
+run
+-ifmt MIXED
+-top din_dly_out_exdes
+-p xc6slx150t-fgg900-3
+-ifn xst.prj
+-ofn din_dly_out_exdes
+-keep_hierarchy soft 
+-equivalent_register_removal no 
+-max_fanout 65535
