@@ -14,13 +14,13 @@
          <ClosedNode>/alct384 |home|hvuser|cernbox|projects|ise|alct|alct_LX100_384|alct384.v/of - outfifo</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>alct384 (/home/hvuser/cernbox/projects/ise/alct/alct_LX100_384/alct384.v)</SelectedItem>
+         <SelectedItem>alct384 (/home/hvuser/github/alct/ise/alct_LX100_384/src/alct384.v)</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000020200000001000000010000006400000206000000020000000000000000000000000200000064ffffffff000000810000000300000002000002060000000100000003000000000000000100000003</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000202000000010000000100000064000001d9000000020000000000000000000000000200000064ffffffff000000810000000300000002000001d90000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
-      <CurrentItem>alct384 (/home/hvuser/cernbox/projects/ise/alct/alct_LX100_384/alct384.v)</CurrentItem>
+      <CurrentItem>alct384 (/home/hvuser/github/alct/ise/alct_LX100_384/src/alct384.v)</CurrentItem>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="" guiview="Process" >
       <ClosedNodes>
@@ -43,9 +43,9 @@
       <SelectedItems/>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000000000000000100000000000000000000000000000000000004d0000000040101000100000000000000000000000064ffffffff000000810000000000000004000000510000000100000000000000290000000100000000000000840000000100000000000003d20000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000000000000010000000000000000000000000000000000000390000000040101000100000000000000000000000064ffffffff000000810000000000000004000000510000000100000000000000290000000100000000000000840000000100000000000002920000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem>../../alct_LX100_384/alct384.v</CurrentItem>
+      <CurrentItem>src/alct384.v</CurrentItem>
    </ItemView>
    <ItemView guiview="Library" >
       <ClosedNodes>
@@ -73,7 +73,7 @@
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000306000000010000000100000000000000000000000064ffffffff000000810000000000000001000003060000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000001ed000000010000000100000000000000000000000064ffffffff000000810000000000000001000001ed0000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem>Generate Programming File</CurrentItem>
    </ItemView>

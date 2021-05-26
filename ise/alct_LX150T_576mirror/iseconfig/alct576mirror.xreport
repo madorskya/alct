@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2021-05-26T18:34:31</DateModified>
+  <DateModified>2021-05-26T16:15:20</DateModified>
   <ModuleName>alct576mirror</ModuleName>
   <SummaryTimeStamp>Unknown</SummaryTimeStamp>
-  <SavedFilePath>/media/sf_projects_ise/alct/ise14/alct_LX150T_576mirror_dav/iseconfig/alct576mirror.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>/media/sf_projects_ise/alct/ise14/alct_LX150T_576mirror_dav/</ImplementationReportsDirectory>
+  <SavedFilePath>/home/hvuser/github/alct/ise/alct_LX150T_576mirror/iseconfig/alct576mirror.xreport</SavedFilePath>
+  <ImplementationReportsDirectory>/home/hvuser/github/alct/ise/alct_LX150T_576mirror/</ImplementationReportsDirectory>
   <DateInitialized>2019-09-20T03:21:45</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>

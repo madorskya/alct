@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2021-05-26T18:03:39</DateModified>
+  <DateModified>2021-05-26T15:44:36</DateModified>
   <ModuleName>alct288fp</ModuleName>
   <SummaryTimeStamp>2019-03-20T21:47:33</SummaryTimeStamp>
-  <SavedFilePath>/media/sf_projects_ise/alct/ise14/alct_LX100_288fp/iseconfig/alct288fp.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>/media/sf_projects_ise/alct/ise14/alct_LX100_288fp/</ImplementationReportsDirectory>
+  <SavedFilePath>/home/hvuser/github/alct/ise/alct_LX100_288fp/iseconfig/alct288fp.xreport</SavedFilePath>
+  <ImplementationReportsDirectory>/home/hvuser/github/alct/ise/alct_LX100_288fp/</ImplementationReportsDirectory>
   <DateInitialized>2014-05-30T21:31:31</DateInitialized>
   <EnableMessageFiltering>true</EnableMessageFiltering>
  </header>
