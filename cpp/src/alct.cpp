@@ -324,6 +324,9 @@ beginmodule
 	Wire_(dummy3, 2, 0);
 	Wire (zero_suppress);
 	Wire (clock_lac);
+        Wire_(shower_int, 1,0);
+        Wire_(shower_oot, 1,0);
+	Wire_(shower_bits, 4,0);
 
 #ifdef VGEN
 	printv("\n\tIBUFG ibufclk (.I(clkp), .O(clkb));");	// input clock buffer (instantiation required for DLL)
@@ -679,6 +682,7 @@ beginmodule
 		PromoteColl,
 		h, hn, hfa, hpatb, validh,
 		l, ln, lfa, lpatb, validl,
+                shower_int, shower_oot,
 		drifttime, 
 		pretrig, 
 		trig, 
@@ -833,7 +837,9 @@ beginmodule
 	);
 
 	assign send_bxn = (validh || validl || actv_feb_fg) && !alct_sync_mode;
-	assign bxn_mux = ifelse(send_bxn, bxn, ecc_err_5);
+	// sending shower bits instead of bxn[4:1], according to DN-20-016, page 6, Table 1
+	assign shower_bits = (shower_oot, shower_int, bxn(0));
+	assign bxn_mux = ifelse(send_bxn, shower_bits, ecc_err_5);
 
 	// mux the outputs
 	always (posedge (clk2x))

@@ -45,6 +45,7 @@ synchro.cpp \
 loopback.cpp \
 ecc16_decoder.cpp \
 ecc32_encoder.cpp \
+shower.cpp \
 $(VPPDIR)/vlib.cpp
 
 

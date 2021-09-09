@@ -4,6 +4,7 @@
 #include "stage1_rl.h"
 #include "collider.h"
 #include "promoter_rl.h"
+#include "shower.h"
 
 class trigger_rl: public module
 {
@@ -21,6 +22,7 @@ public:
 	Stage1_rl FindPatterns;
 	collider cc, ca;
 	promoter_rl pr;
+        shower shower_detector;
 
 	void operator()
 	(
@@ -29,6 +31,7 @@ public:
 		Signal PromoteColl,                       
 		Signal hp, Signal hnp, Signal hfap, Signal hpatbp, Signal hv,
 		Signal lp, Signal lnp, Signal lfap, Signal lpatbp, Signal lv,  
+                Signal shower_int, Signal shower_oot,
 		Signal drifttime, Signal pretrig, Signal trig, Signal trig_mode,
 		Signal acc_pretrig, Signal acc_trig,
 		Signal actv_feb_fg,

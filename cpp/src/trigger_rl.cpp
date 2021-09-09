@@ -8,6 +8,7 @@ void trigger_rl::operator()
 	Signal PromoteColl,                       
 	Signal hp, Signal hnp, Signal hfap, Signal hpatbp, Signal hv,
 	Signal lp, Signal lnp, Signal lfap, Signal lpatbp, Signal lv,            
+	Signal shower_int, Signal shower_oot,
 	Signal drifttime, Signal pretrig, Signal trig, Signal trig_mode,
 	Signal acc_pretrig, Signal acc_trig,
 	Signal actv_feb_fg,
@@ -47,6 +48,9 @@ initio
 	Output (lfap); 
 	Output (lpatbp);
 	Output (lv);
+
+        Output_(shower_int, 1,0);
+        Output_(shower_oot, 1,0);
 
 	Input_(drifttime, 2, 0);
 	Input_(pretrig, 2, 0);
@@ -113,7 +117,7 @@ beginmodule
    	Wire_(bq2, QBITS-1, 0);
    	Wire (fa2);
 	Wire (bv2);
-
+	
 	comment("// apply hot channel mask")
 	always (posedge (clk))
 	begin
@@ -146,8 +150,19 @@ beginmodule
 	cc.init ("collider", "cc");
 	ca.init ("collider", "ca");
 	pr.init ("promoter_rl", "pr");
+	shower_detector.init ("shower", "shower_detector");
 
-
+	shower_detector
+	(
+		ly0m, ly1m, ly2m, ly3m, ly4m, ly5m,
+		Signal(10, 104),
+		Signal(10, 105),
+		Signal(10, 107),
+		shower_int,
+		shower_oot,
+		clk
+        );
+	
 	ExtendPulses
 	(
 		ly0m, ly1m, ly2m, ly3m, ly4m, ly5m,
