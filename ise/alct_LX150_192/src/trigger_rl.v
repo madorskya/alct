@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : hvuser
+// Author    : ise
 // File name : trigger_rl.v
-// Timestamp : Mon Apr 29 16:54:45 2019
+// Timestamp : Fri Sep 10 17:47:02 2021
 
 module trigger_rl
 (
@@ -28,6 +28,8 @@ module trigger_rl
     lfap,
     lpatbp,
     lv,
+    shower_int,
+    shower_oot,
     drifttime,
     pretrig,
     trig,
@@ -36,6 +38,12 @@ module trigger_rl
     acc_trig,
     actv_feb_fg,
     trig_stop,
+    input_disr,
+    ext_trig_en,
+    ext_trig2,
+    inject,
+    ext_inject2,
+    HCmask,
     clk
 );
 
@@ -57,6 +65,8 @@ module trigger_rl
     output lfap;
     output lpatbp;
     output lv;
+    output [1:0] shower_int;
+    output [1:0] shower_oot;
     input [2:0] drifttime;
     input [2:0] pretrig;
     input [2:0] trig;
@@ -66,8 +76,20 @@ module trigger_rl
     output actv_feb_fg;
     reg    actv_feb_fg;
     input trig_stop;
+    input input_disr;
+    input ext_trig_en;
+    input ext_trig2;
+    input inject;
+    input ext_inject2;
+    input [191:0] HCmask;
     input clk;
 
+    wire [31:0] ly0m;
+    wire [31:0] ly1m;
+    wire [31:0] ly2m;
+    wire [31:0] ly3m;
+    wire [31:0] ly4m;
+    wire [31:0] ly5m;
     wire [31:0] ly0;
     wire [31:0] ly1;
     wire [31:0] ly2;
@@ -102,14 +124,54 @@ module trigger_rl
     wire [1:0] bq2;
     wire fa2;
     wire bv2;
+    // apply hot channel mask
+    always @(posedge clk) 
+    begin
+        if (!input_disr) 
+        begin
+            if ((ext_trig_en && (!ext_trig2)) || (inject && (!ext_inject2))) 
+            begin
+                ly0m = 0;
+                ly1m = 0;
+                ly2m = 0;
+                ly3m = 0;
+                ly4m = 0;
+                ly5m = 0;
+            end
+            else 
+            begin
+                ly0m = ly0p & HCmask[31:0];
+                ly1m = ly1p & HCmask[63:32];
+                ly2m = ly2p & HCmask[95:64];
+                ly3m = ly3p & HCmask[127:96];
+                ly4m = ly4p & HCmask[159:128];
+                ly5m = ly5p & HCmask[191:160];
+            end
+        end
+    end
+    shower shower_detector
+    (
+        ly0m,
+        ly1m,
+        ly2m,
+        ly3m,
+        ly4m,
+        ly5m,
+        10'd104,
+        10'd105,
+        10'd107,
+        shower_int,
+        shower_oot,
+        clk
+    );
     Stage0 ExtendPulses
     (
-        ly0p,
-        ly1p,
-        ly2p,
-        ly3p,
-        ly4p,
-        ly5p,
+        ly0m,
+        ly1m,
+        ly2m,
+        ly3m,
+        ly4m,
+        ly5m,
         ly0,
         ly1,
         ly2,

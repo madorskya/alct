@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : hvuser
+// Author    : ise
 // File name : Patterner_rl.v
-// Timestamp : Mon Apr 29 16:54:46 2019
+// Timestamp : Fri Sep 10 17:47:03 2021
 
 module Patterner_rl
 (

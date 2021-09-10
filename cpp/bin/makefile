@@ -48,7 +48,8 @@ FNAMES += trigger_rl.v \
 CheckNeighbors_rl.v \
 promoter_rl.v \
 collider.v \
-Stage1_rl.v
+Stage1_rl.v \
+shower.v
 endif
 
 ifeq ($(FLAVOR), -DLX100)
@@ -93,23 +94,27 @@ verilog:
 	@cd $(VERDIR); $(MAINTF); rm -f $(MAINTF)
 
 show:
+	@echo $(FLAV)
+	@echo $(FLAVOR_LX)
+	@echo $(FLAVOR_FULL)
 	@echo $(PRJDIR)
 	@echo $(FNAMES)
 	@echo $(FILENAMES)
 	@echo $(OS)
 	@echo $(TARGSUF)
 	@echo $(MAINTF)
+	@pwd
+	@ls $(VERDIR)
 	@echo $(ALCTVER)
 	@echo $(wildcard $(VERDIR)/alct*.v)
 	@echo $(subst alct,,$(wildcard $(VERDIR)/alct*.v))
 	@echo $(subst .v,,$(subst alct,,$(wildcard $(VERDIR)/alct*.v)))
 	@echo $(notdir $(subst .v,,$(subst alct,,$(wildcard $(VERDIR)/alct*.v))))
-	@echo $(FLAV) $(FLAVOR_LX) $(FLAVOR_FULL) 
 
 cp: $(FILENAMES)
 	@echo $(CHIP) $(FLAV) $(FLAVOR_LX) $(FLAVOR_FULL) 
-	@mkdir -p $(PRJDIR)
-	@cp -v $(FILENAMES) $(PRJDIR)
+	@mkdir -p $(PRJDIR)/src
+	@cp -v $(FILENAMES) $(PRJDIR)/src
 
 clean: 
 	rm -f *~
@@ -117,5 +122,4 @@ clean:
 	rm -rf verilog_*
 
 diff:
-#	@for vf in $(FNAMES); do (echo $$vf;$(DIFF) $(DIFFOPT) $(VERDIR)/$$vf $(PRJDIR)/$$vf); done;:
-	@$(foreach vf, $(FNAMES), echo $(vf);$(DIFF) $(DIFFOPT) $(VERDIR)/$(vf) $(PRJDIR)/$(vf);)
+	@$(foreach vf, $(FNAMES), echo $(vf);$(DIFF) $(DIFFOPT) $(VERDIR)/$(vf) $(PRJDIR)/src/$(vf);)

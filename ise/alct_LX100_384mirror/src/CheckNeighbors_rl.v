@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : hvuser
+// Author    : ise
 // File name : CheckNeighbors_rl.v
-// Timestamp : Fri Mar 22 16:33:37 2019
+// Timestamp : Fri Sep 10 17:48:17 2021
 
 module CheckNeighbors_rl
 (

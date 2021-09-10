@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : hvuser
+// Author    : ise
 // File name : alct576mirror.v
-// Timestamp : Fri Mar 22 16:33:53 2019
+// Timestamp : Fri Sep 10 17:48:43 2021
 
 module alct576mirror
 (
@@ -217,12 +217,6 @@ initial hard_rst = 0;
     reg [95:0] ly3;
     reg [95:0] ly4;
     reg [95:0] ly5;
-    reg [95:0] lyp0;
-    reg [95:0] lyp1;
-    reg [95:0] lyp2;
-    reg [95:0] lyp3;
-    reg [95:0] lyp4;
-    reg [95:0] lyp5;
     reg input_disr;
     wire clkb;
     wire settst_dly;
@@ -324,6 +318,9 @@ initial hard_rst = 0;
     wire [2:0] dummy3;
     wire zero_suppress;
     wire clock_lac;
+    wire [1:0] shower_int;
+    wire [1:0] shower_oot;
+    wire [4:0] shower_bits;
 
 	IBUFG ibufclk (.I(clkp), .O(clkb));
 	IBUF buftck (.I(tck2), .O(tck2b)); // synthesis attribute buffer_type tck2 ibuf
@@ -333,45 +330,43 @@ initial hard_rst = 0;
     wire seu_error;
     wire clksh_inv;
 
-   ODDR2 oddr_ckl40_fw0 (.D0(1'b1), .D1(1'b0), .C0(clksh), .C1(!clksh), .CE(1'b1), .R(1'b0), .S(1'b0), .Q(clk40sh[0]));
-   ODDR2 oddr_ckl40_fw1 (.D0(1'b1), .D1(1'b0), .C0(clksh), .C1(!clksh), .CE(1'b1), .R(1'b0), .S(1'b0), .Q(clk40sh[1]));
+	ODDR2 oddr_ckl40_fw0 (.D0(1'b1), .D1(1'b0), .C0(clksh), .C1(!clksh), .CE(1'b1), .R(1'b0), .S(1'b0), .Q(clk40sh[0]));
+	ODDR2 oddr_ckl40_fw1 (.D0(1'b1), .D1(1'b0), .C0(clksh), .C1(!clksh), .CE(1'b1), .R(1'b0), .S(1'b0), .Q(clk40sh[1]));
 	ODDR2 oddr_ckl80_fw0 (.D0(1'b1), .D1(1'b0), .C0(clk2xsh), .C1(!clk2xsh), .CE(1'b1), .R(1'b0), .S(1'b0), .Q(clk80[0]));
 	ODDR2 oddr_ckl80_fw1 (.D0(1'b1), .D1(1'b0), .C0(clk2xsh), .C1(!clk2xsh), .CE(1'b1), .R(1'b0), .S(1'b0), .Q(clk80[1]));
+    wire din_dly_int;
 
-	wire din_dly_int;
-
-	// delay line for din_dly signal, to allow for better hold time
-	IODELAY2 #(
-		.COUNTER_WRAPAROUND ("WRAPAROUND"), // "STAY_AT_LIMIT" or "WRAPAROUND"
-		.DATA_RATE          ("SDR"), // "SDR" or "DDR"
-		.DELAY_SRC          ("ODATAIN"), // "IO", "ODATAIN" or "IDATAIN"
-		.IDELAY2_VALUE      (0), // Delay value when IDELAY_MODE="PCI" (0-255)
-		.IDELAY_MODE        ("NORMAL"), // "NORMAL" or "PCI"
-		.IDELAY_TYPE        ("DEFAULT"), // "FIXED", "DEFAULT", "VARIABLE_FROM_ZERO", "VARIABLE_FROM_HALF_MAX" or "DIFF_PHASE_DETECTOR"
-		.IDELAY_VALUE       (0), // Amount of taps for fixed input delay (0-255)
-		.ODELAY_VALUE       (128), // Amount of taps fixed output delay (0-255)
-		.SERDES_MODE        ("NONE"), // "NONE", "MASTER" or "SLAVE"
-		.SIM_TAPDELAY_VALUE (75) // Per tap delay used for simulation in ps
-	)
-	din_dly_del 
-	(
-		.BUSY     (), // 1-bit output: Busy output after CAL
-		.DATAOUT  (), // 1-bit output: Delayed data output to ISERDES/input register
-		.DATAOUT2 (), // 1-bit output: Delayed data output to general FPGA fabric
-		.DOUT     (din_dly), // 1-bit output: Delayed data output
-		.TOUT     (), // 1-bit output: Delayed 3-state output
-		.CAL      (1'b0), // 1-bit input: Initiate calibration input
-		.CE       (1'b0), // 1-bit input: Enable INC input
-		.CLK      (clk2x), // 1-bit input: Clock input
-		.IDATAIN  (1'b0), // 1-bit input: Data input (connect to top-level port or I/O buffer)
-		.INC      (1'b0), // 1-bit input: Increment / decrement input
-		.IOCLK0   (clk2x), // 1-bit input: Input from the I/O clock network
-		.IOCLK1   (1'b0), // 1-bit input: Input from the I/O clock network
-		.ODATAIN  (din_dly_int), // 1-bit input: Output data input from output register or OSERDES2.
-		.RST      (1'b0), // 1-bit input: Reset to zero or 1/2 of total delay period
-		.T        (1'b1) // 1-bit input: 3-state input signal
-	);	 
-
+// delay line for din_dly signal, to allow for better hold time
+IODELAY2 #(
+    .COUNTER_WRAPAROUND ("WRAPAROUND"), // "STAY_AT_LIMIT" or "WRAPAROUND"
+    .DATA_RATE          ("SDR"), // "SDR" or "DDR"
+    .DELAY_SRC          ("ODATAIN"), // "IO", "ODATAIN" or "IDATAIN"
+    .IDELAY2_VALUE      (0), // Delay value when IDELAY_MODE="PCI" (0-255)
+    .IDELAY_MODE        ("NORMAL"), // "NORMAL" or "PCI"
+    .IDELAY_TYPE        ("DEFAULT"), // "FIXED", "DEFAULT", "VARIABLE_FROM_ZERO", "VARIABLE_FROM_HALF_MAX" or "DIFF_PHASE_DETECTOR"
+    .IDELAY_VALUE       (0), // Amount of taps for fixed input delay (0-255)
+    .ODELAY_VALUE       (128), // Amount of taps fixed output delay (0-255)
+    .SERDES_MODE        ("NONE"), // "NONE", "MASTER" or "SLAVE"
+    .SIM_TAPDELAY_VALUE (75) // Per tap delay used for simulation in ps
+)
+din_dly_del
+( 
+    .BUSY     (), // 1-bit output: Busy output after CAL
+    .DATAOUT  (), // 1-bit output: Delayed data output to ISERDES/input register
+    .DATAOUT2 (), // 1-bit output: Delayed data output to general FPGA fabric
+    .DOUT     (din_dly), // 1-bit output: Delayed data output
+    .TOUT     (), // 1-bit output: Delayed 3-state output
+    .CAL      (1'b0), // 1-bit input: Initiate calibration input
+    .CE       (1'b0), // 1-bit input: Enable INC input
+    .CLK      (clk2x), // 1-bit input: Clock input
+    .IDATAIN  (1'b0), // 1-bit input: Data input (connect to top-level port or I/O buffer)
+    .INC      (1'b0), // 1-bit input: Increment / decrement input
+    .IOCLK0   (clk2x), // 1-bit input: Input from the I/O clock network
+    .IOCLK1   (1'b0), // 1-bit input: Input from the I/O clock network
+    .ODATAIN  (din_dly_int), // 1-bit input: Output data input from output register or OSERDES2.
+    .RST      (1'b0), // 1-bit input: Reset to zero or 1/2 of total delay period
+    .T        (1'b1) // 1-bit input: 3-state input signal
+);
     dll dll2x
     (
         clkb,
@@ -387,7 +382,7 @@ initial hard_rst = 0;
     assign mx_oe = 0;
     // Mux OE
     // JTAG port instantiation
-    assign virtex_id = {4'd9, 5'd20, 12'd2019, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b1, 1'b0, 1'b1, 3'h5, 6'h5};
+    assign virtex_id = {4'd9, 5'd10, 12'd2021, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b1, 1'b0, 1'b1, 3'h5, 6'h5};
     jtag TAP
     (
         tck2b,
@@ -451,78 +446,78 @@ initial hard_rst = 0;
     // demux the inputs
     always @(posedge clk2x) 
     begin
-        lyp1[7:0] = Flip(lyp3[7:0]);
-        lyp3[7:0] = lct0_[7:0];
-        lyp0[7:0] = Flip(lyp2[7:0]);
-        lyp2[7:0] = lct0_[15:8];
-        lyp5[7:0] = Flip(lyp1[15:8]);
-        lyp1[15:8] = lct0_[23:16];
-        lyp4[7:0] = Flip(lyp0[15:8]);
-        lyp0[15:8] = lct0_[31:24];
-        lyp3[15:8] = Flip(lyp5[15:8]);
-        lyp5[15:8] = lct0_[39:32];
-        lyp2[15:8] = Flip(lyp4[15:8]);
-        lyp4[15:8] = lct0_[47:40];
-        lyp1[23:16] = Flip(lyp3[23:16]);
-        lyp3[23:16] = lct1_[7:0];
-        lyp0[23:16] = Flip(lyp2[23:16]);
-        lyp2[23:16] = lct1_[15:8];
-        lyp5[23:16] = Flip(lyp1[31:24]);
-        lyp1[31:24] = lct1_[23:16];
-        lyp4[23:16] = Flip(lyp0[31:24]);
-        lyp0[31:24] = lct1_[31:24];
-        lyp3[31:24] = Flip(lyp5[31:24]);
-        lyp5[31:24] = lct1_[39:32];
-        lyp2[31:24] = Flip(lyp4[31:24]);
-        lyp4[31:24] = lct1_[47:40];
-        lyp1[39:32] = Flip(lyp3[39:32]);
-        lyp3[39:32] = lct2_[7:0];
-        lyp0[39:32] = Flip(lyp2[39:32]);
-        lyp2[39:32] = lct2_[15:8];
-        lyp5[39:32] = Flip(lyp1[47:40]);
-        lyp1[47:40] = lct2_[23:16];
-        lyp4[39:32] = Flip(lyp0[47:40]);
-        lyp0[47:40] = lct2_[31:24];
-        lyp3[47:40] = Flip(lyp5[47:40]);
-        lyp5[47:40] = lct2_[39:32];
-        lyp2[47:40] = Flip(lyp4[47:40]);
-        lyp4[47:40] = lct2_[47:40];
-        lyp1[55:48] = Flip(lyp3[55:48]);
-        lyp3[55:48] = lct3_[7:0];
-        lyp0[55:48] = Flip(lyp2[55:48]);
-        lyp2[55:48] = lct3_[15:8];
-        lyp5[55:48] = Flip(lyp1[63:56]);
-        lyp1[63:56] = lct3_[23:16];
-        lyp4[55:48] = Flip(lyp0[63:56]);
-        lyp0[63:56] = lct3_[31:24];
-        lyp3[63:56] = Flip(lyp5[63:56]);
-        lyp5[63:56] = lct3_[39:32];
-        lyp2[63:56] = Flip(lyp4[63:56]);
-        lyp4[63:56] = lct3_[47:40];
-        lyp1[71:64] = Flip(lyp3[71:64]);
-        lyp3[71:64] = lct4_[7:0];
-        lyp0[71:64] = Flip(lyp2[71:64]);
-        lyp2[71:64] = lct4_[15:8];
-        lyp5[71:64] = Flip(lyp1[79:72]);
-        lyp1[79:72] = lct4_[23:16];
-        lyp4[71:64] = Flip(lyp0[79:72]);
-        lyp0[79:72] = lct4_[31:24];
-        lyp3[79:72] = Flip(lyp5[79:72]);
-        lyp5[79:72] = lct4_[39:32];
-        lyp2[79:72] = Flip(lyp4[79:72]);
-        lyp4[79:72] = lct4_[47:40];
-        lyp1[87:80] = Flip(lyp3[87:80]);
-        lyp3[87:80] = lct5_[7:0];
-        lyp0[87:80] = Flip(lyp2[87:80]);
-        lyp2[87:80] = lct5_[15:8];
-        lyp5[87:80] = Flip(lyp1[95:88]);
-        lyp1[95:88] = lct5_[23:16];
-        lyp4[87:80] = Flip(lyp0[95:88]);
-        lyp0[95:88] = lct5_[31:24];
-        lyp3[95:88] = Flip(lyp5[95:88]);
-        lyp5[95:88] = lct5_[39:32];
-        lyp2[95:88] = Flip(lyp4[95:88]);
-        lyp4[95:88] = lct5_[47:40];
+        ly1[7:0] = Flip(ly3[7:0]);
+        ly3[7:0] = lct0_[7:0];
+        ly0[7:0] = Flip(ly2[7:0]);
+        ly2[7:0] = lct0_[15:8];
+        ly5[7:0] = Flip(ly1[15:8]);
+        ly1[15:8] = lct0_[23:16];
+        ly4[7:0] = Flip(ly0[15:8]);
+        ly0[15:8] = lct0_[31:24];
+        ly3[15:8] = Flip(ly5[15:8]);
+        ly5[15:8] = lct0_[39:32];
+        ly2[15:8] = Flip(ly4[15:8]);
+        ly4[15:8] = lct0_[47:40];
+        ly1[23:16] = Flip(ly3[23:16]);
+        ly3[23:16] = lct1_[7:0];
+        ly0[23:16] = Flip(ly2[23:16]);
+        ly2[23:16] = lct1_[15:8];
+        ly5[23:16] = Flip(ly1[31:24]);
+        ly1[31:24] = lct1_[23:16];
+        ly4[23:16] = Flip(ly0[31:24]);
+        ly0[31:24] = lct1_[31:24];
+        ly3[31:24] = Flip(ly5[31:24]);
+        ly5[31:24] = lct1_[39:32];
+        ly2[31:24] = Flip(ly4[31:24]);
+        ly4[31:24] = lct1_[47:40];
+        ly1[39:32] = Flip(ly3[39:32]);
+        ly3[39:32] = lct2_[7:0];
+        ly0[39:32] = Flip(ly2[39:32]);
+        ly2[39:32] = lct2_[15:8];
+        ly5[39:32] = Flip(ly1[47:40]);
+        ly1[47:40] = lct2_[23:16];
+        ly4[39:32] = Flip(ly0[47:40]);
+        ly0[47:40] = lct2_[31:24];
+        ly3[47:40] = Flip(ly5[47:40]);
+        ly5[47:40] = lct2_[39:32];
+        ly2[47:40] = Flip(ly4[47:40]);
+        ly4[47:40] = lct2_[47:40];
+        ly1[55:48] = Flip(ly3[55:48]);
+        ly3[55:48] = lct3_[7:0];
+        ly0[55:48] = Flip(ly2[55:48]);
+        ly2[55:48] = lct3_[15:8];
+        ly5[55:48] = Flip(ly1[63:56]);
+        ly1[63:56] = lct3_[23:16];
+        ly4[55:48] = Flip(ly0[63:56]);
+        ly0[63:56] = lct3_[31:24];
+        ly3[63:56] = Flip(ly5[63:56]);
+        ly5[63:56] = lct3_[39:32];
+        ly2[63:56] = Flip(ly4[63:56]);
+        ly4[63:56] = lct3_[47:40];
+        ly1[71:64] = Flip(ly3[71:64]);
+        ly3[71:64] = lct4_[7:0];
+        ly0[71:64] = Flip(ly2[71:64]);
+        ly2[71:64] = lct4_[15:8];
+        ly5[71:64] = Flip(ly1[79:72]);
+        ly1[79:72] = lct4_[23:16];
+        ly4[71:64] = Flip(ly0[79:72]);
+        ly0[79:72] = lct4_[31:24];
+        ly3[79:72] = Flip(ly5[79:72]);
+        ly5[79:72] = lct4_[39:32];
+        ly2[79:72] = Flip(ly4[79:72]);
+        ly4[79:72] = lct4_[47:40];
+        ly1[87:80] = Flip(ly3[87:80]);
+        ly3[87:80] = lct5_[7:0];
+        ly0[87:80] = Flip(ly2[87:80]);
+        ly2[87:80] = lct5_[15:8];
+        ly5[87:80] = Flip(ly1[95:88]);
+        ly1[95:88] = lct5_[23:16];
+        ly4[87:80] = Flip(ly0[95:88]);
+        ly0[95:88] = lct5_[31:24];
+        ly3[95:88] = Flip(ly5[95:88]);
+        ly5[95:88] = lct5_[39:32];
+        ly2[95:88] = Flip(ly4[95:88]);
+        ly4[95:88] = lct5_[47:40];
         L1A = SyncAdb;
         SyncAdb = L1A_SyncAdb_r;
         ext_inject = ext_trig;
@@ -551,30 +546,8 @@ initial hard_rst = 0;
         seq_cmd02_r = seq_cmd02;
         seq_cmd13_r = seq_cmd13;
     end
-    // apply hot channel mask
     always @(posedge clk) 
     begin
-        if (!input_disr) 
-        begin
-            if ((ext_trig_en && (!ext_trig2)) || (inject && (!ext_inject2))) 
-            begin
-                ly0 = 0;
-                ly1 = 0;
-                ly2 = 0;
-                ly3 = 0;
-                ly4 = 0;
-                ly5 = 0;
-            end
-            else 
-            begin
-                ly0 = lyp0 & HCmask[95:0];
-                ly1 = lyp1 & HCmask[191:96];
-                ly2 = lyp2 & HCmask[287:192];
-                ly3 = lyp3 & HCmask[383:288];
-                ly4 = lyp4 & HCmask[479:384];
-                ly5 = lyp5 & HCmask[575:480];
-            end
-        end
         {SyncAdb2, L1A2, ext_trig2, ext_inject2, bx0_2, dout_str2, subaddr_str2, brcst_str2, ccb_brcst2} = dec_out;
         ecc_err_5 = {ecc_error, 3'd0};
         L1A1 = L1A;
@@ -626,6 +599,8 @@ initial hard_rst = 0;
         lfa,
         lpatb,
         validl,
+        shower_int,
+        shower_oot,
         drifttime,
         pretrig,
         trig,
@@ -634,6 +609,12 @@ initial hard_rst = 0;
         acc_trig,
         actv_feb_fg,
         fmm_trig_stop,
+        input_disr,
+        ext_trig_en,
+        ext_trig2,
+        inject,
+        ext_inject2,
+        HCmask,
         clk
     );
     synchro sync
@@ -716,7 +697,8 @@ initial hard_rst = 0;
         clk
     );
     assign send_bxn = ((validh || validl) || actv_feb_fg) && (!alct_sync_mode);
-    assign bxn_mux = (send_bxn) ? bxn : ecc_err_5;
+    assign shower_bits = {shower_oot, shower_int, bxn[0]};
+    assign bxn_mux = (send_bxn) ? shower_bits : ecc_err_5;
     always @(posedge clk2x) 
     begin
         if (clock_lac == 0) 

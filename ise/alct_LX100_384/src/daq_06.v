@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : hvuser
+// Author    : ise
 // File name : daq_06.v
-// Timestamp : Fri Mar 22 16:33:46 2019
+// Timestamp : Fri Sep 10 17:48:32 2021
 
 module daq_06
 (
