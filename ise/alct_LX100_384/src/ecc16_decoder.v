@@ -6,7 +6,7 @@
 
 // Author    : ise
 // File name : ecc16_decoder.v
-// Timestamp : Fri Sep 10 17:48:29 2021
+// Timestamp : Fri Sep 10 20:09:09 2021
 
 module ecc16_decoder
 (

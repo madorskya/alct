@@ -6,7 +6,7 @@
 
 // Author    : ise
 // File name : l1a_bxn_fifo.v
-// Timestamp : Fri Sep 10 17:47:18 2021
+// Timestamp : Fri Sep 10 20:07:58 2021
 
 module l1a_bxn_fifo
 (

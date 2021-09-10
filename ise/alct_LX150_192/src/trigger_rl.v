@@ -6,7 +6,7 @@
 
 // Author    : ise
 // File name : trigger_rl.v
-// Timestamp : Fri Sep 10 17:47:02 2021
+// Timestamp : Fri Sep 10 20:07:41 2021
 
 module trigger_rl
 (
@@ -84,12 +84,12 @@ module trigger_rl
     input [191:0] HCmask;
     input clk;
 
-    wire [31:0] ly0m;
-    wire [31:0] ly1m;
-    wire [31:0] ly2m;
-    wire [31:0] ly3m;
-    wire [31:0] ly4m;
-    wire [31:0] ly5m;
+    reg [31:0] ly0m;
+    reg [31:0] ly1m;
+    reg [31:0] ly2m;
+    reg [31:0] ly3m;
+    reg [31:0] ly4m;
+    reg [31:0] ly5m;
     wire [31:0] ly0;
     wire [31:0] ly1;
     wire [31:0] ly2;

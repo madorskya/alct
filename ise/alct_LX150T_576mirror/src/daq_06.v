@@ -6,7 +6,7 @@
 
 // Author    : ise
 // File name : daq_06.v
-// Timestamp : Fri Sep 10 17:48:48 2021
+// Timestamp : Fri Sep 10 20:09:32 2021
 
 module daq_06
 (

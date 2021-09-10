@@ -28,7 +28,7 @@ else
 	t=0
 	tt=0
 	clean=0
-	echo "Usage: ./compile.sh first [last [generate]]"
+	echo "Usage: ./compile.sh first [last(max 8) [generate]]"
 	echo "first and last are ALCT versions to compile:"
 	echo -e "Index\tType\tME11\tMirror\tChip\tFlavor"
 	for i in 0 1 2 3 4 5 6 7 8

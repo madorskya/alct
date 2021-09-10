@@ -72,14 +72,14 @@ initio
 
 beginmodule
 
-    Wire_(ly0m, LYWG-1, 0); 
-	Wire_(ly1m, LYWG-1, 0); 
-	Wire_(ly2m, LYWG-1, 0); 
-	Wire_(ly3m, LYWG-1, 0); 
-	Wire_(ly4m, LYWG-1, 0); 
-	Wire_(ly5m, LYWG-1, 0);
+    	Reg_(ly0m, LYWG-1, 0); 
+	Reg_(ly1m, LYWG-1, 0); 
+	Reg_(ly2m, LYWG-1, 0); 
+	Reg_(ly3m, LYWG-1, 0); 
+	Reg_(ly4m, LYWG-1, 0); 
+	Reg_(ly5m, LYWG-1, 0);
 
-    Wire_(ly0, LYWG-1, 0); 
+	Wire_(ly0, LYWG-1, 0); 
 	Wire_(ly1, LYWG-1, 0); 
 	Wire_(ly2, LYWG-1, 0); 
 	Wire_(ly3, LYWG-1, 0); 

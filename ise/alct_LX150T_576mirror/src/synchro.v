@@ -6,7 +6,7 @@
 
 // Author    : ise
 // File name : synchro.v
-// Timestamp : Fri Sep 10 17:48:47 2021
+// Timestamp : Fri Sep 10 20:09:32 2021
 
 module synchro
 (

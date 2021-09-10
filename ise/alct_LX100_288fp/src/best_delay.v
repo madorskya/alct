@@ -6,7 +6,7 @@
 
 // Author    : ise
 // File name : best_delay.v
-// Timestamp : Fri Sep 10 17:47:46 2021
+// Timestamp : Fri Sep 10 20:08:27 2021
 
 module best_delay
 (
