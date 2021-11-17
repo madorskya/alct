@@ -149,6 +149,7 @@ beginmodule
 
 	collmask.wire(COLLMASKBITS-1, 0, "collmask");
 	HCmask.wire(HCMASKBITS-1, 0, "HCmask");
+	Wire_(hmt_thresholds, HMT_THRESHOLD_BITS-1, 0);
 	PromoteColl.wire("PromoteColl");
 	drifttime.wire(2, 0, "drifttime");
 	pretrig.wire(2, 0, "pretrig"); // threshold for coll tracks
@@ -324,8 +325,8 @@ beginmodule
 	Wire_(dummy3, 2, 0);
 	Wire (zero_suppress);
 	Wire (clock_lac);
-        Wire_(shower_int, 1,0);
-        Wire_(shower_oot, 1,0);
+  Wire_(shower_int, 1,0);
+  Wire_(shower_oot, 1,0);
 	Wire_(shower_bits, 4,0);
 
 #ifdef VGEN
@@ -464,6 +465,7 @@ beginmodule
 		HCmask, collmask,
 		(cs_dly, settst_dly, rs_dly),
 		ConfgReg,
+		hmt_thresholds,
 		TstPlsEn,
 #if defined(ALCT576) && defined(MIRROR)
 		din_dly_int,
@@ -682,7 +684,7 @@ beginmodule
 		PromoteColl,
 		h, hn, hfa, hpatb, validh,
 		l, ln, lfa, lpatb, validl,
-                shower_int, shower_oot,
+    shower_int, shower_oot,
 		drifttime, 
 		pretrig, 
 		trig, 
@@ -700,7 +702,7 @@ beginmodule
 		inject,
 		ext_inject2,
 		HCmask,
-
+		hmt_thresholds,
 		clk
 	);	
 

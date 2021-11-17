@@ -225,6 +225,7 @@
 #define COLLMASKBITS (PATTERNBITS * LYWG / WGBLK) // how many bits are in collision mask register
 #define HCMASKBITS   (LYWG * LYN) // how many bits are in hot channel mask
 #define HITSBITS     (LYWG * QBITS) // how many bits are in the hits register
+#define HMT_THRESHOLD_BITS (10*3) // count of bits in HMT threshold registers, 10 bits per value
 #define BEST2        (LYWG / BEST1) // number of inputs of the second stage of the best muon finder
 #define ExTime       5 // one shot extension time
 

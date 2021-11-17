@@ -43,6 +43,7 @@ public:
 		Signal inject,
 		Signal ext_inject2,
 		Signal HCmask,
+		Signal hmt_thresholds,
 
 		Signal clk
 	);

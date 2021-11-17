@@ -41,7 +41,8 @@ CCOPT += -DTRIGWP
 endif
 
 OBJECTS   = $(CCFILES:.cpp=.o)
-TARGETS   = $(CCFILES:.cpp=.exe)
+#TARGETS   = $(CCFILES:.cpp=.exe)
+TARGETS = alcttf.exe
 TARGROOT  = $(CCFILES:.cpp=)
 
 ## rules
@@ -80,7 +81,7 @@ alcttf.o: alcttf.cpp ../src/alct.h ../src/alctver.h $(VPPDIR)/vlib.h \
 trigger_rltf.o: trigger_rltf.cpp ../src/trigger_rl.h ../src/alctver.h \
   $(VPPDIR)/vlib.h ../src/stage0.h $(VPPDIR)/vmac.h ../src/stage1_rl.h \
   ../src/patterner_rl.h ../src/collider.h ../src/promoter_rl.h \
-  ../src/tfmac.h Makefile ../src/Makefile ../parameters.mk
+  $(VPPDIR)/tfmac.h Makefile ../src/Makefile ../parameters.mk
 
 adaqtf.o: adaqtf.cpp ../src/adaq.h $(VPPDIR)/vlib.h $(VPPDIR)/vmac.h \
   ../src/daq_memory.h ../src/alctver.h ../src/delay_line.h \

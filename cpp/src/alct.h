@@ -104,6 +104,7 @@ public:
 
 	Signal collmask;
 	Signal HCmask;
+	Signal hmt_thresholds;
 	Signal PromoteColl;
 	Signal drifttime;
 	Signal pretrig;

@@ -8,7 +8,9 @@ public:
 	void operator()
 	(
 		Signal tck, Signal tms, Signal tdi, Signal tdo,
-		Signal HCmask, Signal collmask, Signal ParamReg, Signal ConfgReg, Signal tst_pls,
+		Signal HCmask, Signal collmask, Signal ParamReg, Signal ConfgReg, 
+		Signal hmt_thresholds,
+		Signal tst_pls,
 		Signal din_dly, Signal dout_dly, Signal clk_dly, Signal input_dis,
 		Signal YR, Signal OS, Signal OSre,
 #ifdef S6

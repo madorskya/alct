@@ -3,7 +3,9 @@
 void jtag::operator()
 (
 	Signal tck, Signal tms, Signal tdi, Signal tdo,
-	Signal HCmask, Signal collmask, Signal ParamReg, Signal ConfgReg, Signal tst_pls,
+	Signal HCmask, Signal collmask, Signal ParamReg, Signal ConfgReg, 
+	Signal hmt_thresholds,
+	Signal tst_pls,
 	Signal din_dly, Signal dout_dly, Signal clk_dly, Signal input_dis,
 	Signal YR, Signal OS, Signal OSre,
 
@@ -35,6 +37,7 @@ initio
 	collmask.output(COLLMASKBITS-1, 0, "collmask", makereg);
 	ParamReg.output(PRSIZE-1, 0, "ParamReg", makereg);
 	ConfgReg.output(CRSIZE-1, 0, "ConfgReg", makereg);
+	OutReg_(hmt_thresholds, HMT_THRESHOLD_BITS-1, 0); // all HMT thresholds, combined into one reg
 	tst_pls.output("tst_pls", makereg);
 
 	din_dly.output("din_dly", makereg);
@@ -77,6 +80,7 @@ beginmodule
 	parameter TRsize ("TRsize", 4);				 // trigger register size - 1
 	parameter IDsize ("IDsize", IDSIZE-1);		 // ID register size - 1
 	parameter CNsize ("CNsize", BWHC*HCNUM-1);   // hit counters size - 1
+	parameter hmt_size ("hmt_size", HMT_THRESHOLD_BITS-1); // hmt_parameters size - 1
 
 // definitions of the TAP states (see standard JTAG TAP state diagram for details)
 	parameter RunTestIdle    ("RunTestIdle"    ,1);
@@ -108,6 +112,9 @@ beginmodule
 
 	parameter RdCfg         ("RdCfg"         ,0x6); // read control register
 	parameter WrCfg         ("WrCfg"         ,0x7); // write control register
+
+	parameter hmt_read      ("hmt_read",      0xa);
+	parameter hmt_write     ("hmt_write",     0xb);
 
 	parameter Wdly          ("Wdly"          ,0xd); // write delay lines. cs_dly bits in ParamReg determine which line to use. Length is 96 bits.
 	parameter Rdly          ("Rdly"          ,0xe); // read  delay lines. cs_dly bits in ParamReg determine which line to use. Length is 96 bits.
@@ -218,6 +225,7 @@ beginmodule
 			HCmask = ~HCmask; //put all ones 
 			ParamReg    = "9'b1111111_01";
 			ConfgReg    = "69'b01_0_00_00_1_0_0_000_101_0_0001_0011_01111000_000_01_00001_00111_11_100_010_00000001_0_0_0_00";
+			hmt_thresholds = 0;
 			input_dis = 0;
 			TAPstate = RunTestIdle;
 #ifdef S6
@@ -264,6 +272,7 @@ beginmodule
 #ifdef S6
 							case1(ADCread)				   begin tdomux = 8192;  adc_rd_sr = adc_rd_reg; end
 							case1(ADCwrite)				   begin tdomux = 16384; adc_wr_sr = adc_wr_reg;end
+							case2(hmt_write, hmt_read)   tdomux = (1 << 15); 
 #endif
 							Default                              tdomux = 0;
 						endcase
@@ -274,10 +283,11 @@ beginmodule
 	 					TAPstate = ifelse (tms == 0, ShiftDR , Exit1DR);
 						// get the proper bit to tdo according to the original register length
 	 					begincase (IR) 
-	 						case2(HCMaskWrite,   HCMaskRead)    HCmask    = (tdi, HCmask(HCsize,1));
-	 						case2(CollMaskWrite, CollMaskRead)  collmask  = (tdi, collmask(cmsize,1));
-	 						case2(ParamRegWrite, ParamRegRead)  ParamRegs = (tdi, ParamRegs(PRsize,1));
-	 						case2(RdCfg, WrCfg)                 ConfgRegs  = (tdi, ConfgRegs(CRsize,1));
+	 						case2(HCMaskWrite  , HCMaskRead  ) HCmask    = (tdi, HCmask(HCsize,1));
+	 						case2(CollMaskWrite, CollMaskRead) collmask  = (tdi, collmask(cmsize,1));
+	 						case2(ParamRegWrite, ParamRegRead) ParamRegs = (tdi, ParamRegs(PRsize,1));
+	 						case2(RdCfg        , WrCfg       ) ConfgRegs = (tdi, ConfgRegs(CRsize,1));
+	 						case2(hmt_write    , hmt_read    ) hmt_thresholds = (tdi, hmt_thresholds(hmt_size,1));
 		 					case1(Bypass)                       bpass     = tdi; 
 							// in case of Delay line get tdi to the output, and enable the clk_dly (see assignment above the case statement)
 	 						case2(Wdly, Rdly)                   begin din_dly = tdi; dly_clk_en = 1; end
@@ -366,7 +376,8 @@ beginmodule
 #ifdef S6
 			tdo = tdo |
 				(tdomux(13) & adc_rd_sr(0)) |
-				(tdomux(14) & adc_wr_sr(0));
+				(tdomux(14) & adc_wr_sr(0)) |
+				(tdomux(15) & hmt_thresholds(0));
 #endif
 	end
 	

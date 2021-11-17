@@ -20,6 +20,7 @@ void trigger_rl::operator()
 	Signal inject,
 	Signal ext_inject2,
 	Signal HCmask,
+	Signal hmt_thresholds,
 
 	Signal clk
 )
@@ -67,6 +68,7 @@ initio
 	Input (inject     );
 	Input (ext_inject2);
 	Input_(HCmask, HCMASKBITS-1, 0);
+	Input_(hmt_thresholds, HMT_THRESHOLD_BITS-1, 0);
 	
 	Input (clk);
 
@@ -155,9 +157,9 @@ beginmodule
 	shower_detector
 	(
 		ly0m, ly1m, ly2m, ly3m, ly4m, ly5m,
-		Signal(10, 104),
-		Signal(10, 105),
-		Signal(10, 107),
+		hmt_thresholds ( 9,  0), // loose
+		hmt_thresholds (19, 10), // nom
+		hmt_thresholds (29, 20), // tight
 		shower_int,
 		shower_oot,
 		clk
