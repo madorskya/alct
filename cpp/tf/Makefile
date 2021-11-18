@@ -41,8 +41,8 @@ CCOPT += -DTRIGWP
 endif
 
 OBJECTS   = $(CCFILES:.cpp=.o)
-#TARGETS   = $(CCFILES:.cpp=.exe)
-TARGETS = alcttf.exe
+TARGETS   = $(CCFILES:.cpp=.exe)
+#TARGETS = alcttf.exe
 TARGROOT  = $(CCFILES:.cpp=)
 
 ## rules

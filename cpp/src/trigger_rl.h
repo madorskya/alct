@@ -31,7 +31,7 @@ public:
 		Signal PromoteColl,                       
 		Signal hp, Signal hnp, Signal hfap, Signal hpatbp, Signal hv,
 		Signal lp, Signal lnp, Signal lfap, Signal lpatbp, Signal lv,  
-                Signal shower_int, Signal shower_oot,
+                Signal shower_int, 
 		Signal drifttime, Signal pretrig, Signal trig, Signal trig_mode,
 		Signal acc_pretrig, Signal acc_trig,
 		Signal actv_feb_fg,

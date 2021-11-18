@@ -7,10 +7,11 @@ class shower: public module
 public:
   Signal i;
   Signal count; // to accommodate max or 672 
-  memory slc; // 8 pipeline counters
+  memory slc; // counter pipeline 
   Signal loose;
   Signal nominal;
   Signal tight;
+	Signal ly_count;
   
   void operator ()
   (
@@ -19,7 +20,6 @@ public:
      Signal th_nominal,
      Signal th_tight,
      Signal shower_int,
-     Signal shower_oot,
      Signal clk
   );
 };

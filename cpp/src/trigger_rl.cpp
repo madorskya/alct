@@ -8,7 +8,7 @@ void trigger_rl::operator()
 	Signal PromoteColl,                       
 	Signal hp, Signal hnp, Signal hfap, Signal hpatbp, Signal hv,
 	Signal lp, Signal lnp, Signal lfap, Signal lpatbp, Signal lv,            
-	Signal shower_int, Signal shower_oot,
+	Signal shower_int, 
 	Signal drifttime, Signal pretrig, Signal trig, Signal trig_mode,
 	Signal acc_pretrig, Signal acc_trig,
 	Signal actv_feb_fg,
@@ -50,8 +50,7 @@ initio
 	Output (lpatbp);
 	Output (lv);
 
-        Output_(shower_int, 1,0);
-        Output_(shower_oot, 1,0);
+  Output_(shower_int, 1,0);
 
 	Input_(drifttime, 2, 0);
 	Input_(pretrig, 2, 0);
@@ -123,28 +122,24 @@ beginmodule
 	comment("// apply hot channel mask")
 	always (posedge (clk))
 	begin
-   		If (!input_disr)
+ 	    ly0m = 0;
+		  ly1m = 0;
+		  ly2m = 0;
+		  ly3m = 0;
+		  ly4m = 0;
+		  ly5m = 0;
+		  If (input_disr == Signal(1, 0)) // input disable is not set
     	begin
-			If ((ext_trig_en && !ext_trig2) || (inject && !ext_inject2))
-			begin
-				ly0m = 0;
-				ly1m = 0;
-				ly2m = 0;
-				ly3m = 0;
-				ly4m = 0;
-				ly5m = 0;
-			end
-			Else
-			begin
-				ly0m = ly0p & HCmask(0*LYWG+LYWG-1, 0*LYWG);
-				ly1m = ly1p & HCmask(1*LYWG+LYWG-1, 1*LYWG);
-				ly2m = ly2p & HCmask(2*LYWG+LYWG-1, 2*LYWG);
-				ly3m = ly3p & HCmask(3*LYWG+LYWG-1, 3*LYWG);
-				ly4m = ly4p & HCmask(4*LYWG+LYWG-1, 4*LYWG);
-				ly5m = ly5p & HCmask(5*LYWG+LYWG-1, 5*LYWG);
-			end
-
-   	    end
+		    If (!((ext_trig_en && !ext_trig2) || (inject && !ext_inject2)))
+			  begin
+			  	ly0m = ly0p & HCmask(0*LYWG+LYWG-1, 0*LYWG);
+				  ly1m = ly1p & HCmask(1*LYWG+LYWG-1, 1*LYWG);
+  				ly2m = ly2p & HCmask(2*LYWG+LYWG-1, 2*LYWG);
+	  			ly3m = ly3p & HCmask(3*LYWG+LYWG-1, 3*LYWG);
+		  		ly4m = ly4p & HCmask(4*LYWG+LYWG-1, 4*LYWG);
+			  	ly5m = ly5p & HCmask(5*LYWG+LYWG-1, 5*LYWG);
+			  end
+   	  end
 	end
 
 	ExtendPulses.init ("Stage0",  "ExtendPulses");
@@ -161,7 +156,6 @@ beginmodule
 		hmt_thresholds (19, 10), // nom
 		hmt_thresholds (29, 20), // tight
 		shower_int,
-		shower_oot,
 		clk
         );
 	

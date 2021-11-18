@@ -326,7 +326,6 @@ beginmodule
 	Wire (zero_suppress);
 	Wire (clock_lac);
   Wire_(shower_int, 1,0);
-  Wire_(shower_oot, 1,0);
 	Wire_(shower_bits, 4,0);
 
 #ifdef VGEN
@@ -684,7 +683,7 @@ beginmodule
 		PromoteColl,
 		h, hn, hfa, hpatb, validh,
 		l, ln, lfa, lpatb, validl,
-    shower_int, shower_oot,
+    shower_int, 
 		drifttime, 
 		pretrig, 
 		trig, 
@@ -840,7 +839,7 @@ beginmodule
 
 	assign send_bxn = (validh || validl || actv_feb_fg) && !alct_sync_mode;
 	// sending shower bits instead of bxn[4:1], according to DN-20-016, page 6, Table 1
-	assign shower_bits = (shower_oot, shower_int, bxn(0));
+	assign shower_bits = (Signal(2,0), shower_int, bxn(0)); // TBD: check shower bits
 	assign bxn_mux = ifelse(send_bxn, shower_bits, ecc_err_5);
 
 	// mux the outputs

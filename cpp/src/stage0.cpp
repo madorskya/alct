@@ -105,7 +105,6 @@ beginmodule
 	
 	assign sri = ly & !lyd;*/
 
-
 	always (posedge (clk))
 	begin
 		If (lys) lyr = 0;

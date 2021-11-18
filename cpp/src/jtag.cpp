@@ -225,7 +225,8 @@ beginmodule
 			HCmask = ~HCmask; //put all ones 
 			ParamReg    = "9'b1111111_01";
 			ConfgReg    = "69'b01_0_00_00_1_0_0_000_101_0_0001_0011_01111000_000_01_00001_00111_11_100_010_00000001_0_0_0_00";
-			hmt_thresholds = 0;
+			// default values for ME2/1
+			hmt_thresholds = (Signal(10, 58), Signal(10, 56), Signal(10, 28));
 			input_dis = 0;
 			TAPstate = RunTestIdle;
 #ifdef S6
