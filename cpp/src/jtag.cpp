@@ -161,7 +161,7 @@ beginmodule
 	bpass.reg("bpass");
 	sr.reg (SRsize, 0, "sr"); //shift register
 #ifdef S6
-	tdomux.reg (14, 0, "tdomux");
+	tdomux.reg (15, 0, "tdomux");
 #else
 	tdomux.reg (12, 0, "tdomux");
 #endif

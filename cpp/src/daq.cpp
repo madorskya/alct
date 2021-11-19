@@ -202,7 +202,7 @@ beginmodule
 		hard_rst,
 	    l1a_procr,
 	    l1a_window,
-	 (tvalid(best1) | (shower_int > 1)), // valid signal, either track or nominal or tight shower
+	    (tvalid(best1) || (shower_int > 1)), // valid signal, either track or nominal or tight shower
 	    valor,
 		trig_stop,
 		clk

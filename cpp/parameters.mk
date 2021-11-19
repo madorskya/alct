@@ -5,9 +5,9 @@
 export FW_VERSION =-DFWVER="\"6\'h5\""
 
 # uncomment to generate Verilog HDL code
-#export	VERGEN =-DVGEN
+export	VERGEN =-DVGEN
 # uncomment to simulate Verilog HDL code
-export	VERGEN =
+#export	VERGEN =
 
 # full debugging info, no optimization
 export	OPTIM =-ggdb -D_VDEBUG

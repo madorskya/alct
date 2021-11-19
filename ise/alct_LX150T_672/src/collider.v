@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : madorsky
 // File name : collider.v
-// Timestamp : Fri Sep 10 20:09:53 2021
+// Timestamp : Fri Nov 19 13:30:32 2021
 
 module collider
 (
