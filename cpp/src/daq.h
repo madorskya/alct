@@ -16,6 +16,7 @@ class daq:public module
 		Signal ly0, Signal ly1, Signal ly2, Signal ly3, Signal ly4, Signal ly5,   
 		Signal best1,              			
 		Signal best2,              			
+		Signal shower_int,
 		Signal bxn,                            
 		Signal fifo_tbins,                     
 		Signal daqp,                            
@@ -82,6 +83,7 @@ class daq:public module
 
 	Signal bxn_l1a,	l1a_bxn_fifo_empty,	l1a_bxn_fifo_full, bxnr, ly_zero, tb_zero;
 	Signal l1a_in_count, l1a_in_countf, valor, config_report, valorr;
+	Signal shower_e, shower_d, shower_m, shower_t;
 
 	dav davgen;
 	crc crcgen;

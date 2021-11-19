@@ -22,7 +22,8 @@ void daq::operator()
 (
 	Signal ly0, Signal ly1, Signal ly2, Signal ly3, Signal ly4, Signal ly5,   
     Signal best1,              			
-	Signal best2,              			
+	Signal best2,          
+	Signal shower_int,
     Signal bxn,                            
 	Signal fifo_tbins,                     
     Signal daqp,                            
@@ -61,6 +62,7 @@ initio
 	Input_(ly5, LYWG-1,  0);
     Input_(best1, BESTBITS-1,  0);	// best track parameters 
 	Input_(best2, BESTBITS-1,  0);	// second best track parameters {key, patb, amu, quality}
+	Input_(shower_int, 1, 0); // in-time shower bits
     Input_(bxn, 11,  0);		// bx number
     Input_(fifo_tbins, 4,  0);	// length of the dump for one L1A
     Output_(daqp, 18, 0);		// output to daq (including all service bits) 
@@ -173,6 +175,10 @@ beginmodule
 	Wire (valor);
 	Reg (valorr);
 	Reg (config_report);
+	Wire_(shower_e, 1, 0);
+	Reg_ (shower_d, 1, 0);
+	Wire_(shower_m, 1, 0);
+	Reg_ (shower_t, 1, 0);
 
 	int i;
 	
@@ -180,23 +186,23 @@ beginmodule
 	assign l1a_int_offset = l1a_offset - 1;
 	assign L1AWindow = best_we;
 	assign l1aTP = l1a_proc;
-	assign validhd = tvalid(best1d);
+	assign validhd = tvalid(best1d); // output to test point
 
 	// best_delay module delays best track data + bxn for l1a_delay clocks
 	Module (best_delay);  
- 	best_delay.bwd = BESTBITS*2 + 12; 
+ 	best_delay.bwd = BESTBITS*2 + 12 + 2; 
 	best_delay.bwad = 8;
 	best_delay.ram_style = 1; // block
 	best_delay.max_l1a_window = 16;
 	best_delay
 	(
-		(best1,  best2,  bxn),
-		(best1e, best2e, bxne),
+	 (shower_int, best1,  best2,  bxn),
+	 (shower_e,   best1e, best2e, bxne),
 		l1a_int_delay, // delay best tracks one clock less because l1a_maker wants to know early to generate internal l1a
 		hard_rst,
 	    l1a_procr,
 	    l1a_window,
-	    best1(3),
+	 (tvalid(best1) | (shower_int > 1)), // valid signal, either track or nominal or tight shower
 	    valor,
 		trig_stop,
 		clk
@@ -260,7 +266,7 @@ beginmodule
 	(
 		L1A,
 		valor,
-		tvalid(best1e),
+		(tvalid(best1e) || (shower_e > 1)), // valid track or nominal|tight shower
 		l1a_proc,
 		l1a_window,
 		fifo_tbins,
@@ -278,17 +284,17 @@ beginmodule
 		clk
 	);
 
-	// best tracks to be reported in DAQ sequence are stored in this memory
+	// best tracks and showers to be reported in DAQ sequence are stored in this memory
 	Module (best_memory);
- 	best_memory.bwd = BESTBITS*2 + 12; 
+ 	best_memory.bwd = BESTBITS*2 + 12 + 2; 
 	best_memory.bwad = 8;
 	best_memory
 	(
 		best_adw,
 		best_adr,
 		best_adb,
-		(best1d, best2d, bxnd),
-		(best1m, best2m, bxnm),
+		(shower_d, best1d, best2d, bxnd),
+		(shower_m, best1m, best2m, bxnm),
 		best_we,
 		((Signal)"4'b0", l1a_window),
 		best_full,
@@ -512,6 +518,7 @@ beginmodule
 						// in case we're jumping to LCTBINS, prepare all
 						best1t = best1m;
 						best2t = best2m;
+						shower_t = shower_m;
 						best_adr++; // increase best mem address ahead of time (takes two clocks to read mem)
 						best_cnt = 0;
 						best_first = 1;
@@ -563,6 +570,7 @@ beginmodule
 
 						best1t = best1m;
 						best2t = best2m;
+						shower_t = shower_m;
 						best_adr++; // increase best mem address ahead of time (takes two clock to read mem)
 						best_cnt = 0;
 						best_first = 1;
@@ -581,15 +589,16 @@ beginmodule
 				case1(SEND_LCTBINS)
 				begin
 					If (best_first)
-						daqw = ((Signal)"7'b0", best1t(10,4), "1'b0", best1t(2,0), tvalid(best1t));
+							daqw = ((Signal)"5'b0", shower_t, best1t(10,4), "1'b0", best1t(2,0), tvalid(best1t));
 					Else
-						daqw = ((Signal)"7'b0", best2t(10,4), "1'b0", best2t(2,0), tvalid(best2t));
+						  daqw = ((Signal)"5'b0", shower_t, best2t(10,4), "1'b0", best2t(2,0), tvalid(best2t));
 
 					If (!best_first) 
 					begin
 						best_adr++;
 						best1t = best1m;
 						best2t = best2m;
+						shower_t = shower_m;
 						best_cnt++;
 					end
 					best_first = !best_first;
@@ -705,7 +714,8 @@ beginmodule
 			frame_count++;
 			l1a_procr = l1a_proc;
 			valorr = valor;
-			(best1d, best2d, bxnd) = (best1e, best2e, bxne); // add one clock's delay to best tracks to align them with raw hits
+			// add one clock's delay to best tracks and shower to align them with raw hits
+			(shower_d, best1d, best2d, bxnd) = (shower_e, best1e, best2e, bxne); 
 			bxnr = bxn; // delay bxn to complensate for L1A transition detection time
 		end
 	end

@@ -789,6 +789,7 @@ beginmodule
     	ly[0], ly[1], ly[2], ly[3], ly[4], ly[5],
 	    (hn, validh, hfa, h),
     	(ln, validl, lfa, l),
+			shower_int,
 	    bxn,                        
     	fifo_tbins,                 
 	    daqo,                        
@@ -838,8 +839,9 @@ beginmodule
 	);
 
 	assign send_bxn = (validh || validl || actv_feb_fg) && !alct_sync_mode;
-	// sending shower bits instead of bxn[4:1], according to DN-20-016, page 6, Table 1
-	assign shower_bits = (Signal(2,0), shower_int, bxn(0)); // TBD: check shower bits
+	// sending shower bits instead of bxn[2:1], according to 
+  // Sven's message from 2021-10-29
+	assign shower_bits = (Signal(2,0), shower_int, bxn(0)); // BXN[4:3] set to zeros
 	assign bxn_mux = ifelse(send_bxn, shower_bits, ecc_err_5);
 
 	// mux the outputs

@@ -4,6 +4,7 @@
 Signal ly0; Signal ly1; Signal ly2; Signal ly3; Signal ly4; Signal ly5;   // layer data
 Signal best1;              			// best track parameters 
 Signal best2;              			// second best track parameters
+Signal shower_int;
 Signal bxn;                            // bx number
 
 Signal fifo_tbins;                     // length of the dump for one L1A
@@ -81,13 +82,14 @@ int main()
 
 	char rh[100];
 	int l1anum = 0xf;
-	for (int i = 0; i < 20000; i++)
+	for (int i = 0; i < 1130; i++)
 	{
 
 		L1A = 0;
 		if (i == 0) hard_rst = 0; else hard_rst = 1;
 		best1 = 0;
 		best2 = 0;
+		shower_int = 0;
 		bxn = 0x800 + i;
 
 		ly0 = 0;
@@ -104,8 +106,9 @@ int main()
 
 		if (i%3 == 2)
 		{
-			best1 = l1anum/2 | 1;
-			best2 = (l1anum+2)/2 | 1;
+			//			best1 = l1anum/2 | 8;
+			//			best2 = ((l1anum+2)/2) | 8;
+			shower_int = 3; // shower only when track is valid
 			ly0 = rh;
 			ly1 = rh;
 			ly2 = rh;
@@ -117,7 +120,7 @@ int main()
 
 		int l1ai = i - l1a_delay_int;
 
-		if (l1ai > 0 && l1ai%3 == 2)
+		if (l1ai > 0 && l1ai < 10 && l1ai%3 == 2)
 		{
 			l1anum++;
 			L1A = 1;
@@ -137,6 +140,7 @@ int main()
 			
 			best1.wire (BESTBITS-1, 0, "best1"); 
 			best2.wire (BESTBITS-1, 0, "best2"); // {key, patb, amu, quality}
+			Wire_(shower_int, 1, 0);
 			bxn.wire (11, 0, "bxn");
 			fifo_tbins.wire (4, 0, "fifo_tbins");
 			daqp.wire (18, 0, "daqp");
@@ -169,6 +173,7 @@ int main()
 				ly0, ly1, ly2, ly3, ly4, ly5,   // layer data
 				best1,              			// best track parameters 
 				best2,              			// second best track parameters
+				shower_int,
 				bxn,                            // bx number
 				fifo_tbins,                     // length of the dump for one L1A
 				daqp,                            // output to daq (including all service bits) 
@@ -247,6 +252,7 @@ int main()
 //		cout << "," << fifo_.lyt[0] << "," << fifo_.lym[0] << "," << fifo_.raw_adr << endl;
 
 		cout << hex << setw(5) << setfill('0') << right << daqp << endl;
+		//		cout << best1 << " " << best2 << " " << shower_int << " " << L1A << endl;
 
 	}
 	return 0;
