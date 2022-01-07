@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : madorsky
 // File name : daq_06.v
-// Timestamp : Fri Sep 10 20:07:58 2021
+// Timestamp : Fri Jan  7 17:19:27 2022
 
 module daq_06
 (
@@ -18,6 +18,7 @@ module daq_06
     ly5,
     best1,
     best2,
+    shower_int,
     bxn,
     fifo_tbins,
     daqp,
@@ -54,6 +55,7 @@ module daq_06
     input [47:0] ly5;
     input [10:0] best1;
     input [10:0] best2;
+    input [1:0] shower_int;
     input [11:0] bxn;
     input [4:0] fifo_tbins;
     output [18:0] daqp;
@@ -159,6 +161,10 @@ module daq_06
     wire valor;
     reg valorr;
     reg config_report;
+    wire [1:0] shower_e;
+    reg [1:0] shower_d;
+    wire [1:0] shower_m;
+    reg [1:0] shower_t;
     assign l1a_int_delay = l1a_delay - 1;
     assign l1a_int_offset = l1a_offset - 1;
     assign L1AWindow = best_we;
@@ -166,13 +172,13 @@ module daq_06
     assign validhd = best1d[3];
     best_delay best_delay
     (
-        {best1, best2, bxn},
-        {best1e, best2e, bxne},
+        {shower_int, best1, best2, bxn},
+        {shower_e, best1e, best2e, bxne},
         l1a_int_delay,
         hard_rst,
         l1a_procr,
         l1a_window,
-        best1[3],
+        best1[3] || (shower_int > 1),
         valor,
         trig_stop,
         clk
@@ -212,7 +218,7 @@ module daq_06
     (
         L1A,
         valor,
-        best1e[3],
+        best1e[3] || (shower_e > 1),
         l1a_proc,
         l1a_window,
         fifo_tbins,
@@ -234,8 +240,8 @@ module daq_06
         best_adw,
         best_adr,
         best_adb,
-        {best1d, best2d, bxnd},
-        {best1m, best2m, bxnm},
+        {shower_d, best1d, best2d, bxnd},
+        {shower_m, best1m, best2m, bxnm},
         best_we,
         {4'b0, l1a_window},
         best_full,
@@ -367,6 +373,7 @@ module daq_06
                     begin
                         best1t = best1m;
                         best2t = best2m;
+                        shower_t = shower_m;
                         best_adr = best_adr + 1;
                         best_cnt = 0;
                         best_first = 1;
@@ -414,6 +421,7 @@ module daq_06
                         state = (lct_bins != 0) ? 16 : (raw_bins != 0) ? 19 : 21;
                         best1t = best1m;
                         best2t = best2m;
+                        shower_t = shower_m;
                         best_adr = best_adr + 1;
                         best_cnt = 0;
                         best_first = 1;
@@ -434,13 +442,14 @@ module daq_06
                 end
                 16 : 
                 begin
-                    if (best_first) daqw = {7'b0, best1t[10:4], 1'b0, best1t[2:0], best1t[3]};
-                    else daqw = {7'b0, best2t[10:4], 1'b0, best2t[2:0], best2t[3]};
+                    if (best_first) daqw = {5'b0, shower_t, best1t[10:4], 1'b0, best1t[2:0], best1t[3]};
+                    else daqw = {5'b0, shower_t, best2t[10:4], 1'b0, best2t[2:0], best2t[3]};
                     if (!best_first) 
                     begin
                         best_adr = best_adr + 1;
                         best1t = best1m;
                         best2t = best2m;
+                        shower_t = shower_m;
                         best_cnt = best_cnt + 1;
                     end
                     best_first = !best_first;
@@ -540,7 +549,7 @@ module daq_06
             frame_count = frame_count + 1;
             l1a_procr = l1a_proc;
             valorr = valor;
-            {best1d, best2d, bxnd} = {best1e, best2e, bxne};
+            {shower_d, best1d, best2d, bxnd} = {shower_e, best1e, best2e, bxne};
             bxnr = bxn;
         end
     end

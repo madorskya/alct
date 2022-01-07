@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : madorsky
 // File name : alct288bn.v
-// Timestamp : Fri Sep 10 20:07:56 2021
+// Timestamp : Fri Jan  7 17:19:27 2022
 
 module alct288bn
 (
@@ -147,6 +147,7 @@ module alct288bn
 `include "Flip.v"
     wire [167:0] collmask;
     wire [287:0] HCmask;
+    wire [29:0] hmt_thresholds;
     wire PromoteColl;
     wire [2:0] drifttime;
     wire [2:0] pretrig;
@@ -317,7 +318,6 @@ initial hard_rst = 0;
     wire zero_suppress;
     wire clock_lac;
     wire [1:0] shower_int;
-    wire [1:0] shower_oot;
     wire [4:0] shower_bits;
 
 	IBUFG ibufclk (.I(clkp), .O(clkb));
@@ -347,7 +347,7 @@ initial hard_rst = 0;
     assign mx_oe = 0;
     // Mux OE
     // JTAG port instantiation
-    assign virtex_id = {4'd9, 5'd10, 12'd2021, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0, 1'b0, 3'h2, 6'h5};
+    assign virtex_id = {4'd1, 5'd7, 12'd2022, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0, 1'b0, 3'h2, 6'h5};
     jtag TAP
     (
         tck2b,
@@ -358,6 +358,7 @@ initial hard_rst = 0;
         collmask,
         {cs_dly, settst_dly, rs_dly},
         ConfgReg,
+        hmt_thresholds,
         TstPlsEn,
         din_dly,
         dout_dly,
@@ -529,7 +530,6 @@ initial hard_rst = 0;
         lpatb,
         validl,
         shower_int,
-        shower_oot,
         drifttime,
         pretrig,
         trig,
@@ -544,6 +544,7 @@ initial hard_rst = 0;
         inject,
         ext_inject2,
         HCmask,
+        hmt_thresholds,
         clk
     );
     synchro sync
@@ -588,6 +589,7 @@ initial hard_rst = 0;
         ly5,
         {hn, validh, hfa, h},
         {ln, validl, lfa, l},
+        shower_int,
         bxn,
         fifo_tbins,
         daqo,
@@ -626,7 +628,7 @@ initial hard_rst = 0;
         clk
     );
     assign send_bxn = ((validh || validl) || actv_feb_fg) && (!alct_sync_mode);
-    assign shower_bits = {shower_oot, shower_int, bxn[0]};
+    assign shower_bits = {2'd0, shower_int, bxn[0]};
     assign bxn_mux = (send_bxn) ? shower_bits : ecc_err_5;
     always @(posedge clk2x) 
     begin

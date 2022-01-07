@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : madorsky
 // File name : best_delay.v
-// Timestamp : Fri Sep 10 20:07:58 2021
+// Timestamp : Fri Jan  7 17:19:27 2022
 
 module best_delay
 (
@@ -22,8 +22,8 @@ module best_delay
     clk
 );
 
-    input [33:0] din;
-    output [33:0] dout;
+    input [35:0] din;
+    output [35:0] dout;
     input [7:0] delay;
     input we;
     input l1a;
@@ -34,7 +34,7 @@ module best_delay
     input trig_stop;
     input clk;
 
-    reg [33:0] mem [255:0];
+    reg [35:0] mem [255:0];
     // synthesis attribute ram_style of mem is block
     reg [255:0] val;
     // synthesis attribute ram_style of val is distributed

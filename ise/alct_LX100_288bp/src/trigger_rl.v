@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : madorsky
 // File name : trigger_rl.v
-// Timestamp : Fri Sep 10 20:08:11 2021
+// Timestamp : Fri Jan  7 17:19:45 2022
 
 module trigger_rl
 (
@@ -29,7 +29,6 @@ module trigger_rl
     lpatbp,
     lv,
     shower_int,
-    shower_oot,
     drifttime,
     pretrig,
     trig,
@@ -44,6 +43,7 @@ module trigger_rl
     inject,
     ext_inject2,
     HCmask,
+    hmt_thresholds,
     clk
 );
 
@@ -66,7 +66,6 @@ module trigger_rl
     output lpatbp;
     output lv;
     output [1:0] shower_int;
-    output [1:0] shower_oot;
     input [2:0] drifttime;
     input [2:0] pretrig;
     input [2:0] trig;
@@ -82,6 +81,7 @@ module trigger_rl
     input inject;
     input ext_inject2;
     input [287:0] HCmask;
+    input [29:0] hmt_thresholds;
     input clk;
 
     reg [47:0] ly0m;
@@ -127,18 +127,15 @@ module trigger_rl
     // apply hot channel mask
     always @(posedge clk) 
     begin
-        if (!input_disr) 
+        ly0m = 0;
+        ly1m = 0;
+        ly2m = 0;
+        ly3m = 0;
+        ly4m = 0;
+        ly5m = 0;
+        if (input_disr == 1'd0) 
         begin
-            if ((ext_trig_en && (!ext_trig2)) || (inject && (!ext_inject2))) 
-            begin
-                ly0m = 0;
-                ly1m = 0;
-                ly2m = 0;
-                ly3m = 0;
-                ly4m = 0;
-                ly5m = 0;
-            end
-            else 
+            if (!((ext_trig_en && (!ext_trig2)) || (inject && (!ext_inject2)))) 
             begin
                 ly0m = ly0p & HCmask[47:0];
                 ly1m = ly1p & HCmask[95:48];
@@ -157,11 +154,10 @@ module trigger_rl
         ly3m,
         ly4m,
         ly5m,
-        10'd104,
-        10'd105,
-        10'd107,
+        hmt_thresholds[9:0],
+        hmt_thresholds[19:10],
+        hmt_thresholds[29:20],
         shower_int,
-        shower_oot,
         clk
     );
     Stage0 ExtendPulses

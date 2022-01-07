@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : madorsky
 // File name : outfifo.v
-// Timestamp : Fri Sep 10 20:07:58 2021
+// Timestamp : Fri Jan  7 17:19:27 2022
 
 module outfifo
 (
