@@ -19,8 +19,11 @@
          <ClosedNode>/alct288 |home|hvuser|cernbox|projects|ise|alct|alct_LX100_288|alct288.v/core - trigger_rl/ExtendPulses - Stage0/lsh5 - LyOneShot</ClosedNode>
          <ClosedNode>/alct288 |home|hvuser|cernbox|projects|ise|alct|alct_LX100_288|alct288.v/core - trigger_rl/FindPatterns - Stage1_rl</ClosedNode>
          <ClosedNode>/alct288 |home|madorsky|cernbox|projects|ise|alct|alct_LX100_288|alct288.v/core - trigger_rl</ClosedNode>
+         <ClosedNode>/alct288 |home|madorsky|github|alct|ise|alct_LX100_288|src|alct288.v/core - trigger_rl</ClosedNode>
          <ClosedNode>/alct288 |home|madorsky|github|alct|ise|alct_LX100_288|src|alct288.v/core - trigger_rl/ExtendPulses - Stage0</ClosedNode>
          <ClosedNode>/alct288 |home|madorsky|github|alct|ise|alct_LX100_288|src|alct288.v/core - trigger_rl/FindPatterns - Stage1_rl</ClosedNode>
+         <ClosedNode>/alct288 |home|madorsky|github|alct|ise|alct_LX100_288|src|alct288.v/daq_06 - daq_06</ClosedNode>
+         <ClosedNode>/alct288 |home|madorsky|github|alct|ise|alct_LX100_288|src|alct288.v/dll2x - dll</ClosedNode>
          <ClosedNode>/alct288 |media|sf_github_alct|alct_LX100_288|src|alct288.v/core - trigger_rl/ExtendPulses - Stage0</ClosedNode>
          <ClosedNode>/alct288 |media|sf_github_alct|alct_LX100_288|src|alct288.v/core - trigger_rl/FindPatterns - Stage1_rl</ClosedNode>
       </ClosedNodes>
@@ -29,7 +32,7 @@
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000002020000000100000001000000640000019f000000020000000000000000000000000200000064ffffffff0000008100000003000000020000019f0000000100000003000000000000000100000003</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000020200000001000000010000006400000184000000020000000000000000000000000200000064ffffffff000000810000000300000002000001840000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
       <CurrentItem>alct288 (/home/madorsky/github/alct/ise/alct_LX100_288/src/alct288.v)</CurrentItem>
    </ItemView>
@@ -101,7 +104,7 @@
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000003a4000000010000000100000000000000000000000064ffffffff000000810000000000000001000003a40000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000001d5000000010000000100000000000000000000000064ffffffff000000810000000000000001000001d50000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem/>
    </ItemView>

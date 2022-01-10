@@ -42,6 +42,7 @@ beginmodule
     
 
     //    assign gbt_tx_datavalid = (Signal)"1'b1";
+    // MSB in el0 = 1 means frame 0
 
     #ifdef VGEN
 	printv("\tdll_gbtx dllg (.CLK_IN1_P(gbt_clk40_p), .CLK_IN1_N(gbt_clk40_n), .CLK_OUT1(gbt_clk160), .RESET(0), .LOCKED());\n");
@@ -52,12 +53,13 @@ beginmodule
 	       "\t\t.rst      (rst),\n"
 	       "\t\t.wr_clk   (clk),\n"
 	       "\t\t.rd_clk   (gbt_clk160),\n"
-	       "\t\t.din      (daq_word),\n"
+	       "\t\t.din      ({5'b00000, daq_word[18:10], 4'b1000, daq_word[9:0]}),\n"
 	       "\t\t.wr_en    (~daq_word[18]),\n"
 	       "\t\t.rd_en    (1'b1),\n"
 	       "\t\t.dout     ({el1, el0}),\n"
 	       "\t\t.full     (),\n"
-	       "\t\t.empty    (dv)\n"
+	       "\t\t.valid    (dv),\n"
+	       "\t\t.empty    ()\n"
 	       "\t);\n");
 
     #else
@@ -70,7 +72,7 @@ beginmodule
     begin
       el0_r = el0;
       el1_r = el1;
-      dv_r = ~dv;
+      dv_r  = dv;
     end
 
 endmodule

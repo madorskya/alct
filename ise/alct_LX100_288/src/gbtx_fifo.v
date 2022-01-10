@@ -22,7 +22,7 @@
 *     devices, or systems.  Use in such applications are expressly             *
 *     prohibited.                                                              *
 *                                                                              *
-*     (c) Copyright 1995-2019 Xilinx, Inc.                                     *
+*     (c) Copyright 1995-2022 Xilinx, Inc.                                     *
 *     All rights reserved.                                                     *
 *******************************************************************************/
 // You must compile the wrapper file gbtx_fifo.v when simulating
@@ -45,7 +45,8 @@ module gbtx_fifo(
   rd_en,
   dout,
   full,
-  empty
+  empty,
+  valid
 );
 
 input rst;
@@ -57,6 +58,7 @@ input rd_en;
 output [27 : 0] dout;
 output full;
 output empty;
+output valid;
 
 // synthesis translate_off
 
@@ -86,7 +88,7 @@ output empty;
     .C_AXIS_TYPE(0),
     .C_COMMON_CLOCK(0),
     .C_COUNT_TYPE(0),
-    .C_DATA_COUNT_WIDTH(4),
+    .C_DATA_COUNT_WIDTH(10),
     .C_DEFAULT_VALUE("BlankString"),
     .C_DIN_WIDTH(28),
     .C_DIN_WIDTH_AXIS(1),
@@ -149,7 +151,7 @@ output empty;
     .C_HAS_SLAVE_CE(0),
     .C_HAS_SRST(0),
     .C_HAS_UNDERFLOW(0),
-    .C_HAS_VALID(0),
+    .C_HAS_VALID(1),
     .C_HAS_WR_ACK(0),
     .C_HAS_WR_DATA_COUNT(0),
     .C_HAS_WR_RST(0),
@@ -162,14 +164,14 @@ output empty;
     .C_IMPLEMENTATION_TYPE_WRCH(1),
     .C_INIT_WR_PNTR_VAL(0),
     .C_INTERFACE_TYPE(0),
-    .C_MEMORY_TYPE(1),
+    .C_MEMORY_TYPE(2),
     .C_MIF_FILE_NAME("BlankString"),
     .C_MSGON_VAL(1),
     .C_OPTIMIZATION_MODE(0),
     .C_OVERFLOW_LOW(0),
     .C_PRELOAD_LATENCY(1),
     .C_PRELOAD_REGS(0),
-    .C_PRIM_FIFO_TYPE("512x36"),
+    .C_PRIM_FIFO_TYPE("1kx36"),
     .C_PROG_EMPTY_THRESH_ASSERT_VAL(2),
     .C_PROG_EMPTY_THRESH_ASSERT_VAL_AXIS(1022),
     .C_PROG_EMPTY_THRESH_ASSERT_VAL_RACH(1022),
@@ -185,14 +187,14 @@ output empty;
     .C_PROG_EMPTY_TYPE_WACH(0),
     .C_PROG_EMPTY_TYPE_WDCH(0),
     .C_PROG_EMPTY_TYPE_WRCH(0),
-    .C_PROG_FULL_THRESH_ASSERT_VAL(13),
+    .C_PROG_FULL_THRESH_ASSERT_VAL(1021),
     .C_PROG_FULL_THRESH_ASSERT_VAL_AXIS(1023),
     .C_PROG_FULL_THRESH_ASSERT_VAL_RACH(1023),
     .C_PROG_FULL_THRESH_ASSERT_VAL_RDCH(1023),
     .C_PROG_FULL_THRESH_ASSERT_VAL_WACH(1023),
     .C_PROG_FULL_THRESH_ASSERT_VAL_WDCH(1023),
     .C_PROG_FULL_THRESH_ASSERT_VAL_WRCH(1023),
-    .C_PROG_FULL_THRESH_NEGATE_VAL(12),
+    .C_PROG_FULL_THRESH_NEGATE_VAL(1020),
     .C_PROG_FULL_TYPE(0),
     .C_PROG_FULL_TYPE_AXIS(0),
     .C_PROG_FULL_TYPE_RACH(0),
@@ -201,10 +203,10 @@ output empty;
     .C_PROG_FULL_TYPE_WDCH(0),
     .C_PROG_FULL_TYPE_WRCH(0),
     .C_RACH_TYPE(0),
-    .C_RD_DATA_COUNT_WIDTH(4),
-    .C_RD_DEPTH(16),
+    .C_RD_DATA_COUNT_WIDTH(10),
+    .C_RD_DEPTH(1024),
     .C_RD_FREQ(1),
-    .C_RD_PNTR_WIDTH(4),
+    .C_RD_PNTR_WIDTH(10),
     .C_RDCH_TYPE(0),
     .C_REG_SLICE_MODE_AXIS(0),
     .C_REG_SLICE_MODE_RACH(0),
@@ -217,7 +219,7 @@ output empty;
     .C_USE_COMMON_OVERFLOW(0),
     .C_USE_COMMON_UNDERFLOW(0),
     .C_USE_DEFAULT_SETTINGS(0),
-    .C_USE_DOUT_RST(0),
+    .C_USE_DOUT_RST(1),
     .C_USE_ECC(0),
     .C_USE_ECC_AXIS(0),
     .C_USE_ECC_RACH(0),
@@ -232,8 +234,8 @@ output empty;
     .C_WACH_TYPE(0),
     .C_WDCH_TYPE(0),
     .C_WR_ACK_LOW(0),
-    .C_WR_DATA_COUNT_WIDTH(4),
-    .C_WR_DEPTH(16),
+    .C_WR_DATA_COUNT_WIDTH(10),
+    .C_WR_DEPTH(1024),
     .C_WR_DEPTH_AXIS(1024),
     .C_WR_DEPTH_RACH(16),
     .C_WR_DEPTH_RDCH(1024),
@@ -241,7 +243,7 @@ output empty;
     .C_WR_DEPTH_WDCH(1024),
     .C_WR_DEPTH_WRCH(16),
     .C_WR_FREQ(1),
-    .C_WR_PNTR_WIDTH(4),
+    .C_WR_PNTR_WIDTH(10),
     .C_WR_PNTR_WIDTH_AXIS(10),
     .C_WR_PNTR_WIDTH_RACH(4),
     .C_WR_PNTR_WIDTH_RDCH(10),
@@ -261,6 +263,7 @@ output empty;
     .DOUT(dout),
     .FULL(full),
     .EMPTY(empty),
+    .VALID(valid),
     .BACKUP(),
     .BACKUP_MARKER(),
     .CLK(),
@@ -280,7 +283,6 @@ output empty;
     .WR_ACK(),
     .OVERFLOW(),
     .ALMOST_EMPTY(),
-    .VALID(),
     .UNDERFLOW(),
     .DATA_COUNT(),
     .RD_DATA_COUNT(),

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <symbol version="7" name="dll_gbtx">
     <symboltype>BLOCK</symboltype>
-    <timestamp>2019-3-21T17:52:6</timestamp>
+    <timestamp>2022-1-10T18:41:15</timestamp>
     <pin polarity="Input" x="0" y="112" name="clk_in1_p" />
     <pin polarity="Input" x="0" y="144" name="clk_in1_n" />
     <pin polarity="Input" x="0" y="432" name="reset" />

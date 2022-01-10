@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : alct288bp.v
-// Timestamp : Fri Jan  7 17:19:45 2022
+// Timestamp : Fri Jan  7 19:44:21 2022
 
 module alct288bp
 (

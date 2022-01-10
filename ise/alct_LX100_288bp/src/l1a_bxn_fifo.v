@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : l1a_bxn_fifo.v
-// Timestamp : Fri Jan  7 17:19:46 2022
+// Timestamp : Fri Jan  7 19:44:22 2022
 
 module l1a_bxn_fifo
 (

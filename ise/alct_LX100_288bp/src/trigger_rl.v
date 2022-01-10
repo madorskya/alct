@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : trigger_rl.v
-// Timestamp : Fri Jan  7 17:19:45 2022
+// Timestamp : Fri Jan  7 19:44:21 2022
 
 module trigger_rl
 (

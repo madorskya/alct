@@ -55,7 +55,7 @@
 // "Output    Output      Phase     Duty      Pk-to-Pk        Phase"
 // "Clock    Freq (MHz) (degrees) Cycle (%) Jitter (ps)  Error (ps)"
 //----------------------------------------------------------------------------
-// CLK_OUT1___160.000______0.000______50.0______325.000____150.000
+// CLK_OUT1___320.000______0.000______50.0______262.500____150.000
 //
 //----------------------------------------------------------------------------
 // "Input Clock   Freq (MHz)    Input Jitter (UI)"
@@ -100,7 +100,7 @@ module dll_gbtx
   DCM_SP
   #(.CLKDV_DIVIDE          (2.000),
     .CLKFX_DIVIDE          (1),
-    .CLKFX_MULTIPLY        (4),
+    .CLKFX_MULTIPLY        (8),
     .CLKIN_DIVIDE_BY_2     ("FALSE"),
     .CLKIN_PERIOD          (25.0),
     .CLKOUT_PHASE_SHIFT    ("NONE"),
