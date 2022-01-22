@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : synchro.v
-// Timestamp : Fri Jan  7 19:44:22 2022
+// Timestamp : Sat Jan 22 18:18:42 2022
 
 module synchro
 (

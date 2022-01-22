@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : madorsky
 // File name : crcgen.v
-// Timestamp : Fri Sep 10 20:09:12 2021
+// Timestamp : Sat Jan 22 18:19:50 2022
 
 module crcgen
 (

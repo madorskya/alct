@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : madorsky
 // File name : Stage1_rl.v
-// Timestamp : Fri Sep 10 20:07:42 2021
+// Timestamp : Sat Jan 22 18:18:07 2022
 
 module Stage1_rl
 (

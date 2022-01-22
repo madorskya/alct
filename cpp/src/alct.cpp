@@ -967,11 +967,11 @@ beginmodule
 		~input_disr
 	);
 
-	assign TP1 = 
-	(
-		alct_tx_2nd_tpat_r(16,1),
-		alct_tx_1st_tpat_r(16,1)
-	);
+	assign TP1 = (shower_int, hmt_thresholds);
+	//	(
+	//		alct_tx_2nd_tpat_r(16,1),
+	//		alct_tx_1st_tpat_r(16,1)
+	//	);
 
 #ifdef S6
 	printv("\n\tPOST_CRC_INTERNAL p_c_i (.CRCERROR(seu_error));\n");

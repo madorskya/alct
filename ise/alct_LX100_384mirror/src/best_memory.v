@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : madorsky
 // File name : best_memory.v
-// Timestamp : Fri Sep 10 20:08:56 2021
+// Timestamp : Sat Jan 22 18:19:33 2022
 
 module best_memory
 (
@@ -24,15 +24,15 @@ module best_memory
     input [7:0] adw;
     input [7:0] adr;
     input [7:0] adb;
-    input [33:0] dw;
-    output [33:0] dr;
+    input [35:0] dw;
+    output [35:0] dr;
     input we;
     input [7:0] wblock;
     output full;
     input clk;
 
     reg [7:0] adrr;
-    reg [33:0] mem [255:0];
+    reg [35:0] mem [255:0];
     // synthesis attribute ram_style of mem is block
     wire [7:0] diff;
     assign diff = adb - adw;

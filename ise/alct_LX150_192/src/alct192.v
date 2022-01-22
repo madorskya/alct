@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : madorsky
 // File name : alct192.v
-// Timestamp : Fri Sep 10 20:07:41 2021
+// Timestamp : Sat Jan 22 18:18:06 2022
 
 module alct192
 (
@@ -133,6 +133,7 @@ module alct192
 `include "Flip.v"
     wire [111:0] collmask;
     wire [191:0] HCmask;
+    wire [29:0] hmt_thresholds;
     wire PromoteColl;
     wire [2:0] drifttime;
     wire [2:0] pretrig;
@@ -303,7 +304,6 @@ initial hard_rst = 0;
     wire zero_suppress;
     wire clock_lac;
     wire [1:0] shower_int;
-    wire [1:0] shower_oot;
     wire [4:0] shower_bits;
 
 	IBUFG ibufclk (.I(clkp), .O(clkb));
@@ -333,7 +333,7 @@ initial hard_rst = 0;
     assign mx_oe = 0;
     // Mux OE
     // JTAG port instantiation
-    assign virtex_id = {4'd9, 5'd10, 12'd2021, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0, 1'b1, 3'h1, 6'h5};
+    assign virtex_id = {4'd1, 5'd22, 12'd2022, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0, 1'b1, 3'h1, 6'h5};
     jtag TAP
     (
         tck2b,
@@ -344,6 +344,7 @@ initial hard_rst = 0;
         collmask,
         {cs_dly, settst_dly, rs_dly},
         ConfgReg,
+        hmt_thresholds,
         TstPlsEn,
         din_dly,
         dout_dly,
@@ -503,7 +504,6 @@ initial hard_rst = 0;
         lpatb,
         validl,
         shower_int,
-        shower_oot,
         drifttime,
         pretrig,
         trig,
@@ -518,6 +518,7 @@ initial hard_rst = 0;
         inject,
         ext_inject2,
         HCmask,
+        hmt_thresholds,
         clk
     );
     synchro sync
@@ -562,6 +563,7 @@ initial hard_rst = 0;
         ly5,
         {hn, validh, hfa, h},
         {ln, validl, lfa, l},
+        shower_int,
         bxn,
         fifo_tbins,
         daqo,
@@ -600,7 +602,7 @@ initial hard_rst = 0;
         clk
     );
     assign send_bxn = ((validh || validl) || actv_feb_fg) && (!alct_sync_mode);
-    assign shower_bits = {shower_oot, shower_int, bxn[0]};
+    assign shower_bits = {2'd0, shower_int, bxn[0]};
     assign bxn_mux = (send_bxn) ? shower_bits : ecc_err_5;
     always @(posedge clk2x) 
     begin
@@ -660,7 +662,7 @@ initial hard_rst = 0;
     );
     // Test point outputs
     assign TP0 = {seq_cmd_r, daqo[18], validhd, validh, validl, ttc_l1reset, fmm_trig_stop, ttc_bx0, ttc_start_trigger, ttc_stop_trigger, l1awindowTP, l1aTP, ~input_disr};
-    assign TP1 = {alct_tx_2nd_tpat_r[16:1], alct_tx_1st_tpat_r[16:1]};
+    assign TP1 = {shower_int, hmt_thresholds};
 
 	POST_CRC_INTERNAL p_c_i (.CRCERROR(seu_error));
 endmodule

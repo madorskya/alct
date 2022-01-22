@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : madorsky
 // File name : gbtx.v
-// Timestamp : Fri Sep 10 20:09:12 2021
+// Timestamp : Sat Jan 22 18:19:50 2022
 
 module gbtx
 (
@@ -48,17 +48,18 @@ module gbtx
 		.rst      (rst),
 		.wr_clk   (clk),
 		.rd_clk   (gbt_clk160),
-		.din      (daq_word),
+		.din      ({5'b00000, daq_word[18:10], 4'b1000, daq_word[9:0]}),
 		.wr_en    (~daq_word[18]),
 		.rd_en    (1'b1),
 		.dout     ({el1, el0}),
 		.full     (),
-		.empty    (dv)
+		.valid    (dv),
+		.empty    ()
 	);
     always @(posedge gbt_clk160) 
     begin
         el0_r = el0;
         el1_r = el1;
-        dv_r = ~dv;
+        dv_r = dv;
     end
 endmodule

@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : madorsky
 // File name : ecc16_decoder.v
-// Timestamp : Fri Sep 10 20:09:27 2021
+// Timestamp : Sat Jan 22 18:20:09 2022
 
 module ecc16_decoder
 (
