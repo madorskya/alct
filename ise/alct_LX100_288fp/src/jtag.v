@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : jtag.v
-// Timestamp : Wed Jan 26 16:44:52 2022
+// Timestamp : Thu Feb  3 17:20:01 2022
 
 module jtag
 (
@@ -92,12 +92,12 @@ module jtag
     parameter cmsize = 167;
     parameter PRsize = 4;
     parameter CRsize = 68;
+    parameter HMTsize = 29;
     parameter YRsize = 30;
     parameter OSsize = 48;
     parameter TRsize = 4;
     parameter IDsize = 39;
     parameter CNsize = 31;
-    parameter hmt_size = 29;
     parameter RunTestIdle = 1;
     parameter TestLogicReset = 0;
     parameter SelDRScan = 2;
@@ -121,8 +121,8 @@ module jtag
     parameter WrTrig = 4;
     parameter RdCfg = 6;
     parameter WrCfg = 7;
-    parameter hmt_read = 10;
-    parameter hmt_write = 11;
+    parameter hmt_read = 18;
+    parameter hmt_write = 15;
     parameter Wdly = 13;
     parameter Rdly = 14;
     parameter YRwrite = 25;
@@ -148,6 +148,7 @@ module jtag
     parameter SNsampleST = 3;
     reg [4:0] ParamRegs;
     reg [68:0] ConfgRegs;
+    reg [29:0] hmt_thresholds_s;
     reg dly_clk_en;
     reg [3:0] TAPstate;
     reg [4:0] IR;
@@ -199,7 +200,7 @@ initial TAPstate = RunTestIdle;
             HCmask = ~HCmask;
             ParamReg = 9'b1111111_01;
             ConfgReg = 69'b01_0_00_00_1_0_0_000_101_0_0001_0011_01111000_000_01_00001_00111_11_100_010_00000001_0_0_0_00;
-            hmt_thresholds = {10'd58, 10'd56, 10'd28};
+            hmt_thresholds = {10'd1, 10'd1, 10'd1};
             input_dis = 0;
             TAPstate = RunTestIdle;
             adc_wr_reg[0] = 0;
@@ -279,7 +280,12 @@ initial TAPstate = RunTestIdle;
                             tdomux = 16384;
                             adc_wr_sr = adc_wr_reg;
                         end
-                        hmt_write, hmt_read : tdomux = 32768;
+                        hmt_write : tdomux = 32768;
+                        hmt_read : 
+                        begin
+                            tdomux = 32768;
+                            hmt_thresholds_s = hmt_thresholds;
+                        end
                         default : tdomux = 0;
                     endcase
                 end
@@ -291,7 +297,6 @@ initial TAPstate = RunTestIdle;
                         CollMaskWrite, CollMaskRead : collmask = {tdi, collmask[cmsize:1]};
                         ParamRegWrite, ParamRegRead : ParamRegs = {tdi, ParamRegs[PRsize:1]};
                         RdCfg, WrCfg : ConfgRegs = {tdi, ConfgRegs[CRsize:1]};
-                        hmt_write, hmt_read : hmt_thresholds = {tdi, hmt_thresholds[hmt_size:1]};
                         Bypass : bpass = tdi;
                         Wdly, Rdly : 
                         begin
@@ -303,6 +308,7 @@ initial TAPstate = RunTestIdle;
                         OSread : OSs = {tdi, OSs[OSsize:1]};
                         RdTrig, WrTrig : TrigRegs = {tdi, TrigRegs[TRsize:1]};
                         IDRead : IDs = {tdi, IDs[IDsize:1]};
+                        hmt_write, hmt_read : hmt_thresholds_s = {tdi, hmt_thresholds_s[HMTsize:1]};
                         ADCread : adc_rd_sr = {tdi, adc_rd_sr[4:1]};
                         ADCwrite : adc_wr_sr = {tdi, adc_wr_sr[4:1]};
                     endcase
@@ -319,6 +325,7 @@ initial TAPstate = RunTestIdle;
                         end
                         YRwrite : YR = YRs;
                         WrCfg : ConfgReg = ConfgRegs;
+                        hmt_write : hmt_thresholds = hmt_thresholds_s;
                         ADCwrite : adc_wr_reg = adc_wr_sr;
                     endcase
                 end
@@ -361,7 +368,7 @@ initial TAPstate = RunTestIdle;
     always @(negedge tck) 
     begin
         tdo = ((((((((((((tdomux[0] & HCmask[0]) | (tdomux[1] & collmask[0])) | (tdomux[2] & ParamRegs[0])) | (tdomux[3] & ConfgRegs[0])) | (tdomux[4] & dly_tdo)) | (tdomux[5] & bpass)) | (tdomux[6] & sr[0])) | (tdomux[7] & OSs[0])) | (tdomux[8] & TrigRegs[0])) | (tdomux[9] & IDs[0])) | (tdomux[10] & SNrd)) | (tdomux[11] & YRs[0])) | (tdomux[12] & hcounterss[0]);
-        tdo = ((tdo | (tdomux[13] & adc_rd_sr[0])) | (tdomux[14] & adc_wr_sr[0])) | (tdomux[15] & hmt_thresholds[0]);
+        tdo = ((tdo | (tdomux[13] & adc_rd_sr[0])) | (tdomux[14] & adc_wr_sr[0])) | (tdomux[15] & hmt_thresholds_s[0]);
     end
     assign jstate = ~TAPstate;
     always @(posedge clk) 

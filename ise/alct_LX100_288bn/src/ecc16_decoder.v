@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : ecc16_decoder.v
-// Timestamp : Wed Jan 26 16:44:17 2022
+// Timestamp : Thu Feb  3 17:19:24 2022
 
 module ecc16_decoder
 (

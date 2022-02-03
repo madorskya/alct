@@ -290,7 +290,6 @@ beginmodule
 	 						case2(CollMaskWrite, CollMaskRead) collmask  = (tdi, collmask(cmsize,1));
 	 						case2(ParamRegWrite, ParamRegRead) ParamRegs = (tdi, ParamRegs(PRsize,1));
 	 						case2(RdCfg        , WrCfg       ) ConfgRegs = (tdi, ConfgRegs(CRsize,1));
-	 						case2(hmt_write    , hmt_read    ) hmt_thresholds_s = (tdi, hmt_thresholds_s(HMTsize,1));
 		 					case1(Bypass)                       bpass     = tdi; 
 							// in case of Delay line get tdi to the output, and enable the clk_dly (see assignment above the case statement)
 	 						case2(Wdly, Rdly)                   begin din_dly = tdi; dly_clk_en = 1; end
@@ -300,6 +299,7 @@ beginmodule
 	 						case2(RdTrig, WrTrig)               TrigRegs = (tdi, TrigRegs(TRsize,1));
 							case1(IDRead)						IDs = (tdi, IDs(IDsize, 1));
 #ifdef S6
+	 						case2(hmt_write    , hmt_read    ) hmt_thresholds_s = (tdi, hmt_thresholds_s(HMTsize,1));
 							case1(ADCread)	adc_rd_sr	 = (tdi,adc_rd_sr(4,1));
 							case1(ADCwrite)	adc_wr_sr	 = (tdi,adc_wr_sr(4,1));
 #endif
@@ -381,7 +381,7 @@ beginmodule
 			tdo = tdo |
 				(tdomux(13) & adc_rd_sr(0)) |
 				(tdomux(14) & adc_wr_sr(0)) |
-				(tdomux(15) & hmt_thresholds(0));
+				(tdomux(15) & hmt_thresholds_s(0));
 #endif
 	end
 	

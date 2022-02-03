@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : jtag.v
-// Timestamp : Thu Feb  3 00:20:43 2022
+// Timestamp : Thu Feb  3 17:21:34 2022
 
 module jtag
 (
@@ -297,7 +297,6 @@ initial TAPstate = RunTestIdle;
                         CollMaskWrite, CollMaskRead : collmask = {tdi, collmask[cmsize:1]};
                         ParamRegWrite, ParamRegRead : ParamRegs = {tdi, ParamRegs[PRsize:1]};
                         RdCfg, WrCfg : ConfgRegs = {tdi, ConfgRegs[CRsize:1]};
-                        hmt_write, hmt_read : hmt_thresholds_s = {tdi, hmt_thresholds_s[HMTsize:1]};
                         Bypass : bpass = tdi;
                         Wdly, Rdly : 
                         begin
@@ -309,6 +308,7 @@ initial TAPstate = RunTestIdle;
                         OSread : OSs = {tdi, OSs[OSsize:1]};
                         RdTrig, WrTrig : TrigRegs = {tdi, TrigRegs[TRsize:1]};
                         IDRead : IDs = {tdi, IDs[IDsize:1]};
+                        hmt_write, hmt_read : hmt_thresholds_s = {tdi, hmt_thresholds_s[HMTsize:1]};
                         ADCread : adc_rd_sr = {tdi, adc_rd_sr[4:1]};
                         ADCwrite : adc_wr_sr = {tdi, adc_wr_sr[4:1]};
                     endcase
@@ -368,7 +368,7 @@ initial TAPstate = RunTestIdle;
     always @(negedge tck) 
     begin
         tdo = ((((((((((((tdomux[0] & HCmask[0]) | (tdomux[1] & collmask[0])) | (tdomux[2] & ParamRegs[0])) | (tdomux[3] & ConfgRegs[0])) | (tdomux[4] & dly_tdo)) | (tdomux[5] & bpass)) | (tdomux[6] & sr[0])) | (tdomux[7] & OSs[0])) | (tdomux[8] & TrigRegs[0])) | (tdomux[9] & IDs[0])) | (tdomux[10] & SNrd)) | (tdomux[11] & YRs[0])) | (tdomux[12] & hcounterss[0]);
-        tdo = ((tdo | (tdomux[13] & adc_rd_sr[0])) | (tdomux[14] & adc_wr_sr[0])) | (tdomux[15] & hmt_thresholds[0]);
+        tdo = ((tdo | (tdomux[13] & adc_rd_sr[0])) | (tdomux[14] & adc_wr_sr[0])) | (tdomux[15] & hmt_thresholds_s[0]);
     end
     assign jstate = ~TAPstate;
     always @(posedge clk) 
