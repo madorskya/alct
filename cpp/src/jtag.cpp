@@ -75,12 +75,12 @@ beginmodule
 	parameter cmsize ("cmsize", COLLMASKBITS-1); // collision pattern mask size - 1
 	parameter PRsize ("PRsize", PRSIZE-1);		 // Parameter register size - 1) 
 	parameter CRsize ("CRsize", CRSIZE-1);		 // Configuration register size - 1)
+  parameter HMTsize("HMTsize", HMT_THRESHOLD_BITS-1); // HMT threshold size - 1
 	parameter YRsize ("YRsize", YRSIZE-1);		 // output register size - 1
 	parameter OSsize ("OSsize", OSSIZE);		 // output storage data size
 	parameter TRsize ("TRsize", 4);				 // trigger register size - 1
 	parameter IDsize ("IDsize", IDSIZE-1);		 // ID register size - 1
 	parameter CNsize ("CNsize", BWHC*HCNUM-1);   // hit counters size - 1
-	parameter hmt_size ("hmt_size", HMT_THRESHOLD_BITS-1); // hmt_parameters size - 1
 
 // definitions of the TAP states (see standard JTAG TAP state diagram for details)
 	parameter RunTestIdle    ("RunTestIdle"    ,1);
@@ -113,8 +113,8 @@ beginmodule
 	parameter RdCfg         ("RdCfg"         ,0x6); // read control register
 	parameter WrCfg         ("WrCfg"         ,0x7); // write control register
 
-	parameter hmt_read      ("hmt_read",      0xa);
-	parameter hmt_write     ("hmt_write",     0xb);
+	parameter hmt_read      ("hmt_read",      0x12);
+	parameter hmt_write     ("hmt_write",     0xf);
 
 	parameter Wdly          ("Wdly"          ,0xd); // write delay lines. cs_dly bits in ParamReg determine which line to use. Length is 96 bits.
 	parameter Rdly          ("Rdly"          ,0xe); // read  delay lines. cs_dly bits in ParamReg determine which line to use. Length is 96 bits.
@@ -153,6 +153,7 @@ beginmodule
 	ParamRegs.reg(PRsize, 0, "ParamRegs"); 
     // parameters register: see components at the top of this file
 	ConfgRegs.reg(CRsize, 0, "ConfgRegs"); 
+	Reg_(hmt_thresholds_s, HMTsize, 0);
     // configuration register: see components at the top of this file
 	dly_clk_en.reg("dly_clk_en"); // enable clk_dly bit
 
@@ -226,7 +227,7 @@ beginmodule
 			ParamReg    = "9'b1111111_01";
 			ConfgReg    = "69'b01_0_00_00_1_0_0_000_101_0_0001_0011_01111000_000_01_00001_00111_11_100_010_00000001_0_0_0_00";
 			// default values for ME2/1
-			hmt_thresholds = (Signal(10, 58), Signal(10, 56), Signal(10, 28));
+			hmt_thresholds = (Signal(10, 1), Signal(10, 1), Signal(10, 1));
 			input_dis = 0;
 			TAPstate = RunTestIdle;
 #ifdef S6
@@ -273,7 +274,8 @@ beginmodule
 #ifdef S6
 							case1(ADCread)				   begin tdomux = 8192;  adc_rd_sr = adc_rd_reg; end
 							case1(ADCwrite)				   begin tdomux = 16384; adc_wr_sr = adc_wr_reg;end
-							case2(hmt_write, hmt_read)   tdomux = (1 << 15); 
+							case1(hmt_write)         tdomux = (1 << 15); 
+							case1(hmt_read)    begin tdomux = (1 << 15); hmt_thresholds_s = hmt_thresholds; end
 #endif
 							Default                              tdomux = 0;
 						endcase
@@ -288,7 +290,7 @@ beginmodule
 	 						case2(CollMaskWrite, CollMaskRead) collmask  = (tdi, collmask(cmsize,1));
 	 						case2(ParamRegWrite, ParamRegRead) ParamRegs = (tdi, ParamRegs(PRsize,1));
 	 						case2(RdCfg        , WrCfg       ) ConfgRegs = (tdi, ConfgRegs(CRsize,1));
-	 						case2(hmt_write    , hmt_read    ) hmt_thresholds = (tdi, hmt_thresholds(hmt_size,1));
+	 						case2(hmt_write    , hmt_read    ) hmt_thresholds_s = (tdi, hmt_thresholds_s(HMTsize,1));
 		 					case1(Bypass)                       bpass     = tdi; 
 							// in case of Delay line get tdi to the output, and enable the clk_dly (see assignment above the case statement)
 	 						case2(Wdly, Rdly)                   begin din_dly = tdi; dly_clk_en = 1; end
@@ -312,6 +314,7 @@ beginmodule
 		 					case1(YRwrite      ) YR       = YRs;
 							case1(WrCfg        ) ConfgReg = ConfgRegs;
 #ifdef S6
+							case1(hmt_write    ) hmt_thresholds = hmt_thresholds_s;
 							case1(ADCwrite     ) adc_wr_reg	= adc_wr_sr;
 #endif							
 	 					endcase

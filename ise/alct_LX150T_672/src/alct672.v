@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : alct672.v
-// Timestamp : Sat Jan 22 18:20:28 2022
+// Timestamp : Thu Feb  3 00:20:43 2022
 
 module alct672
 (
@@ -323,6 +323,7 @@ initial hard_rst = 0;
     wire clock_lac;
     wire [1:0] shower_int;
     wire [4:0] shower_bits;
+    wire [4:0] dummy_bxn;
 
 	IBUFG ibufclk (.I(clkp), .O(clkb));
 	IBUF buftck (.I(tck2), .O(tck2b)); // synthesis attribute buffer_type tck2 ibuf
@@ -351,7 +352,7 @@ initial hard_rst = 0;
     assign mx_oe = 0;
     // Mux OE
     // JTAG port instantiation
-    assign virtex_id = {4'd1, 5'd22, 12'd2022, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0, 1'b1, 3'h6, 6'h5};
+    assign virtex_id = {4'd2, 5'd3, 12'd2022, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0, 1'b1, 3'h6, 6'h5};
     jtag TAP
     (
         tck2b,
@@ -681,7 +682,8 @@ initial hard_rst = 0;
     );
     assign send_bxn = ((validh || validl) || actv_feb_fg) && (!alct_sync_mode);
     assign shower_bits = {2'd0, shower_int, bxn[0]};
-    assign bxn_mux = (send_bxn) ? shower_bits : ecc_err_5;
+    assign dummy_bxn = {4'd0, bxn[0]};
+    assign bxn_mux = (send_bxn) ? dummy_bxn : (shower_int != 2'd0) ? shower_bits : ecc_err_5;
     always @(posedge clk2x) 
     begin
         if (clock_lac == 0) 
@@ -753,4 +755,29 @@ initial hard_rst = 0;
         refclk_n,
         !hard_rst
     );
+
+wire [35:0] CONTROL;
+alct_cs_control alct_icon
+(
+	 .CONTROL0 (CONTROL) // INOUT BUS [35:0]
+);
+alct_chipscope alct_cs 
+(
+	 .CONTROL (CONTROL), // INOUT BUS [35:0]
+	 .CLK     (clk), // IN
+	 .DATA    
+	 ({
+		hmt_thresholds, // 30
+		ConfgReg,       // 69
+		validh,         // 1
+		send_bxn,       // 1
+		actv_feb_fg,    // 1
+		alct_sync_mode, // 1
+		shower_int,     // 2
+		shower_bits,    // 5
+		bxn_mux         // 5
+	 }), // IN BUS [114:0]
+	 .TRIG0   (validh), // IN BUS [0:0]
+	 .TRIG1   (shower_int) // IN BUS [1:0]
+);
 endmodule

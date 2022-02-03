@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : ecc32_encode.v
-// Timestamp : Sat Jan 22 18:20:28 2022
+// Timestamp : Thu Feb  3 00:20:43 2022
 
 module ecc32_encode
 (

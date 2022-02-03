@@ -12,6 +12,7 @@ public:
   Signal nominal;
   Signal tight;
 	Signal ly_count;
+	Signal ly_threshold;
   
   void operator ()
   (

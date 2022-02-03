@@ -230,6 +230,7 @@ int main ()
 		}
 //   		cout << lyt << "    ";
 		cout << hex;
+		cout << "collmask: " << collmask << "  ";
 		cout << ly0p << "   ";
 		cout << trl.ly0m << "  ";
 

@@ -79,7 +79,7 @@ endif
 FNAMES += alct$(ALCTVER).v
 FILENAMES = $(addprefix $(VERDIR)/, $(FNAMES))
 DIFF = diff
-DIFFOPT = -w -I"// Time.*" -I"// Author.*" -I"// File.*"
+DIFFOPT = -wB -I"// Time.*" -I"// Author.*" -I"// File.*"
 OS   := $(shell uname -o)
 TARGSUF  =.exe
 

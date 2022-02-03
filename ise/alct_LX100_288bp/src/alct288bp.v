@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : alct288bp.v
-// Timestamp : Sat Jan 22 18:18:42 2022
+// Timestamp : Wed Jan 26 16:44:34 2022
 
 module alct288bp
 (
@@ -347,7 +347,7 @@ initial hard_rst = 0;
     assign mx_oe = 0;
     // Mux OE
     // JTAG port instantiation
-    assign virtex_id = {4'd1, 5'd22, 12'd2022, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b1, 1'b0, 3'h2, 6'h5};
+    assign virtex_id = {4'd1, 5'd26, 12'd2022, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b1, 1'b0, 3'h2, 6'h5};
     jtag TAP
     (
         tck2b,
@@ -688,7 +688,7 @@ initial hard_rst = 0;
     );
     // Test point outputs
     assign TP0 = {seq_cmd_r, daqo[18], validhd, validh, validl, ttc_l1reset, fmm_trig_stop, ttc_bx0, ttc_start_trigger, ttc_stop_trigger, l1awindowTP, l1aTP, ~input_disr};
-    assign TP1 = {shower_int, hmt_thresholds};
+    assign TP1 = {send_bxn, actv_feb_fg, alct_sync_mode, shower_int, shower_bits, bxn_mux};
 
 	POST_CRC_INTERNAL p_c_i (.CRCERROR(seu_error));
     gbtx gbtx

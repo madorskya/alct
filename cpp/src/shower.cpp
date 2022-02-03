@@ -35,6 +35,8 @@ beginmodule
   Reg (loose);
   Reg (nominal);
   Reg (tight);
+
+	Reg_(ly_threshold, 2,0);
   
   always (posedge (clk))
   begin
@@ -81,6 +83,10 @@ beginmodule
 			If (ly3 != 0) ly_count++;
 			If (ly4 != 0) ly_count++;
 			If (ly5 != 0) ly_count++;
+
+			ly_threshold = Signal(3, 5); // default layer threshold initially
+			// lower layer threshold if loose threshold is set below 5
+			If (th_loose <= Signal(10, 5)) ly_threshold = th_loose(2,0); 
   end
   
 endmodule

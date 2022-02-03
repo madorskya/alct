@@ -189,6 +189,7 @@ public:
 	Signal clock_lac;
 	Signal din_dly_int;
 	Signal shower_int, shower_bits;
+	Signal dummy_bxn;
 
 
 	dll  dll2x; // DLL for doubling the clock

@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : daq_06.v
-// Timestamp : Sat Jan 22 18:19:33 2022
+// Timestamp : Wed Jan 26 16:45:28 2022
 
 module daq_06
 (

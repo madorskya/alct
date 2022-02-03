@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : shower.v
-// Timestamp : Sat Jan 22 18:18:42 2022
+// Timestamp : Wed Jan 26 16:44:34 2022
 
 module shower
 (
@@ -43,6 +43,7 @@ module shower
     reg loose;
     reg nominal;
     reg tight;
+    reg [2:0] ly_threshold;
     always @(posedge clk) 
     begin
         tight = 0;
@@ -77,5 +78,7 @@ module shower
         if (ly3 != 0) ly_count = ly_count + 1;
         if (ly4 != 0) ly_count = ly_count + 1;
         if (ly5 != 0) ly_count = ly_count + 1;
+        ly_threshold = 3'd5;
+        if (th_loose <= 10'd5) ly_threshold = th_loose[2:0];
     end
 endmodule

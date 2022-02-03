@@ -32,7 +32,8 @@ public:
 
 	Signal 
 		ParamRegs, 
-		ConfgRegs, 
+		ConfgRegs,
+		hmt_thresholds_s,
 		dly_clk_en, 
 		TAPstate, 
 		IR, 

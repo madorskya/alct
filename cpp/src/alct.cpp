@@ -327,6 +327,7 @@ beginmodule
 	Wire (clock_lac);
   Wire_(shower_int, 1,0);
 	Wire_(shower_bits, 4,0);
+	Wire_(dummy_bxn, 4, 0);
 
 #ifdef VGEN
 	printv("\n\tIBUFG ibufclk (.I(clkp), .O(clkb));");	// input clock buffer (instantiation required for DLL)
@@ -841,8 +842,9 @@ beginmodule
 	assign send_bxn = (validh || validl || actv_feb_fg) && !alct_sync_mode;
 	// sending shower bits instead of bxn[2:1], according to 
   // Sven's message from 2021-10-29
-	assign shower_bits = (Signal(2,0), shower_int, bxn(0)); // BXN[4:3] set to zeros
-	assign bxn_mux = ifelse(send_bxn, shower_bits, ecc_err_5);
+	assign shower_bits = (Signal(2,0), shower_int, bxn(0));
+	assign dummy_bxn = (Signal(4,0), bxn(0));
+	assign bxn_mux = ifelse(send_bxn, dummy_bxn, ifelse(shower_int != Signal(2,0), shower_bits, ecc_err_5));
 
 	// mux the outputs
 	always (posedge (clk2x))
@@ -967,7 +969,12 @@ beginmodule
 		~input_disr
 	);
 
-	assign TP1 = (shower_int, hmt_thresholds);
+
+	assign TP1 = 
+	(
+		 shower_int, // 2
+	hmt_thresholds
+  );
 	//	(
 	//		alct_tx_2nd_tpat_r(16,1),
 	//		alct_tx_1st_tpat_r(16,1)
@@ -1014,6 +1021,32 @@ beginmodule
         !hard_rst
 	);
 #endif
+
+	printv("\nwire [35:0] CONTROL;");
+	printv("\nalct_cs_control alct_icon");
+	printv("\n(");
+ 	printv("\n	 .CONTROL0 (CONTROL) // INOUT BUS [35:0]");
+	printv("\n);");
+
+	printv("\nalct_chipscope alct_cs ");
+	printv("\n(");
+	printv("\n	 .CONTROL (CONTROL), // INOUT BUS [35:0]");
+	printv("\n	 .CLK     (clk), // IN");
+	printv("\n	 .DATA    ");
+	printv("\n	 ({");
+	printv("\n		hmt_thresholds, // 30");
+	printv("\n		ConfgReg,       // 69");
+	printv("\n		validh,         // 1");
+	printv("\n		send_bxn,       // 1");
+	printv("\n		actv_feb_fg,    // 1");
+	printv("\n		alct_sync_mode, // 1");
+	printv("\n		shower_int,     // 2");
+	printv("\n		shower_bits,    // 5");
+	printv("\n		bxn_mux         // 5");
+	printv("\n	 }), // IN BUS [114:0]");
+	printv("\n	 .TRIG0   (validh), // IN BUS [0:0]");
+	printv("\n	 .TRIG1   (shower_int) // IN BUS [1:0]");
+	printv("\n);\n");
 
 endmodule
 }
