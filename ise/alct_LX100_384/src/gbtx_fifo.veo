@@ -22,7 +22,7 @@
 *     devices, or systems.  Use in such applications are expressly             *
 *     prohibited.                                                              *
 *                                                                              *
-*     (c) Copyright 1995-2019 Xilinx, Inc.                                     *
+*     (c) Copyright 1995-2022 Xilinx, Inc.                                     *
 *     All rights reserved.                                                     *
 *******************************************************************************/
 
@@ -66,7 +66,8 @@ gbtx_fifo your_instance_name (
   .rd_en(rd_en), // input rd_en
   .dout(dout), // output [27 : 0] dout
   .full(full), // output full
-  .empty(empty) // output empty
+  .empty(empty), // output empty
+  .valid(valid) // output valid
 );
 // INST_TAG_END ------ End INSTANTIATION Template ---------
 

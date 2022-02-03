@@ -1,4 +1,5 @@
 # Output products list for <dll_2019>
+_xmsgs/pn_parser.xmsgs
 dll_2019/clk_wiz_v3_6_readme.txt
 dll_2019/doc/clk_wiz_v3_6_readme.txt
 dll_2019/doc/clk_wiz_v3_6_vinfo.html

@@ -1,5 +1,7 @@
-#!/bin/sh
-# (c) Copyright 2009 - 2010 Xilinx, Inc. All rights reserved.
+#/bin/sh
+# file: simulate_mti.sh
+# 
+# (c) Copyright 2008 - 2011 Xilinx, Inc. All rights reserved.
 # 
 # This file contains confidential and proprietary information
 # of Xilinx, Inc. and is protected under U.S. and
@@ -44,6 +46,16 @@
 # 
 # THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS
 # PART OF THIS FILE AT ALL TIMES.
-#--------------------------------------------------------------------------------
+# 
 
-vsim -c -do simulate_mti.do
+# set up the working directory
+set work work
+vlib work
+
+# compile all of the files
+vlog -work work $XILINX/verilog/src/glbl.v
+vlog -work work ../../implement/results/routed.v
+vlog -work work dll_gbtx_tb.v
+
+# run the simulation
+vsim -c -t ps +transport_int_delays -voptargs="+acc" -L secureip -L simprims_ver -sdfmax dll_gbtx_tb/dut=../../implement/results/routed.sdf +no_notifier work.dll_gbtx_tb work.glbl

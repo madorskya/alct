@@ -8,7 +8,7 @@
 <!-- Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.    -->
 
 <messages>
-<msg type="info" file="ProjectMgmt" num="1845" ><arg fmt="%s" index="1">Analyzing Verilog file &quot;/home/hvuser/github/alct/ise/alct_LX100_384/src/gbtx_fifo.v&quot; into library work</arg>
+<msg type="info" file="ProjectMgmt" num="1845" ><arg fmt="%s" index="1">Analyzing Verilog file &quot;/home/madorsky/github/alct/ise/alct_LX100_384/src/gbtx_fifo.v&quot; into library work</arg>
 </msg>
 
 </messages>

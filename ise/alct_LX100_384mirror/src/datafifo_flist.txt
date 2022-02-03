@@ -1,4 +1,5 @@
 # Output products list for <datafifo>
+_xmsgs/pn_parser.xmsgs
 datafifo/doc/fifo_generator_ds317.pdf
 datafifo/doc/fifo_generator_ug175.pdf
 datafifo/doc/fifo_generator_v8_1_vinfo.html

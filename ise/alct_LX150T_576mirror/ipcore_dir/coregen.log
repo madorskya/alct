@@ -1,59 +1,66 @@
 INFO:sim:172 - Generating IP...
 Applying current project options...
 Finished applying current project options.
-WARNING:sim - A core named 'din_dly_out' already exists in the project. Output
-   products for this core may be overwritten.
-Resolving generics for 'din_dly_out'...
-WARNING:sim - A core named 'din_dly_out' already exists in the project. Output
-   products for this core may be overwritten.
-Applying external generics to 'din_dly_out'...
-Delivering associated files for 'din_dly_out'...
-Delivered 4 files into directory
-/home/hvuser/cernbox/projects/ise/alct/ise14/alct_LX150T_576mirror_1/ipcore_dir/
-tmp/_cg/din_dly_out
-Delivered 1 file into directory
-/home/hvuser/cernbox/projects/ise/alct/ise14/alct_LX150T_576mirror_1/ipcore_dir/
-tmp/_cg/din_dly_out
+Resolving generic values...
+Finished resolving generic values.
+Generating IP...
+WARNING:sim:89 - A core named <alct_cs_control> already exists in the output
+   directory. Output products for this core may be overwritten.
+Configuring files for alct_cs_control root...
+Gathering HDL files for alct_cs_control root...
+Creating XST project for alct_cs_control...
+Creating XST script file for alct_cs_control...
+Creating XST instantiation file for alct_cs_control...
+Running XST for alct_cs_control...
+XST: HDL Parsing
+XST: HDL Elaboration
+XST: HDL Synthesis
+XST: Advanced HDL Synthesis
+XST: Low Level Synthesis
+XST: Design Summary
+Not generating VHDL wrapper
+Generating Verilog wrapper
+Skipping VHDL instantiation template for alct_cs_control...
+Creating ISE instantiation template for alct_cs_control...
+Finished Generation.
+Generating IP instantiation template...
 Generating ASY schematic symbol...
 INFO:sim:949 - Finished generation of ASY schematic symbol.
-Generating SYM schematic symbol for 'din_dly_out'...
+Generating SYM schematic symbol for 'alct_cs_control'...
+Generating metadata file...
 Generating ISE project...
-XCO file found: din_dly_out.xco
-XMDF file found: din_dly_out_xmdf.tcl
+XCO file found: alct_cs_control.xco
+XMDF file found: alct_cs_control_xmdf.tcl
 Adding
-/home/hvuser/cernbox/projects/ise/alct/ise14/alct_LX150T_576mirror_1/ipcore_dir/
-tmp/_cg/din_dly_out/example_design/din_dly_out_exdes.ucf -view all -origin_type
-created
+/home/madorsky/github/alct/ise/alct_LX150T_576mirror/ipcore_dir/tmp/_cg/alct_cs_
+control.asy -view all -origin_type imported
 Adding
-/home/hvuser/cernbox/projects/ise/alct/ise14/alct_LX150T_576mirror_1/ipcore_dir/
-tmp/_cg/din_dly_out/example_design/din_dly_out_exdes.v -view all -origin_type
-created
+/home/madorsky/github/alct/ise/alct_LX150T_576mirror/ipcore_dir/tmp/_cg/alct_cs_
+control.ngc -view all -origin_type created
+Checking file
+"/home/madorsky/github/alct/ise/alct_LX150T_576mirror/ipcore_dir/tmp/_cg/alct_cs
+_control.ngc" for project device match ...
+File
+"/home/madorsky/github/alct/ise/alct_LX150T_576mirror/ipcore_dir/tmp/_cg/alct_cs
+_control.ngc" device information matches project device.
+Adding
+/home/madorsky/github/alct/ise/alct_LX150T_576mirror/ipcore_dir/tmp/_cg/alct_cs_
+control.v -view all -origin_type created
 INFO:HDLCompiler:1845 - Analyzing Verilog file
-   "/home/hvuser/cernbox/projects/ise/alct/ise14/alct_LX150T_576mirror_1/ipcore_
-   dir/tmp/_cg/din_dly_out/example_design/din_dly_out_exdes.v" into library work
+   "/home/madorsky/github/alct/ise/alct_LX150T_576mirror/ipcore_dir/tmp/_cg/alct
+   _cs_control.v" into library work
 INFO:ProjectMgmt - Parsing design hierarchy completed successfully.
 Adding
-/home/hvuser/cernbox/projects/ise/alct/ise14/alct_LX150T_576mirror_1/ipcore_dir/
-tmp/_cg/din_dly_out.asy -view all -origin_type imported
-Adding
-/home/hvuser/cernbox/projects/ise/alct/ise14/alct_LX150T_576mirror_1/ipcore_dir/
-tmp/_cg/din_dly_out.v -view all -origin_type created
-INFO:HDLCompiler:1845 - Analyzing Verilog file
-   "/home/hvuser/cernbox/projects/ise/alct/ise14/alct_LX150T_576mirror_1/ipcore_
-   dir/tmp/_cg/din_dly_out.v" into library work
-INFO:ProjectMgmt - Parsing design hierarchy completed successfully.
-Adding
-/home/hvuser/cernbox/projects/ise/alct/ise14/alct_LX150T_576mirror_1/ipcore_dir/
-tmp/_cg/din_dly_out.ucf -view all -origin_type created
-Adding
-/home/hvuser/cernbox/projects/ise/alct/ise14/alct_LX150T_576mirror_1/ipcore_dir/
-tmp/_cg/din_dly_out.veo -view all -origin_type imported
-WARNING: This core does not have a top level called "/din_dly_out"
-WARNING: Top level has been set to "/din_dly_out_exdes"
+/home/madorsky/github/alct/ise/alct_LX150T_576mirror/ipcore_dir/tmp/_cg/alct_cs_
+control.veo -view all -origin_type imported
+INFO:TclTasksC:2116 - The automatic calculation of top has been turned-off.
+   Please set the new top explicitly by running the "project set top" command.
+   To re-calculate the new top automatically, set the "Auto Implementation Top"
+   property to true.
+Top level has been set to "/alct_cs_control"
 Generating README file...
 Generating FLIST file...
 INFO:sim:948 - Finished FLIST file generation.
-Launching README viewer...
 Moving files to output directory...
 Finished moving files to output directory
-Wrote CGP file for project 'din_dly_out'.
+Wrote CGP file for project 'alct_cs_control'.

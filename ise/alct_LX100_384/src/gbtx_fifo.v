@@ -22,7 +22,7 @@
 *     devices, or systems.  Use in such applications are expressly             *
 *     prohibited.                                                              *
 *                                                                              *
-*     (c) Copyright 1995-2019 Xilinx, Inc.                                     *
+*     (c) Copyright 1995-2022 Xilinx, Inc.                                     *
 *     All rights reserved.                                                     *
 *******************************************************************************/
 // You must compile the wrapper file gbtx_fifo.v when simulating
@@ -45,7 +45,8 @@ module gbtx_fifo(
   rd_en,
   dout,
   full,
-  empty
+  empty,
+  valid
 );
 
 input rst;
@@ -57,6 +58,7 @@ input rd_en;
 output [27 : 0] dout;
 output full;
 output empty;
+output valid;
 
 // synthesis translate_off
 
@@ -149,7 +151,7 @@ output empty;
     .C_HAS_SLAVE_CE(0),
     .C_HAS_SRST(0),
     .C_HAS_UNDERFLOW(0),
-    .C_HAS_VALID(0),
+    .C_HAS_VALID(1),
     .C_HAS_WR_ACK(0),
     .C_HAS_WR_DATA_COUNT(0),
     .C_HAS_WR_RST(0),
@@ -261,6 +263,7 @@ output empty;
     .DOUT(dout),
     .FULL(full),
     .EMPTY(empty),
+    .VALID(valid),
     .BACKUP(),
     .BACKUP_MARKER(),
     .CLK(),
@@ -280,7 +283,6 @@ output empty;
     .WR_ACK(),
     .OVERFLOW(),
     .ALMOST_EMPTY(),
-    .VALID(),
     .UNDERFLOW(),
     .DATA_COUNT(),
     .RD_DATA_COUNT(),

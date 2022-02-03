@@ -1,6 +1,6 @@
 #ChipScope Pro Analyzer Project File, Version 3.0
 #Thu Jul 27 15:56:09 IST 2006
-device.1.configFileDir=/home/hvuser/cernbox/projects/ise/alct/ise14/alct_LX150T_672_1/remote_sources/_/_/alct_LX150T_672/s6_gtpwizard_v1_11/implement/
+device.1.configFileDir=/home/madorsky/github/alct/ise/alct_LX150T_576mirror/src/s6_gtpwizard_v1_11/implement/
 device.1.configFilename=s6_gtpwizard_v1_11_top.bit
 deviceChain.deviceName0=System_ACE
 deviceChain.deviceName1=XC6SLX150T

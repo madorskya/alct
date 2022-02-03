@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2021-05-26T16:54:08</DateModified>
+  <DateModified>2022-02-03T19:56:49</DateModified>
   <ModuleName>alct384mirror</ModuleName>
   <SummaryTimeStamp>Unknown</SummaryTimeStamp>
-  <SavedFilePath>/home/hvuser/github/alct/ise/alct_LX100_384mirror/iseconfig/alct384mirror.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>/home/hvuser/github/alct/ise/alct_LX100_384mirror/</ImplementationReportsDirectory>
+  <SavedFilePath>/home/madorsky/github/alct/ise/alct_LX100_384mirror/iseconfig/alct384mirror.xreport</SavedFilePath>
+  <ImplementationReportsDirectory>/home/madorsky/github/alct/ise/alct_LX100_384mirror/</ImplementationReportsDirectory>
   <DateInitialized>2019-03-21T16:45:39</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>
