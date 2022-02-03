@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2022-02-01T17:52:08</DateModified>
+  <DateModified>2022-02-03T19:16:32</DateModified>
   <ModuleName>alct672</ModuleName>
-  <SummaryTimeStamp>2022-01-27T03:16:41</SummaryTimeStamp>
+  <SummaryTimeStamp>2022-02-03T18:01:35</SummaryTimeStamp>
   <SavedFilePath>/home/madorsky/github/alct/ise/alct_LX150T_672/iseconfig/alct672.xreport</SavedFilePath>
   <ImplementationReportsDirectory>/home/madorsky/github/alct/ise/alct_LX150T_672/</ImplementationReportsDirectory>
   <DateInitialized>2019-04-26T09:07:52</DateInitialized>
