@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : gbtx.v
-// Timestamp : Thu Feb  3 17:19:43 2022
+// Timestamp : Wed Mar  2 21:00:37 2022
 
 module gbtx
 (
@@ -40,6 +40,7 @@ module gbtx
     reg [13:0] el1_r;
     wire dv;
     reg dv_r;
+    reg [2:0] idle_cnt;
 	dll_gbtx dllg (.CLK_IN1_P(gbt_clk40_p), .CLK_IN1_N(gbt_clk40_n), .CLK_OUT1(gbt_clk160), .RESET(0), .LOCKED());
 	OBUFDS elink_buf[13:0] (.I(elink), .O(elink_p), .OB(elink_n));
 	ODDR2 elink_oddr[13:0] (.D0(el0_r), .D1(el1_r), .C0(gbt_clk160), .C1(!gbt_clk160), .CE(1'b1), .R(1'b0), .S(1'b0), .Q(elink));
@@ -48,7 +49,7 @@ module gbtx
 		.rst      (rst),
 		.wr_clk   (clk),
 		.rd_clk   (gbt_clk160),
-		.din      ({5'b00000, daq_word[18:10], 4'b1000, daq_word[9:0]}),
+		.din      ({5'b00000, daq_word[18:10], 4'b0000, daq_word[9:0]}),
 		.wr_en    (~daq_word[18]),
 		.rd_en    (1'b1),
 		.dout     ({el1, el0}),
@@ -58,8 +59,14 @@ module gbtx
 	);
     always @(posedge gbt_clk160) 
     begin
-        el0_r = el0;
-        el1_r = el1;
+        el0_r = {1'd1, idle_cnt, 10'd0};
+        el1_r = {1'd0, idle_cnt, 10'd0};
+        if (dv) 
+        begin
+            el0_r = el0_r | el0;
+            el1_r = el1_r | el1;
+        end
         dv_r = dv;
+        idle_cnt = idle_cnt + 1;
     end
 endmodule

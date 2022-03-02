@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : gtp_tux.v
-// Timestamp : Thu Feb  3 17:21:15 2022
+// Timestamp : Wed Mar  2 21:02:02 2022
 
 module gtp_tux
 (

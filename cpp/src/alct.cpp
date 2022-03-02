@@ -839,12 +839,13 @@ beginmodule
 		clk		
 	);
 
-	assign send_bxn = (validh || validl || actv_feb_fg) && !alct_sync_mode;
+	assign send_bxn = Signal(1,0);
 	// sending shower bits instead of bxn[2:1], according to 
   // Sven's message from 2021-10-29
+  // reworked to send hmt bits regardless of LCTs found or not
+	// see Tao's message from 2022-02-25
 	assign shower_bits = (Signal(2,0), shower_int, bxn(0));
-	assign dummy_bxn = (Signal(4,0), bxn(0));
-	assign bxn_mux = ifelse(send_bxn, dummy_bxn, ifelse(shower_int != Signal(2,0), shower_bits, ecc_err_5));
+	assign bxn_mux = ifelse(shower_int != Signal(2,0), shower_bits, ecc_err_5);
 
 	// mux the outputs
 	always (posedge (clk2x))

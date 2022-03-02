@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : alct384.v
-// Timestamp : Thu Feb  3 17:20:57 2022
+// Timestamp : Wed Mar  2 21:01:43 2022
 
 module alct384
 (
@@ -350,7 +350,7 @@ initial hard_rst = 0;
     assign mx_oe = 0;
     // Mux OE
     // JTAG port instantiation
-    assign virtex_id = {4'd2, 5'd3, 12'd2022, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0, 1'b1, 3'h3, 6'h5};
+    assign virtex_id = {4'd3, 5'd2, 12'd2022, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0, 1'b1, 3'h3, 6'h5};
     jtag TAP
     (
         tck2b,
@@ -642,10 +642,9 @@ initial hard_rst = 0;
         alct_sync_mode,
         clk
     );
-    assign send_bxn = ((validh || validl) || actv_feb_fg) && (!alct_sync_mode);
+    assign send_bxn = 1'd0;
     assign shower_bits = {2'd0, shower_int, bxn[0]};
-    assign dummy_bxn = {4'd0, bxn[0]};
-    assign bxn_mux = (send_bxn) ? dummy_bxn : (shower_int != 2'd0) ? shower_bits : ecc_err_5;
+    assign bxn_mux = (shower_int != 2'd0) ? shower_bits : ecc_err_5;
     always @(posedge clk2x) 
     begin
         if (clock_lac == 0) 

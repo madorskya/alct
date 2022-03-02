@@ -28,5 +28,6 @@ class gbtx_c: public module
   Signal el1_r;
   Signal dv;
   Signal dv_r;
+	Signal idle_cnt;
 
 };

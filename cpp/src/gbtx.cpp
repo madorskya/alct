@@ -39,6 +39,7 @@ beginmodule
     Reg_ (el1_r, 13, 0);
     Wire  (dv);
     Reg  (dv_r);
+		Reg_ (idle_cnt, 2, 0);
     
 
     //    assign gbt_tx_datavalid = (Signal)"1'b1";
@@ -53,7 +54,7 @@ beginmodule
 	       "\t\t.rst      (rst),\n"
 	       "\t\t.wr_clk   (clk),\n"
 	       "\t\t.rd_clk   (gbt_clk160),\n"
-	       "\t\t.din      ({5'b00000, daq_word[18:10], 4'b1000, daq_word[9:0]}),\n"
+	       "\t\t.din      ({5'b00000, daq_word[18:10], 4'b0000, daq_word[9:0]}),\n"
 	       "\t\t.wr_en    (~daq_word[18]),\n"
 	       "\t\t.rd_en    (1'b1),\n"
 	       "\t\t.dout     ({el1, el0}),\n"
@@ -70,9 +71,16 @@ beginmodule
 
     always (posedge (gbt_clk160))
     begin
-      el0_r = el0;
-      el1_r = el1;
+			// test pattern and header
+      el0_r = (Signal(1,1), idle_cnt, Signal(10,0));
+		  el1_r = (Signal(1,0), idle_cnt, Signal(10,0));
+			If (dv) // plug data if valid
+			begin
+				el0_r = el0_r | el0;
+				el1_r = el1_r | el1;
+			end
       dv_r  = dv;
+			idle_cnt++;
     end
 
 endmodule
