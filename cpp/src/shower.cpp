@@ -1,5 +1,5 @@
 #include "shower.h"
-#define SHOWER_PIPE_N 5
+#define SHOWER_PIPE_N 4
 
 void shower::operator ()
 (
@@ -7,6 +7,7 @@ void shower::operator ()
      Signal th_loose,
      Signal th_nominal,
      Signal th_tight,
+		 Signal drifttime,
      Signal shower_int,
      Signal clk
 )
@@ -22,6 +23,8 @@ initio
   Input_(th_loose  , 9,0);
   Input_(th_nominal, 9,0);
   Input_(th_tight  , 9,0);
+
+	Input_(drifttime, 2,0);
 
   OutReg_(shower_int, 1,0);
   
@@ -65,7 +68,10 @@ beginmodule
 				slc[i] = slc[i+1];
 			end
 
-			slc[SHOWER_PIPE_N-1] = (ly_count, count);
+			// latency depends on configured drifttime
+			// should actually be drifttime + 2, but OTMB sees HMT bits being late, so setting here according to them
+			// see msg from Tao 2022-03-10
+ 		  slc[drifttime] = (ly_count, count); 
       // count hits in current BX
       count = 0;
 			ly_count = 0;

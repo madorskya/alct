@@ -14,7 +14,8 @@
          <ClosedNode>/alct672 |home|hvuser|cernbox|projects|ise|alct|alct_LX150T_672|alct672.v/gtp_tux - gtp_tux/gtp - optical_lx150t/prbs - PRBS_tx</ClosedNode>
          <ClosedNode>/alct672 |home|hvuser|cernbox|projects|ise|alct|alct_LX150T_672|alct672.v/gtp_tux - gtp_tux/gtp - optical_lx150t/prbs0 - PRBS_tx</ClosedNode>
          <ClosedNode>/alct672 |home|hvuser|cernbox|projects|ise|alct|alct_LX150T_672|alct672.v/gtp_tux - gtp_tux/gtp - optical_lx150t/prbs1 - PRBS_tx</ClosedNode>
-         <ClosedNode>/alct672 |home|madorsky|github|alct|ise|alct_LX150T_672|src|alct672.v/core - trigger_rl</ClosedNode>
+         <ClosedNode>/alct672 |home|madorsky|github|alct|ise|alct_LX150T_672|src|alct672.v/core - trigger_rl/ExtendPulses - Stage0</ClosedNode>
+         <ClosedNode>/alct672 |home|madorsky|github|alct|ise|alct_LX150T_672|src|alct672.v/core - trigger_rl/FindPatterns - Stage1_rl</ClosedNode>
          <ClosedNode>/alct672 |home|madorsky|github|alct|ise|alct_LX150T_672|src|alct672.v/daq_06 - daq_06</ClosedNode>
          <ClosedNode>/alct672 |home|madorsky|github|alct|ise|alct_LX150T_672|src|alct672.v/gtp_tux - gtp_tux</ClosedNode>
          <ClosedNode>/optical_lx150t |home|hvuser|cernbox|projects|ise|alct|alct_LX150T_672|optical.v/prbs - PRBS_tx</ClosedNode>
@@ -82,13 +83,13 @@
          <ClosedNode>User Constraints</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>Generate Programming File</SelectedItem>
+         <SelectedItem></SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000001d5000000010000000100000000000000000000000064ffffffff000000810000000000000001000001d50000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem>Generate Programming File</CurrentItem>
+      <CurrentItem></CurrentItem>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="DESUT_UCF" guiview="Process" >
       <ClosedNodes>

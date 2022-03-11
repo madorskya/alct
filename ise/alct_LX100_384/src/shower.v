@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : shower.v
-// Timestamp : Wed Mar  2 21:01:43 2022
+// Timestamp : Fri Mar 11 16:48:42 2022
 
 module shower
 (
@@ -19,6 +19,7 @@ module shower
     th_loose,
     th_nominal,
     th_tight,
+    drifttime,
     shower_int,
     clk
 );
@@ -32,6 +33,7 @@ module shower
     input [9:0] th_loose;
     input [9:0] th_nominal;
     input [9:0] th_tight;
+    input [2:0] drifttime;
     output [1:0] shower_int;
     reg    [1:0] shower_int;
     input clk;
@@ -39,7 +41,7 @@ module shower
     reg [6:0] i;
     reg [9:0] count;
     reg [2:0] ly_count;
-    reg [12:0] slc [4:0];
+    reg [12:0] slc [3:0];
     reg loose;
     reg nominal;
     reg tight;
@@ -59,11 +61,11 @@ module shower
         if (tight == 1) shower_int = 3;
         else if (nominal == 1) shower_int = 2;
         else if (loose == 1) shower_int = 1;
-        for (i = 0; i < 4; i = i + 1) 
+        for (i = 0; i < 3; i = i + 1) 
         begin
             slc[i] = slc[i + 1];
         end
-        slc[4] = {ly_count, count};
+        slc[drifttime] = {ly_count, count};
         count = 0;
         ly_count = 0;
         for (i = 0; i < 64; i = i + 1) count = count + ly0[i];

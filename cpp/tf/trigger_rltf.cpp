@@ -47,10 +47,10 @@ int main ()
 	HCmask = ~HCmask;
 
 	PromoteColl = 1;
-	drifttime = 3;
-	pretrig	  = 2;
-	trig      = 3; // nph_trigger = 4
-	trig_mode = 0;
+	drifttime = 3; // was 3
+	pretrig	  = 3; // was 2
+	trig      = 4; // was 3
+	trig_mode = 2;
 
 // trig_mode:
 // 0 - coll & acc
@@ -58,8 +58,8 @@ int main ()
 // 2 - coll
 // 3 - acc kills coll
 
-	acc_pretrig = 2;
-	acc_trig = 3;
+	acc_pretrig = 0; // was 2
+	acc_trig = 0; // was 3
 	trig_stop = 0;
 	input_disr = 0;
 	ext_trig_en = 0;

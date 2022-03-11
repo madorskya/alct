@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : alct672.v
-// Timestamp : Wed Mar  2 21:02:19 2022
+// Timestamp : Fri Mar 11 16:49:18 2022
 
 module alct672
 (
@@ -352,7 +352,7 @@ initial hard_rst = 0;
     assign mx_oe = 0;
     // Mux OE
     // JTAG port instantiation
-    assign virtex_id = {4'd3, 5'd2, 12'd2022, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0, 1'b1, 3'h6, 6'h5};
+    assign virtex_id = {4'd3, 5'd11, 12'd2022, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0, 1'b1, 3'h6, 6'h5};
     jtag TAP
     (
         tck2b,

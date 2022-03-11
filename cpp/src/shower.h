@@ -20,6 +20,7 @@ public:
      Signal th_loose,
      Signal th_nominal,
      Signal th_tight,
+		 Signal drifttime,
      Signal shower_int,
      Signal clk
   );

@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : outfifo.v
-// Timestamp : Wed Mar  2 21:00:03 2022
+// Timestamp : Fri Mar 11 16:46:58 2022
 
 module outfifo
 (

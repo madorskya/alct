@@ -155,6 +155,7 @@ beginmodule
 		hmt_thresholds ( 9,  0), // loose
 		hmt_thresholds (19, 10), // nom
 		hmt_thresholds (29, 20), // tight
+		drifttime, // shower detector latency should match that
 		shower_int,
 		clk
         );
