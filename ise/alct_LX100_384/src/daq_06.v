@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : daq_06.v
-// Timestamp : Fri Mar 11 16:48:42 2022
+// Timestamp : Tue Mar 22 18:42:04 2022
 
 module daq_06
 (
@@ -366,7 +366,7 @@ module daq_06
                     lct_bins = (send_empty || have_lcts) ? l1a_window : 0;
                     raw_bins = (fifo_mode != 0) ? fifo_tbins : 0;
                     lct_bins_report = (lct_bins != 0) ? lct_bins + 4'b1 : 4'b0;
-                    daqw = {4'b0, 6'h5, lct_bins_report, raw_bins};
+                    daqw = {4'b0, 6'h6, lct_bins_report, raw_bins};
                     state = (config_report) ? 13 : (lct_bins != 0) ? 16 : (raw_bins != 0) ? 19 : 21;
                     conf_w_count = 0;
                     if (state == 16) 

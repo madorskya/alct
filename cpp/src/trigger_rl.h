@@ -11,7 +11,6 @@ class trigger_rl: public module
 public:
    
     Signal ly0, ly1, ly2, ly3, ly4, ly5;
-    Signal ly0m, ly1m, ly2m, ly3m, ly4m, ly5m;
 
 	Signal qca0, qca1, qca2, qca3, qa0, qa1, qa2, qa3;	   
 	Signal bwc1w, bwc2w, bqc1w, bqc2w, bwa1w, bwa2w, bqa1w, bqa2w;
@@ -27,6 +26,7 @@ public:
 	void operator()
 	(
 		Signal ly0p, Signal ly1p, Signal ly2p, Signal ly3p, Signal ly4p, Signal ly5p,
+    Signal ly0m, Signal ly1m, Signal ly2m, Signal ly3m, Signal ly4m, Signal ly5m,
 		Signal collmask,                          
 		Signal PromoteColl,                       
 		Signal hp, Signal hnp, Signal hfap, Signal hpatbp, Signal hv,

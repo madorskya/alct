@@ -4,6 +4,7 @@
 void trigger_rl::operator()
 (
 	Signal ly0p, Signal ly1p, Signal ly2p, Signal ly3p, Signal ly4p, Signal ly5p,
+	Signal ly0m, Signal ly1m, Signal ly2m, Signal ly3m, Signal ly4m, Signal ly5m,
 	Signal collmask,                          
 	Signal PromoteColl,                       
 	Signal hp, Signal hnp, Signal hfap, Signal hpatbp, Signal hv,
@@ -35,6 +36,14 @@ initio
 	Input_(ly3p, LYWG-1, 0); 
 	Input_(ly4p, LYWG-1, 0); 
 	Input_(ly5p, LYWG-1, 0);
+
+	OutReg_(ly0m, LYWG-1, 0); 
+	OutReg_(ly1m, LYWG-1, 0); 
+	OutReg_(ly2m, LYWG-1, 0); 
+	OutReg_(ly3m, LYWG-1, 0); 
+	OutReg_(ly4m, LYWG-1, 0); 
+	OutReg_(ly5m, LYWG-1, 0);
+
 	Input_(collmask, COLLMASKBITS-1, 0);
 	Input (PromoteColl);
 
@@ -72,13 +81,6 @@ initio
 	Input (clk);
 
 beginmodule
-
-    	Reg_(ly0m, LYWG-1, 0); 
-	Reg_(ly1m, LYWG-1, 0); 
-	Reg_(ly2m, LYWG-1, 0); 
-	Reg_(ly3m, LYWG-1, 0); 
-	Reg_(ly4m, LYWG-1, 0); 
-	Reg_(ly5m, LYWG-1, 0);
 
 	Wire_(ly0, LYWG-1, 0); 
 	Wire_(ly1, LYWG-1, 0); 

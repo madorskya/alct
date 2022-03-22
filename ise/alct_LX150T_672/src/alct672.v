@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : alct672.v
-// Timestamp : Fri Mar 11 16:49:18 2022
+// Timestamp : Tue Mar 22 18:42:38 2022
 
 module alct672
 (
@@ -220,6 +220,12 @@ initial hard_rst = 0;
     reg [111:0] ly3;
     reg [111:0] ly4;
     reg [111:0] ly5;
+    wire [111:0] lym0;
+    wire [111:0] lym1;
+    wire [111:0] lym2;
+    wire [111:0] lym3;
+    wire [111:0] lym4;
+    wire [111:0] lym5;
     reg input_disr;
     wire clkb;
     wire settst_dly;
@@ -352,7 +358,7 @@ initial hard_rst = 0;
     assign mx_oe = 0;
     // Mux OE
     // JTAG port instantiation
-    assign virtex_id = {4'd3, 5'd11, 12'd2022, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0, 1'b1, 3'h6, 6'h5};
+    assign virtex_id = {4'd3, 5'd22, 12'd2022, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0, 1'b1, 3'h6, 6'h6};
     jtag TAP
     (
         tck2b,
@@ -570,6 +576,12 @@ initial hard_rst = 0;
         ly3,
         ly4,
         ly5,
+        lym0,
+        lym1,
+        lym2,
+        lym3,
+        lym4,
+        lym5,
         collmask,
         PromoteColl,
         h,
@@ -634,12 +646,12 @@ initial hard_rst = 0;
     assign tst_pls = (TrigReg[4:2] == 0) ? tst_plss : (TrigReg[4:2] == 1) ? SyncAdb2 : (TrigReg[4:2] == 2) ? AsyncAdb : (TrigReg[4:2] == 3) ? tp_strt_ext : (TrigReg[4:2] == 4) ? !tst_plss : (TrigReg[4:2] == 5) ? !SyncAdb2 : (TrigReg[4:2] == 6) ? !AsyncAdb : (TrigReg[4:2] == 7) ? !tp_strt_ext : 0;
     daq_06 daq_06
     (
-        ly0,
-        ly1,
-        ly2,
-        ly3,
-        ly4,
-        ly5,
+        lym0,
+        lym1,
+        lym2,
+        lym3,
+        lym4,
+        lym5,
         {hn, validh, hfa, h},
         {ln, validl, lfa, l},
         shower_int,

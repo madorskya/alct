@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : trigger_rl.v
-// Timestamp : Fri Mar 11 16:48:25 2022
+// Timestamp : Tue Mar 22 18:41:47 2022
 
 module trigger_rl
 (
@@ -16,6 +16,12 @@ module trigger_rl
     ly3p,
     ly4p,
     ly5p,
+    ly0m,
+    ly1m,
+    ly2m,
+    ly3m,
+    ly4m,
+    ly5m,
     collmask,
     PromoteColl,
     hp,
@@ -53,6 +59,18 @@ module trigger_rl
     input [63:0] ly3p;
     input [63:0] ly4p;
     input [63:0] ly5p;
+    output [63:0] ly0m;
+    reg    [63:0] ly0m;
+    output [63:0] ly1m;
+    reg    [63:0] ly1m;
+    output [63:0] ly2m;
+    reg    [63:0] ly2m;
+    output [63:0] ly3m;
+    reg    [63:0] ly3m;
+    output [63:0] ly4m;
+    reg    [63:0] ly4m;
+    output [63:0] ly5m;
+    reg    [63:0] ly5m;
     input [223:0] collmask;
     input PromoteColl;
     output [1:0] hp;
@@ -84,12 +102,6 @@ module trigger_rl
     input [29:0] hmt_thresholds;
     input clk;
 
-    reg [63:0] ly0m;
-    reg [63:0] ly1m;
-    reg [63:0] ly2m;
-    reg [63:0] ly3m;
-    reg [63:0] ly4m;
-    reg [63:0] ly5m;
     wire [63:0] ly0;
     wire [63:0] ly1;
     wire [63:0] ly2;

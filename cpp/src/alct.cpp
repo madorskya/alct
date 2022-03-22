@@ -212,6 +212,12 @@ beginmodule
 	ly[3].reg(LYWG-1, 0, "ly3");
 	ly[4].reg(LYWG-1, 0, "ly4");
 	ly[5].reg(LYWG-1, 0, "ly5");
+	lym[0].wire(LYWG-1, 0, "lym0");
+	lym[1].wire(LYWG-1, 0, "lym1");
+	lym[2].wire(LYWG-1, 0, "lym2");
+	lym[3].wire(LYWG-1, 0, "lym3");
+	lym[4].wire(LYWG-1, 0, "lym4");
+	lym[5].wire(LYWG-1, 0, "lym5");
 	input_disr.reg("input_disr");
 	clkb.wire("clkb");
 	settst_dly.wire("settst_dly");
@@ -679,7 +685,8 @@ beginmodule
 
 	core
 	(
-		ly[0], ly[1], ly[2], ly[3], ly[4], ly[5],
+		ly[0],  ly[1],  ly[2],  ly[3],  ly[4],  ly[5],
+		lym[0], lym[1], lym[2], lym[3], lym[4], lym[5], // hits with hot channel mask applied
 		collmask,
 		PromoteColl,
 		h, hn, hfa, hpatb, validh,
@@ -787,7 +794,7 @@ beginmodule
 	Module (daq_06);
 	daq_06
 	(
-    	ly[0], ly[1], ly[2], ly[3], ly[4], ly[5],
+    	lym[0], lym[1], lym[2], lym[3], lym[4], lym[5],
 	    (hn, validh, hfa, h),
     	(ln, validl, lfa, l),
 			shower_int,

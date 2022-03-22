@@ -141,6 +141,7 @@ public:
 	Signal hard_rst; 
 	Signal hrstcnt;
 	Signal ly[LYN];
+	Signal lym[LYN];
 	Signal input_disr;
 	Signal clkb;
 	Signal settst_dly;
