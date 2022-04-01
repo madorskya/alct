@@ -8,6 +8,7 @@ void shower::operator ()
      Signal th_nominal,
      Signal th_tight,
 		 Signal drifttime,
+		 Signal trig_stop,
      Signal shower_int,
      Signal clk
 )
@@ -25,6 +26,7 @@ initio
   Input_(th_tight  , 9,0);
 
 	Input_(drifttime, 2,0);
+	Input (trig_stop);
 
   OutReg_(shower_int, 1,0);
   
@@ -58,9 +60,12 @@ beginmodule
 
       shower_int = 0;
 			// set output flag accordingly
-      If      (tight   == 1) shower_int = 3;
-      Else If (nominal == 1) shower_int = 2;
-      Else If (loose   == 1) shower_int = 1;
+			If (trig_stop == Signal(1,0)) // only if triggering is enabled
+			begin
+          If      (tight   == 1) shower_int = 3;
+          Else If (nominal == 1) shower_int = 2;
+          Else If (loose   == 1) shower_int = 1;
+			end
 
       // push the pipeline 
       For (i = 0, i < SHOWER_PIPE_N-1, i++) 

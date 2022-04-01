@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : promoter_rl.v
-// Timestamp : Tue Mar 22 18:41:48 2022
+// Timestamp : Fri Apr  1 23:12:35 2022
 
 module promoter_rl
 (

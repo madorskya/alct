@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : trigger_rl.v
-// Timestamp : Tue Mar 22 18:40:29 2022
+// Timestamp : Fri Apr  1 23:11:19 2022
 
 module trigger_rl
 (
@@ -170,6 +170,7 @@ module trigger_rl
         hmt_thresholds[19:10],
         hmt_thresholds[29:20],
         drifttime,
+        trig_stop,
         shower_int,
         clk
     );

@@ -21,6 +21,7 @@ public:
      Signal th_nominal,
      Signal th_tight,
 		 Signal drifttime,
+		 Signal trig_stop,
      Signal shower_int,
      Signal clk
   );

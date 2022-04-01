@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : alct288.v
-// Timestamp : Tue Mar 22 18:41:32 2022
+// Timestamp : Fri Apr  1 23:12:18 2022
 
 module alct288
 (
@@ -354,7 +354,7 @@ initial hard_rst = 0;
     assign mx_oe = 0;
     // Mux OE
     // JTAG port instantiation
-    assign virtex_id = {4'd3, 5'd22, 12'd2022, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0, 1'b1, 3'h2, 6'h6};
+    assign virtex_id = {4'd4, 5'd1, 12'd2022, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0, 1'b1, 3'h2, 6'h6};
     jtag TAP
     (
         tck2b,
