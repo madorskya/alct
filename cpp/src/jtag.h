@@ -70,6 +70,7 @@ public:
 		adc_wr_sr,
 		adc_rd_sr;
 #endif
+	  Signal dout_dly_r;
 
 };
 

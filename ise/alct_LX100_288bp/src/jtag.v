@@ -6,7 +6,7 @@
 
 // Author    : madorsky
 // File name : jtag.v
-// Timestamp : Fri Apr  1 23:11:47 2022
+// Timestamp : Tue Apr 19 16:44:51 2022
 
 module jtag
 (
@@ -156,6 +156,7 @@ module jtag
     reg [4:0] sr;
     reg [15:0] tdomux;
     reg dly_tdo;
+    reg [2:0] dout_dly_r;
     reg [30:0] YRs;
     reg [48:0] OSs;
     reg [4:0] TrigRegs;
@@ -211,7 +212,7 @@ initial TAPstate = RunTestIdle;
         end
         else 
         begin
-            dly_tdo = |(dout_dly & (~ParamReg[4:2]));
+            dout_dly_r = dout_dly;
             dly_clk_en = 0;
             OSre = 0;
             case (TAPstate)
@@ -367,6 +368,7 @@ initial TAPstate = RunTestIdle;
     assign clk_dly = (dly_clk_en) ? !tck : 0;
     always @(negedge tck) 
     begin
+        dly_tdo = |(dout_dly_r & (~ParamReg[4:2]));
         tdo = ((((((((((((tdomux[0] & HCmask[0]) | (tdomux[1] & collmask[0])) | (tdomux[2] & ParamRegs[0])) | (tdomux[3] & ConfgRegs[0])) | (tdomux[4] & dly_tdo)) | (tdomux[5] & bpass)) | (tdomux[6] & sr[0])) | (tdomux[7] & OSs[0])) | (tdomux[8] & TrigRegs[0])) | (tdomux[9] & IDs[0])) | (tdomux[10] & SNrd)) | (tdomux[11] & YRs[0])) | (tdomux[12] & hcounterss[0]);
         tdo = ((tdo | (tdomux[13] & adc_rd_sr[0])) | (tdomux[14] & adc_wr_sr[0])) | (tdomux[15] & hmt_thresholds_s[0]);
     end

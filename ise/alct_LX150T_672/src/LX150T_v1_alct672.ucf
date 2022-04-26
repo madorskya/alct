@@ -105,13 +105,13 @@ NET "daqData<6>"        LOC = "P23"  | IOSTANDARD = LVCMOS33;     # XP2D_23    d
 NET "dduSpec_LastFr"    LOC = "K26"  | IOSTANDARD = LVCMOS33;     # XP2D_24    ddu_specl
 NET "din_dly"           LOC = "T3"   | IOSTANDARD = LVCMOS33;      # XP3C_19    din_dly
 NET "dout_bx0"          LOC = "AC29" | IOSTANDARD = LVCMOS33;    # XP2B_13    dout_str
-NET "dout_dly<0>"       LOC = "AA22" | IOSTANDARD = LVCMOS33;    # XP1A_9     dout_dly0
-NET "dout_dly<1>"       LOC = "W20"  | IOSTANDARD = LVCMOS33;     # XP1B_9     dout_dly1
-NET "dout_dly<2>"       LOC = "AF23" | IOSTANDARD = LVCMOS33;    # XP1C_9     dout_dly2
-NET "dout_dly<3>"       LOC = "AK28" | IOSTANDARD = LVCMOS33;    # XP1D_9     dout_dly3
-NET "dout_dly<4>"       LOC = "G27"  | IOSTANDARD = LVCMOS33;     # XP4D_9     dout_dly4
-NET "dout_dly<5>"       LOC = "A29"  | IOSTANDARD = LVCMOS33;     # XP4C_9     dout_dly5
-NET "dout_dly<6>"       LOC = "F28"  | IOSTANDARD = LVCMOS33;     # XP4B_9     dout_dly6
+NET "dout_dly<0>"       LOC = "AA22" | IOSTANDARD = LVCMOS33 | IOB = TRUE;    # XP1A_9     dout_dly0
+NET "dout_dly<1>"       LOC = "W20"  | IOSTANDARD = LVCMOS33 | IOB = TRUE;     # XP1B_9     dout_dly1
+NET "dout_dly<2>"       LOC = "AF23" | IOSTANDARD = LVCMOS33 | IOB = TRUE;    # XP1C_9     dout_dly2
+NET "dout_dly<3>"       LOC = "AK28" | IOSTANDARD = LVCMOS33 | IOB = TRUE;    # XP1D_9     dout_dly3
+NET "dout_dly<4>"       LOC = "G27"  | IOSTANDARD = LVCMOS33 | IOB = TRUE;     # XP4D_9     dout_dly4
+NET "dout_dly<5>"       LOC = "A29"  | IOSTANDARD = LVCMOS33 | IOB = TRUE;     # XP4C_9     dout_dly5
+NET "dout_dly<6>"       LOC = "F28"  | IOSTANDARD = LVCMOS33 | IOB = TRUE;     # XP4B_9     dout_dly6
 NET "ext_inject_trig"   LOC = "AD28" | IOSTANDARD = LVCMOS33;    # XP2C_13    ext_injct
 NET "jstate<0>"         LOC = "AA29" | IOSTANDARD = LVCMOS33;    # XP2A_25    jstate0_grn
 NET "jstate<1>"         LOC = "AA30" | IOSTANDARD = LVCMOS33;    # XP2B_25    jstate1_grn
@@ -142,7 +142,7 @@ NET "settst_dlyp"       LOC = "T2"   | IOSTANDARD = LVCMOS33;      # XP3C_22    
 NET "sl_cn_done"        LOC = "M27"  | IOSTANDARD = LVCMOS33;     # XP2C_30    sl_cl_done
 NET "tck2"              LOC = "AB30" | IOSTANDARD = LVCMOS33;    # XP2D_11    tck_ctrl
 NET "tdi2"              LOC = "AE28" | IOSTANDARD = LVCMOS33;    # XP2A_11    tdi_ctrl
-NET "tdo2"              LOC = "AF30" | IOSTANDARD = LVCMOS33;    # XP2B_11    tdo_ctrl
+NET "tdo2"              LOC = "AF30" | IOSTANDARD = LVCMOS33 | IOB = TRUE;    # XP2B_11    tdo_ctrl
 NET "tms2"              LOC = "AE29" | IOSTANDARD = LVCMOS33;    # XP2C_11    tms_ctrl
 NET "tp_strt_ext"       LOC = "AA19" | IOSTANDARD = LVCMOS33;    # XP2D_10    tp_strt_ext
 NET "tst_pls"           LOC = "AG30" | IOSTANDARD = LVCMOS33;    # XP2B_10    tst_pls
@@ -549,7 +549,7 @@ NET "seq_seu<*>"			SLEW=SLOW | DRIVE=12;
 # Time Specs
 #------------------------------------------------------------------------
 NET "tck2" TNM_NET = "tck2";
-TIMESPEC "TS_tck2" = PERIOD "tck2" 21 ns HIGH 50 %;
+TIMESPEC "TS_tck2" = PERIOD "tck2" 50 ns HIGH 50 %;
 NET "clkp" TNM_NET = "clkp";
 TIMESPEC "TS_clkp" = PERIOD "clkp" 21 ns HIGH 50 %;
 NET "refclk_p" TNM_NET = "refclk_p";

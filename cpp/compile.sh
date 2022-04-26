@@ -3,12 +3,12 @@
 echo "ALCT simulation and generation code compile script"
 # legacy versions removed. See compile_legacy script for legacy versions.
 # lists of versions and their parameters
-type=(ALCT192 ALCT288 ALCT288 ALCT288 ALCT288 ALCT384 ALCT384 ALCT576 ALCT672)
-rval=(8       9       9       9       9       12      12      18      21     )
-me11=(NO      ME11BN  ME11BP  ME11FP  NO      NO      NO      NO      NO     )
-mirr=(NO      NO      NO      NO      NO      MIRROR  NO      MIRROR  NO     )
-chip=(S6      S6      S6      S6      S6      S6      S6      S6      S6     )
-flav=(LX150   LX100   LX100   LX100   LX100   LX100   LX100   LX150T  LX150T )
+type=(ALCT192 ALCT288 ALCT288 ALCT288 ALCT288 ALCT384 ALCT384 ALCT576 ALCT672 ALCT384)
+rval=(8       9       9       9       9       12      12      18      21      12)
+me11=(NO      ME11BN  ME11BP  ME11FP  NO      NO      NO      NO      NO      NO)
+mirr=(NO      NO      NO      NO      NO      MIRROR  NO      MIRROR  NO      MIRROR)
+chip=(S6      S6      S6      S6      S6      S6      S6      S6      S6      S6)
+flav=(LX150   LX100   LX100   LX100   LX100   LX100   LX100   LX150T  LX150T  LX150)
 
 # loop over all versions
 clean=0
@@ -28,10 +28,10 @@ else
 	t=0
 	tt=0
 	clean=0
-	echo "Usage: ./compile.sh first [last(max 8) [generate]]"
+	echo "Usage: ./compile.sh first [last(max 9) [generate]]"
 	echo "first and last are ALCT versions to compile:"
 	echo -e "Index\tType\tME11\tMirror\tChip\tFlavor"
-	for i in 0 1 2 3 4 5 6 7 8
+	for i in 0 1 2 3 4 5 6 7 8 9
 	do
 		echo -e $i'\t'${type[$i]}'\t'${me11[$i]}'\t'${mirr[$i]}'\t'${chip[$i]}'\t'${flav[$i]}
 	done;

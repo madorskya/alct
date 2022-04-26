@@ -3,12 +3,12 @@
 echo "ALCT generated code copier"
 
 # lists of versions and their parameters
-type=(ALCT192 ALCT288 ALCT288 ALCT288 ALCT288 ALCT384 ALCT384 ALCT576 ALCT672)
-rval=(8       9       9       9       9       12      12      18      21     )
-me11=(NO      ME11BN  ME11BP  ME11FP  NO      NO      NO      NO      NO     )
-mirr=(NO      NO      NO      NO      NO      MIRROR  NO      MIRROR  NO     )
-chip=(S6      S6      S6      S6      S6      S6      S6      S6      S6     )
-flav=(LX150   LX100   LX100   LX100   LX100   LX100   LX100   LX150T  LX150T )
+type=(ALCT192 ALCT288 ALCT288 ALCT288 ALCT288 ALCT384 ALCT384 ALCT576 ALCT672 ALCT384)
+rval=(8       9       9       9       9       12      12      18      21      12)
+me11=(NO      ME11BN  ME11BP  ME11FP  NO      NO      NO      NO      NO      NO)
+mirr=(NO      NO      NO      NO      NO      MIRROR  NO      MIRROR  NO      MIRROR)
+chip=(S6      S6      S6      S6      S6      S6      S6      S6      S6      S6)
+flav=(LX150   LX100   LX100   LX100   LX100   LX100   LX100   LX150T  LX150T  LX150)
 
 # take project prefix from argument 1
 if [ $1 ]

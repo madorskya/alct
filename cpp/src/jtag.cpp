@@ -167,6 +167,7 @@ beginmodule
 	tdomux.reg (12, 0, "tdomux");
 #endif
 	dly_tdo.reg("dly_tdo");
+	Reg_(dout_dly_r, DLYLNGRP-1, 0);
 	YRs.reg (YRsize, 0, "YRs"); // extended configuration register
 	OSs.reg (OSsize, 0, "OSs");  // output storage shift register
 	TrigRegs.reg(TRsize, 0, "TrigRegs");
@@ -201,6 +202,7 @@ beginmodule
 	Wire_(adc_rd_reg, 4, 0);
 	Reg_(adc_wr_sr, 4, 0);
 	Reg_(adc_rd_sr, 4, 0);
+
 
 	assign adc_sck = adc_wr_reg(0);			// Serial clock
 	assign adc_sdi = adc_wr_reg(1);			// Serial data to ADC
@@ -241,7 +243,7 @@ beginmodule
 		end
 		Else
 		begin
-			dly_tdo = (ror (dout_dly & (~ParamReg(DLYLNGRP+1,2))));
+			dout_dly_r = dout_dly; // lock dout_dly into IOB
 			dly_clk_en = 0;	// assignment of delay line clock enable for all else cases
 			OSre = 0;
 			begincase (TAPstate)
@@ -363,6 +365,9 @@ beginmodule
 
 	always (negedge (tck))
 	begin
+
+		  // combinatorial logic for dly_tdo moved here to it's not affected by input timing 
+			dly_tdo = (ror (dout_dly_r & (~ParamReg(DLYLNGRP+1,2))));
 			tdo = 
 				(tdomux(0) & HCmask(0))    |
 				(tdomux(1) & collmask(0))  |
