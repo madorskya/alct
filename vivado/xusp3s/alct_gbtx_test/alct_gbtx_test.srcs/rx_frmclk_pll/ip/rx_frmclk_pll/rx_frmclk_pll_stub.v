@@ -1,10 +1,10 @@
 // Copyright 1986-2023 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2022.2.2 (win64) Build 3788238 Tue Feb 21 20:00:34 MST 2023
-// Date        : Thu Aug 10 20:38:46 2023
+// Date        : Sat Aug 12 00:27:46 2023
 // Host        : uf-eng-srv-1 running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode synth_stub
-//               c:/github/gbt-fpga/example_designs/xilinx_kultrascale/core_sources/gbt_rx_frameclk_phalgnr/rx_frmclk_pll_stub.v
+//               c:/github/alct/vivado/xusp3s/alct_gbtx_test/alct_gbtx_test.srcs/rx_frmclk_pll/ip/rx_frmclk_pll/rx_frmclk_pll_stub.v
 // Design      : rx_frmclk_pll
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xcvu080-ffvb2104-2-e

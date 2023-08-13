@@ -501,8 +501,8 @@ begin                 --========####   Architecture Body   ####========--
        --==============--
        -- Data         --
        --==============--        
-       GBTBANK_GBT_DATA_I(1)                                      => (others => '0'),
-       GBTBANK_WB_DATA_I(1)                                       => (others => '0'),
+       GBTBANK_GBT_DATA_I(1)                                      => x"CF00BABEAC1DACDCFFFFF",--(others => '0'),
+       GBTBANK_WB_DATA_I(1)                                       => x"CF00BABEAC1DACDCFFFFF00000000",--(others => '0'),
        
        TX_DATA_O(1)                                               => txData_from_gbtExmplDsgn,            
        WB_DATA_O(1)                                               => txExtraDataWidebus_from_gbtExmplDsgn,
@@ -671,16 +671,16 @@ begin                 --========####   Architecture Body   ####========--
     
     txILa: xlx_ku_vivado_debug
          port map (
-            CLK => sysclk,
+            CLK => txFrameClk_from_txPll, --sysclk, replaced clock for frame clock
             PROBE0 => txData_from_gbtExmplDsgn,
             PROBE1 => txExtraDataWidebus_from_gbtExmplDsgn,
             PROBE2(0) => txIsDataSel_from_user,
-            PROBE3(0) => '0'
+            PROBE3(0) => txFrameClkPllLocked_from_gbtExmplDsgn --'0'
          );  
    
     rxIla: xlx_ku_vivado_debug
          port map (
-            CLK => sysclk,
+            CLK => txFrameClk_from_txPll, --sysclk,
             PROBE0 => rxData_from_gbtExmplDsgn,
             PROBE1 => rxExtraDataWidebus_from_gbtExmplDsgn,
             PROBE2(0) => rxIsData_from_gbtExmplDsgn,

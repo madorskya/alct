@@ -341,7 +341,8 @@ begin                 --========####   Architecture Body   ####========--
                TX_ENCODING_SEL_I                              => gbtBank_txEncodingSel,
                TEST_PATTERN_SEL_I                             => GBTBANK_TEST_PATTERN_SEL_I,
                STATIC_PATTERN_SCEC_I                          => "00",
-               STATIC_PATTERN_DATA_I                          => x"000BABEAC1DACDCFFFFF",
+               STATIC_PATTERN_DATA_I                          => x"F00BABEAC1DACDCFFFFF", -- pattern for ALCT given by Jaebak , msg 2023-08-12
+                                                                                          -- set testPatterSel_from_user = 2 in VIO
                STATIC_PATTERN_EXTRADATA_WIDEBUS_I             => x"BEEFCAFE",
                -----------------------------------------------
                TX_DATA_O                                      => txData_from_gbtBank_pattGen(i),
