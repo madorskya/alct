@@ -731,28 +731,28 @@ initial hard_rst = 0;
         !hard_rst
     );
 
-wire [35:0] CONTROL;
-alct_cs_control alct_icon
-(
-	 .CONTROL0 (CONTROL) // INOUT BUS [35:0]
-);
-alct_chipscope alct_cs 
-(
-	 .CONTROL (CONTROL), // INOUT BUS [35:0]
-	 .CLK     (clk), // IN
-	 .DATA    
-	 ({
-		hmt_thresholds, // 30
-		ConfgReg,       // 69
-		validh,         // 1
-		send_bxn,       // 1
-		actv_feb_fg,    // 1
-		alct_sync_mode, // 1
-		shower_int,     // 2
-		shower_bits,    // 5
-		bxn_mux         // 5
-	 }), // IN BUS [114:0]
-	 .TRIG0   (validh), // IN BUS [0:0]
-	 .TRIG1   (shower_int) // IN BUS [1:0]
-);
+//wire [35:0] CONTROL;
+//alct_cs_control alct_icon
+//(
+//	 .CONTROL0 (CONTROL) // INOUT BUS [35:0]
+//);
+//alct_chipscope alct_cs 
+//(
+//	 .CONTROL (CONTROL), // INOUT BUS [35:0]
+//	 .CLK     (clk), // IN
+//	 .DATA    
+//	 ({
+//		hmt_thresholds, // 30
+//		ConfgReg,       // 69
+//		validh,         // 1
+//		send_bxn,       // 1
+//		actv_feb_fg,    // 1
+//		alct_sync_mode, // 1
+//		shower_int,     // 2
+//		shower_bits,    // 5
+//		bxn_mux         // 5
+//	 }), // IN BUS [114:0]
+//	 .TRIG0   (validh), // IN BUS [0:0]
+//	 .TRIG1   (shower_int) // IN BUS [1:0]
+//);
 endmodule

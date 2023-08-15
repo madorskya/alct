@@ -83,6 +83,7 @@ public:
 		Signal gbt_clk40_p,
 		Signal gbt_clk40_n,
 		Signal gbt_txrdy,
+		Signal gbt_reset_ex,
 #endif
 		// serial link
 #ifdef LX150T

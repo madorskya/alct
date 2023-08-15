@@ -65,6 +65,7 @@ module alct288
     gbt_clk40_p,
     gbt_clk40_n,
     gbt_txrdy,
+	 gbt_reset_ex,
     sl_cn_done,
     clkp
 );
@@ -141,6 +142,7 @@ module alct288
     input gbt_clk40_p;
     input gbt_clk40_n;
     input gbt_txrdy;
+	 output gbt_reset_ex;
     input sl_cn_done;
     input clkp;
 
@@ -591,6 +593,9 @@ initial hard_rst = 0;
         tst_pls_en[1] = tst_pls_en[0];
         tst_pls_en[0] = TstPlsEn;
     end
+	 
+	 assign gbt_reset_ex = hard_rst;
+	 
     assign tst_pls = (TrigReg[4:2] == 0) ? tst_plss : (TrigReg[4:2] == 1) ? SyncAdb2 : (TrigReg[4:2] == 2) ? AsyncAdb : (TrigReg[4:2] == 3) ? tp_strt_ext : (TrigReg[4:2] == 4) ? !tst_plss : (TrigReg[4:2] == 5) ? !SyncAdb2 : (TrigReg[4:2] == 6) ? !AsyncAdb : (TrigReg[4:2] == 7) ? !tp_strt_ext : 0;
     daq_06 daq_06
     (
@@ -717,28 +722,22 @@ initial hard_rst = 0;
         !hard_rst
     );
 
-wire [35:0] CONTROL;
-alct_cs_control alct_icon
-(
-	 .CONTROL0 (CONTROL) // INOUT BUS [35:0]
-);
-alct_chipscope alct_cs 
-(
-	 .CONTROL (CONTROL), // INOUT BUS [35:0]
-	 .CLK     (clk), // IN
-	 .DATA    
-	 ({
-		hmt_thresholds, // 30
-		ConfgReg,       // 69
-		validh,         // 1
-		send_bxn,       // 1
-		actv_feb_fg,    // 1
-		alct_sync_mode, // 1
-		shower_int,     // 2
-		shower_bits,    // 5
-		bxn_mux         // 5
-	 }), // IN BUS [114:0]
-	 .TRIG0   (validh), // IN BUS [0:0]
-	 .TRIG1   (shower_int) // IN BUS [1:0]
-);
+	wire [35:0] CONTROL;
+	alct_cs_control alct_icon
+	(
+		 .CONTROL0 (CONTROL) // INOUT BUS [35:0]
+	);
+	alct_chipscope alct_cs 
+	(
+		 .CONTROL (CONTROL), // INOUT BUS [35:0]
+		 .CLK     (gbtx.gbt_clk160), // IN
+		 .DATA    
+		 ({
+			gbtx.dv,
+			gbtx.idle_cnt,
+			gbtx.el1_r,
+			gbtx.el0_r
+		 }), // IN BUS [114:0]
+		 .TRIG0   (gbtx.idle_cnt) // IN BUS [2:0]
+	);
 endmodule

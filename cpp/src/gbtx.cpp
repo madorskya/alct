@@ -30,16 +30,20 @@ initio
     Input  (rst);
 beginmodule
 
+	assign gbt_tx_datavalid = Signal(1,1);
+
+	Wire_(daq_gbtx, 18, 0);
+	// invert DAQ valid bit, so it's convenient to use with FIFO and GBTX
+	assign daq_gbtx = daq_word ^ (Signal)"19'b100_0000_0000_0000_0000";
     Wire (gbt_clk40);
     Wire (gbt_clk160);
-    Wire_ (elink, 13, 0);
-    Wire_ (el0, 13, 0);
-    Wire_ (el1, 13, 0);
+    Wire_(elink, 13, 0);
+    Wire_(el0, 13, 0);
+    Wire_(el1, 13, 0);
     Reg_ (el0_r, 13, 0);
     Reg_ (el1_r, 13, 0);
     Wire  (dv);
-    Reg  (dv_r);
-		Reg_ (idle_cnt, 2, 0);
+	Reg_ (idle_cnt, 2, 0);
     
 
     //    assign gbt_tx_datavalid = (Signal)"1'b1";
@@ -49,13 +53,12 @@ beginmodule
 	printv("\tdll_gbtx dllg (.CLK_IN1_P(gbt_clk40_p), .CLK_IN1_N(gbt_clk40_n), .CLK_OUT1(gbt_clk160), .RESET(0), .LOCKED());\n");
 	printv("\tOBUFDS elink_buf[13:0] (.I(elink), .O(elink_p), .OB(elink_n));\n");
 	printv("\tODDR2 elink_oddr[13:0] (.D0(el0_r), .D1(el1_r), .C0(gbt_clk160), .C1(!gbt_clk160), .CE(1'b1), .R(1'b0), .S(1'b0), .Q(elink));\n");
-	printv("\tODDR2 dval_oddr (.D0(dv_r), .D1(dv_r), .C0(gbt_clk160), .C1(!gbt_clk160), .CE(1'b1), .R(1'b0), .S(1'b0), .Q(gbt_tx_datavalid));\n");
         printv("\tgbtx_fifo gbtxf (\n"
 	       "\t\t.rst      (rst),\n"
 	       "\t\t.wr_clk   (clk),\n"
 	       "\t\t.rd_clk   (gbt_clk160),\n"
-	       "\t\t.din      ({5'b00000, daq_word[18:10], 4'b0000, daq_word[9:0]}),\n"
-	       "\t\t.wr_en    (~daq_word[18]),\n"
+	       "\t\t.din      ({5'b00000, daq_gbtx[18:10], 4'b0000, daq_gbtx[9:0]}),\n"
+	       "\t\t.wr_en    (daq_gbtx[18]),\n"
 	       "\t\t.rd_en    (1'b1),\n"
 	       "\t\t.dout     ({el1, el0}),\n"
 	       "\t\t.full     (),\n"
@@ -68,7 +71,6 @@ beginmodule
 	assign elink_p = elink;
 	assign elink_n = ~elink;
     #endif
-
     always (posedge (gbt_clk160))
     begin
 			// test pattern and header
@@ -79,7 +81,6 @@ beginmodule
 				el0_r = el0_r | el0;
 				el1_r = el1_r | el1;
 			end
-      dv_r  = dv;
 			idle_cnt++;
     end
 

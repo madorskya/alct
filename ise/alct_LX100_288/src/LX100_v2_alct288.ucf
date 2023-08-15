@@ -317,6 +317,7 @@ NET "gbt_clk40_p"        LOC = "AE13" | IOSTANDARD = PPDS_33 | DIFF_TERM = TRUE;
 NET "gbt_clk40_n"        LOC = "AF13" | IOSTANDARD = PPDS_33 | DIFF_TERM = TRUE;  #
 NET "gbt_tx_datavalid"   LOC = "M24"  | IOSTANDARD = LVCMOS33;  
 NET "gbt_txrdy"          LOC = "K21"  | IOSTANDARD = LVCMOS33;   
+net "gbt_reset_ex"       LOC = "U8"   | IOSTANDARD = LVCMOS33;
 
 NET "elink_n<0>"         LOC = "AA19" | IOSTANDARD = PPDS_33;  # mez_signal elink0_n
 NET "elink_n<1>"         LOC = "AF18" | IOSTANDARD = PPDS_33;  # mez_signal elink1_n
@@ -332,6 +333,7 @@ NET "elink_n<10>"        LOC = "AB18" | IOSTANDARD = PPDS_33;  # mez_signal elin
 NET "elink_n<11>"        LOC = "W17"  | IOSTANDARD = PPDS_33;  # mez_signal elink11_n
 NET "elink_n<12>"        LOC = "AD21" | IOSTANDARD = PPDS_33;  # mez_signal elink12_n
 NET "elink_n<13>"        LOC = "AC17" | IOSTANDARD = PPDS_33;  # mez_signal elink13_n
+
 NET "elink_p<0>"         LOC = "Y18"  | IOSTANDARD = PPDS_33;  # mez_signal elink0_p
 NET "elink_p<1>"         LOC = "AD18" | IOSTANDARD = PPDS_33;  # mez_signal elink1_p
 NET "elink_p<2>"         LOC = "AC16" | IOSTANDARD = PPDS_33;  # mez_signal elink2_p
@@ -346,7 +348,6 @@ NET "elink_p<10>"        LOC = "AA18" | IOSTANDARD = PPDS_33;  # mez_signal elin
 NET "elink_p<11>"        LOC = "V16"  | IOSTANDARD = PPDS_33;  # mez_signal elink11_p
 NET "elink_p<12>"        LOC = "AC20" | IOSTANDARD = PPDS_33;  # mez_signal elink12_p
 NET "elink_p<13>"        LOC = "AB17" | IOSTANDARD = PPDS_33;  # mez_signal elink13_p
-
 
 #------------------------------------------------------------------------
 # IOB Modifiers

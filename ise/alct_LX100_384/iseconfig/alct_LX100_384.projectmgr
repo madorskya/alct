@@ -12,17 +12,23 @@
          <ClosedNode>/alct384 |home|hvuser|cernbox|projects|ise|alct|alct_LX100_384|alct384.v/daq_06 - daq_06</ClosedNode>
          <ClosedNode>/alct384 |home|hvuser|cernbox|projects|ise|alct|alct_LX100_384|alct384.v/gbtx - gbtx</ClosedNode>
          <ClosedNode>/alct384 |home|hvuser|cernbox|projects|ise|alct|alct_LX100_384|alct384.v/of - outfifo</ClosedNode>
+         <ClosedNode>/alct384 |home|hvuser|github|alct|ise|alct_LX100_384|src|alct384.v/core - trigger_rl/ExtendPulses - Stage0/lsh0 - LyOneShot</ClosedNode>
+         <ClosedNode>/alct384 |home|hvuser|github|alct|ise|alct_LX100_384|src|alct384.v/core - trigger_rl/ExtendPulses - Stage0/lsh1 - LyOneShot</ClosedNode>
+         <ClosedNode>/alct384 |home|hvuser|github|alct|ise|alct_LX100_384|src|alct384.v/core - trigger_rl/ExtendPulses - Stage0/lsh2 - LyOneShot</ClosedNode>
+         <ClosedNode>/alct384 |home|hvuser|github|alct|ise|alct_LX100_384|src|alct384.v/core - trigger_rl/ExtendPulses - Stage0/lsh3 - LyOneShot</ClosedNode>
+         <ClosedNode>/alct384 |home|hvuser|github|alct|ise|alct_LX100_384|src|alct384.v/core - trigger_rl/ExtendPulses - Stage0/lsh4 - LyOneShot</ClosedNode>
+         <ClosedNode>/alct384 |home|hvuser|github|alct|ise|alct_LX100_384|src|alct384.v/core - trigger_rl/ExtendPulses - Stage0/lsh5 - LyOneShot</ClosedNode>
          <ClosedNode>/alct384 |home|madorsky|github|alct|ise|alct_LX100_384|src|alct384.v/core - trigger_rl</ClosedNode>
          <ClosedNode>/alct384 |home|madorsky|github|alct|ise|alct_LX100_384|src|alct384.v/daq_06 - daq_06</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>alct384 (/home/madorsky/github/alct/ise/alct_LX100_384/src/alct384.v)</SelectedItem>
+         <SelectedItem>alct384 (/home/hvuser/github/alct/ise/alct_LX100_384/src/alct384.v)</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000002020000000100000001000000640000018a000000020000000000000000000000000200000064ffffffff0000008100000003000000020000018a0000000100000003000000000000000100000003</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000202000000010000000100000064000001d9000000020000000000000000000000000200000064ffffffff000000810000000300000002000001d90000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
-      <CurrentItem>alct384 (/home/madorsky/github/alct/ise/alct_LX100_384/src/alct384.v)</CurrentItem>
+      <CurrentItem>alct384 (/home/hvuser/github/alct/ise/alct_LX100_384/src/alct384.v)</CurrentItem>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="" guiview="Process" >
       <ClosedNodes>
@@ -47,7 +53,7 @@
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000000000000000100000000000000000000000000000000000004d0000000040101000100000000000000000000000064ffffffff000000810000000000000004000000510000000100000000000000290000000100000000000000840000000100000000000003d20000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem>alct384.v</CurrentItem>
+      <CurrentItem></CurrentItem>
    </ItemView>
    <ItemView guiview="Library" >
       <ClosedNodes>
@@ -71,13 +77,13 @@
          <ClosedNode>User Constraints</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem></SelectedItem>
+         <SelectedItem>Generate Programming File</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000001d5000000010000000100000000000000000000000064ffffffff000000810000000000000001000001d50000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000001ed000000010000000100000000000000000000000064ffffffff000000810000000000000001000001ed0000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem></CurrentItem>
+      <CurrentItem>Generate Programming File</CurrentItem>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="DESUT_UCF" guiview="Process" >
       <ClosedNodes>

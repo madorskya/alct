@@ -44,6 +44,7 @@ Signal rsv_in13;
  Signal gbt_clk40_p;
  Signal gbt_clk40_n;
  Signal gbt_txrdy;
+ Signal gbt_reset_ex;
 #endif
 
  // serial link
@@ -236,6 +237,7 @@ int main()
 	Wire  (gbt_clk40_p);
 	Wire  (gbt_clk40_n);
 	Wire  (gbt_txrdy);
+	Wire  (gbt_reset_ex);
 #endif
 
 #ifdef LX150T
@@ -287,6 +289,7 @@ int main()
 					gbt_clk40_p,
 					gbt_clk40_n,
 					gbt_txrdy,
+					gbt_reset_ex,
 #endif
                             // serial link
 #ifdef LX150T

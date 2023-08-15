@@ -20,6 +20,7 @@ class gbtx_c: public module
     Signal rst
   );
 
+  Signal daq_gbtx;
   Signal gbt_clk40;
   Signal gbt_clk160;
   Signal elink;

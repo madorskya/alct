@@ -43,6 +43,7 @@ void alct::operator()
 	Signal gbt_clk40_p,
 	Signal gbt_clk40_n,
 	Signal gbt_txrdy,
+	Signal gbt_reset_ex,
 #endif
 	// serial link
 #ifdef LX150T
@@ -131,6 +132,7 @@ initio
 	Input  (gbt_clk40_p);
 	Input  (gbt_clk40_n);
 	Input  (gbt_txrdy);
+	Output (gbt_reset_ex);
 #endif
 #ifdef LX150T
     Output_ (tx_p, 1, 0);
@@ -751,6 +753,8 @@ beginmodule
 		tst_pls_en(1) = tst_pls_en(0);
 		tst_pls_en(0) = TstPlsEn;
 	end
+
+	assign gbt_reset_ex = hard_rst;
 
 	assign tst_pls = 
 		ifelse (TrigReg(4,2) == 0, tst_plss,
