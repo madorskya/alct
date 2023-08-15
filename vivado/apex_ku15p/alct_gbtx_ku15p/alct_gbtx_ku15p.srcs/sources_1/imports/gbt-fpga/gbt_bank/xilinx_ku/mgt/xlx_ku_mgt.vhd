@@ -247,6 +247,7 @@ begin                 --========####   Architecture Body   ####========--
                rst_in                                   => not(gtwiz_userclk_tx_active_int(i)),
                rst_out                                  => gtwiz_buffbypass_tx_reset_in_s(i)
              );
+             
           
           gtwiz_userclk_tx_reset_int(i) <= not(txpmaresetdone(i));
           gtwiz_userclk_rx_reset_int(i) <= not(rxpmaresetdone(i));
