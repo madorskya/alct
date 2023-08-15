@@ -204,9 +204,12 @@ architecture structural of kcu105_gbt_example_design is
    
    signal txData_from_gbtExmplDsgn                   : std_logic_vector(83 downto 0);
    signal rxData_from_gbtExmplDsgn                   : std_logic_vector(83 downto 0);
+   attribute MARK_DEBUG : string;
+   attribute MARK_DEBUG of rxData_from_gbtExmplDsgn : signal is "TRUE";
    --------------------------------------------------      
    signal txExtraDataWidebus_from_gbtExmplDsgn       : std_logic_vector(115 downto 0);
    signal rxExtraDataWidebus_from_gbtExmplDsgn       : std_logic_vector(115 downto 0);
+   attribute MARK_DEBUG of rxExtraDataWidebus_from_gbtExmplDsgn : signal is "TRUE";
    
    -- Jtag to Axi component and signals:
    --     Used to control the design and monitor the signals in order to
@@ -336,7 +339,22 @@ architecture structural of kcu105_gbt_example_design is
          probe_out15 : OUT STD_LOGIC_VECTOR(0 DOWNTO 0)
        );
      END COMPONENT;
-     
+
+COMPONENT rx_ila_ip
+       PORT (
+         clk : IN STD_LOGIC;
+         probe0 : IN STD_LOGIC_VECTOR(83 DOWNTO 0);
+         probe1 : IN STD_LOGIC_VECTOR(115 DOWNTO 0);
+         probe2 : IN STD_LOGIC_VECTOR(13 DOWNTO 0);
+         probe3 : IN STD_LOGIC_VECTOR(13 DOWNTO 0);
+         probe4 : IN STD_LOGIC_VECTOR(13 DOWNTO 0);
+         probe5 : IN STD_LOGIC_VECTOR(13 DOWNTO 0);
+         probe6 : IN STD_LOGIC_VECTOR(13 DOWNTO 0);
+         probe7 : IN STD_LOGIC_VECTOR(13 DOWNTO 0);
+         probe8 : IN STD_LOGIC_VECTOR(13 DOWNTO 0);
+         probe9 : IN STD_LOGIC_VECTOR(13 DOWNTO 0)
+       );
+     END COMPONENT;     
    --=====================--
    -- Latency measurement --
    --=====================--
@@ -351,6 +369,9 @@ architecture structural of kcu105_gbt_example_design is
          
    --================--
    signal sysclk:                    std_logic;  
+   type alct_ram_type is array (0 to 7) of std_logic_vector(13 downto 0);
+   signal alct_rec : alct_ram_type;
+   attribute MARK_DEBUG of alct_rec : signal is "TRUE";
           
    --=====================================================================================--  
 --=================================================================================================--
@@ -677,14 +698,58 @@ begin                 --========####   Architecture Body   ####========--
             PROBE3(0) => '0'
          );  
    
-    rxIla: xlx_ku_vivado_debug
+--    rxIla: xlx_ku_vivado_debug
+--         port map (
+--            CLK => sysclk,
+--            PROBE0 => rxData_from_gbtExmplDsgn,
+--            PROBE1 => rxExtraDataWidebus_from_gbtExmplDsgn,
+--            PROBE2(0) => rxIsData_from_gbtExmplDsgn,
+--            PROBE3(0) => gbtErrorDetected
+--         );  
+    rx_ila: rx_ila_ip
          port map (
-            CLK => sysclk,
+            CLK => txFrameClk_from_txPll, --sysclk,
             PROBE0 => rxData_from_gbtExmplDsgn,
             PROBE1 => rxExtraDataWidebus_from_gbtExmplDsgn,
-            PROBE2(0) => rxIsData_from_gbtExmplDsgn,
-            PROBE3(0) => gbtErrorDetected
-         );  
+            PROBE2 => alct_rec(0),
+            PROBE3 => alct_rec(1),
+            PROBE4 => alct_rec(2),
+            PROBE5 => alct_rec(3),
+            PROBE6 => alct_rec(4),
+            PROBE7 => alct_rec(5),
+            PROBE8 => alct_rec(6),
+            PROBE9 => alct_rec(7)
+         );
+
+    -- reconstrut ALCT 14-bit words
+    alct_rec_split: PROCESS(txFrameClk_from_txPll)
+    begin
+        if rising_edge (txFrameClk_from_txPll) then
+            for c in 0 to 7 loop
+                alct_rec(c) <=  b"1100" &
+                                rxData_from_gbtExmplDsgn(65+c*2 downto 64+c*2) &
+                                rxData_from_gbtExmplDsgn(49+c*2 downto 48+c*2) &
+                                rxData_from_gbtExmplDsgn(33+c*2 downto 32+c*2) &
+                                rxData_from_gbtExmplDsgn(17+c*2 downto 16+c*2) &
+                                rxData_from_gbtExmplDsgn( 1+c*2 downto  0+c*2);
+            end loop;
+        end if;
+    end process;
+    
+--    alct_rec_split: PROCESS(txFrameClk_from_txPll)
+--    begin
+--        if rising_edge (txFrameClk_from_txPll) then
+--            for c in 0 to 7 loop
+--                alct_rec(c) <=  rxExtraDataWidebus_from_gbtExmplDsgn(97+c*2 downto 96+c*2) &
+--                                rxExtraDataWidebus_from_gbtExmplDsgn(81+c*2 downto 80+c*2) &
+--                                rxExtraDataWidebus_from_gbtExmplDsgn(65+c*2 downto 64+c*2) &
+--                                rxExtraDataWidebus_from_gbtExmplDsgn(49+c*2 downto 48+c*2) &
+--                                rxExtraDataWidebus_from_gbtExmplDsgn(33+c*2 downto 32+c*2) &
+--                                rxExtraDataWidebus_from_gbtExmplDsgn(17+c*2 downto 16+c*2) &
+--                                rxExtraDataWidebus_from_gbtExmplDsgn( 1+c*2 downto  0+c*2);
+--            end loop;
+--        end if;
+--    end process;
     
     generalReset_from_user  <= resetgbtfpga_from_vio or resetgbtfpga_from_jtag or not(txFrameClkPllLocked_from_gbtExmplDsgn);
         
