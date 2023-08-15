@@ -352,7 +352,16 @@ COMPONENT rx_ila_ip
          probe6 : IN STD_LOGIC_VECTOR(13 DOWNTO 0);
          probe7 : IN STD_LOGIC_VECTOR(13 DOWNTO 0);
          probe8 : IN STD_LOGIC_VECTOR(13 DOWNTO 0);
-         probe9 : IN STD_LOGIC_VECTOR(13 DOWNTO 0)
+         probe9 : IN STD_LOGIC_VECTOR(13 DOWNTO 0);
+         probe10 : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+         probe11 : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+         probe12 : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+         probe13 : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+         probe14 : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+         probe15 : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+         probe16 : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+         probe17 : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+         probe18 : IN STD_LOGIC_VECTOR(7 DOWNTO 0)
        );
      END COMPONENT;     
    --=====================--
@@ -372,6 +381,13 @@ COMPONENT rx_ila_ip
    type alct_ram_type is array (0 to 7) of std_logic_vector(13 downto 0);
    signal alct_rec : alct_ram_type;
    attribute MARK_DEBUG of alct_rec : signal is "TRUE";
+
+   type alct_cnt_type is array (0 to 7) of std_logic_vector(2 downto 0);
+   signal alct_cnt : alct_cnt_type;
+   attribute MARK_DEBUG of alct_cnt : signal is "TRUE";
+
+   signal alct_frm : std_logic_vector(7 downto 0);
+   attribute MARK_DEBUG of alct_frm : signal is "TRUE";
           
    --=====================================================================================--  
 --=================================================================================================--
@@ -691,14 +707,14 @@ begin                 --========####   Architecture Body   ####========--
     
     txILa: xlx_ku_vivado_debug
          port map (
-            CLK => sysclk,
+            CLK => txFrameClk_from_txPll, --sysclk, Maq
             PROBE0 => txData_from_gbtExmplDsgn,
             PROBE1 => txExtraDataWidebus_from_gbtExmplDsgn,
             PROBE2(0) => txIsDataSel_from_user,
             PROBE3(0) => '0'
          );  
    
---    rxIla: xlx_ku_vivado_debug
+--    rxIla: xlx_ku_vivado_debug Maq
 --         port map (
 --            CLK => sysclk,
 --            PROBE0 => rxData_from_gbtExmplDsgn,
@@ -718,39 +734,49 @@ begin                 --========####   Architecture Body   ####========--
             PROBE6 => alct_rec(4),
             PROBE7 => alct_rec(5),
             PROBE8 => alct_rec(6),
-            PROBE9 => alct_rec(7)
+            PROBE9 => alct_rec(7),
+            PROBE10 => alct_cnt(0),
+            PROBE11 => alct_cnt(1),
+            PROBE12 => alct_cnt(2),
+            PROBE13 => alct_cnt(3),
+            PROBE14 => alct_cnt(4),
+            PROBE15 => alct_cnt(5),
+            PROBE16 => alct_cnt(6),
+            PROBE17 => alct_cnt(7),
+            PROBE18 => alct_frm
          );
 
-    -- reconstrut ALCT 14-bit words
+    -- reconstruct ALCT 14-bit words
     alct_rec_split: PROCESS(txFrameClk_from_txPll)
     begin
         if rising_edge (txFrameClk_from_txPll) then
             for c in 0 to 7 loop
-                alct_rec(c) <=  b"1100" &
-                                rxData_from_gbtExmplDsgn(65+c*2 downto 64+c*2) &
-                                rxData_from_gbtExmplDsgn(49+c*2 downto 48+c*2) &
-                                rxData_from_gbtExmplDsgn(33+c*2 downto 32+c*2) &
-                                rxData_from_gbtExmplDsgn(17+c*2 downto 16+c*2) &
-                                rxData_from_gbtExmplDsgn( 1+c*2 downto  0+c*2);
+                -- complete 14-bit data word
+                -- decoding frames "backwards" since bits are packed MSB first
+                alct_rec(7-c) <=  -- 4 low bits go into high positions according to table 13 from GBTX manual V0.18
+                                rxExtraDataWidebus_from_gbtExmplDsgn(c+ 24) &
+                                rxExtraDataWidebus_from_gbtExmplDsgn(c+ 16) &
+                                rxExtraDataWidebus_from_gbtExmplDsgn(c+  8) &
+                                rxExtraDataWidebus_from_gbtExmplDsgn(c+  0) &
+                                rxExtraDataWidebus_from_gbtExmplDsgn(c+104) &
+                                rxExtraDataWidebus_from_gbtExmplDsgn(c+ 96) &
+                                rxExtraDataWidebus_from_gbtExmplDsgn(c+ 88) &
+                                rxExtraDataWidebus_from_gbtExmplDsgn(c+ 80) &
+                                rxExtraDataWidebus_from_gbtExmplDsgn(c+ 72) &
+                                rxExtraDataWidebus_from_gbtExmplDsgn(c+ 64) &
+                                rxExtraDataWidebus_from_gbtExmplDsgn(c+ 56) &
+                                rxExtraDataWidebus_from_gbtExmplDsgn(c+ 48) &
+                                rxExtraDataWidebus_from_gbtExmplDsgn(c+ 40) &
+                                rxExtraDataWidebus_from_gbtExmplDsgn(c+ 32);
+                                
+                -- split out idle counter for clarity                 
+                alct_cnt(7-c) <= alct_rec(7-c)(12 downto 10);
+                -- and frame 0/1 bit 
+                alct_frm(7-c) <= alct_rec(7-c)(13);
             end loop;
         end if;
     end process;
-    
---    alct_rec_split: PROCESS(txFrameClk_from_txPll)
---    begin
---        if rising_edge (txFrameClk_from_txPll) then
---            for c in 0 to 7 loop
---                alct_rec(c) <=  rxExtraDataWidebus_from_gbtExmplDsgn(97+c*2 downto 96+c*2) &
---                                rxExtraDataWidebus_from_gbtExmplDsgn(81+c*2 downto 80+c*2) &
---                                rxExtraDataWidebus_from_gbtExmplDsgn(65+c*2 downto 64+c*2) &
---                                rxExtraDataWidebus_from_gbtExmplDsgn(49+c*2 downto 48+c*2) &
---                                rxExtraDataWidebus_from_gbtExmplDsgn(33+c*2 downto 32+c*2) &
---                                rxExtraDataWidebus_from_gbtExmplDsgn(17+c*2 downto 16+c*2) &
---                                rxExtraDataWidebus_from_gbtExmplDsgn( 1+c*2 downto  0+c*2);
---            end loop;
---        end if;
---    end process;
-    
+
     generalReset_from_user  <= resetgbtfpga_from_vio or resetgbtfpga_from_jtag or not(txFrameClkPllLocked_from_gbtExmplDsgn);
         
     alignmenetLatchProc: process(txFrameClk_from_txPll)
