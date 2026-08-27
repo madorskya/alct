@@ -317,6 +317,7 @@ NET "gbt_clk40_p"        LOC = "AE13" | IOSTANDARD = PPDS_33 | DIFF_TERM = TRUE;
 NET "gbt_clk40_n"        LOC = "AF13" | IOSTANDARD = PPDS_33 | DIFF_TERM = TRUE;  #
 NET "gbt_tx_datavalid"   LOC = "M24"  | IOSTANDARD = LVCMOS33;  
 NET "gbt_txrdy"          LOC = "K21"  | IOSTANDARD = LVCMOS33;   
+net "gbt_reset_ex"       LOC = "U8"   | IOSTANDARD = LVCMOS33;
 
 NET "elink_n<0>"         LOC = "AA19" | IOSTANDARD = PPDS_33;  # mez_signal elink0_n
 NET "elink_n<1>"         LOC = "AF18" | IOSTANDARD = PPDS_33;  # mez_signal elink1_n

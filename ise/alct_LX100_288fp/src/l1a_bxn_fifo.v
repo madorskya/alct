@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : madorsky
+// Author    : ise
 // File name : l1a_bxn_fifo.v
-// Timestamp : Tue Apr 19 16:45:07 2022
+// Timestamp : Thu Aug 27 17:56:51 2026
 
 module l1a_bxn_fifo
 (

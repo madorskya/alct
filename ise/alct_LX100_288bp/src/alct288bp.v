@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : madorsky
+// Author    : ise
 // File name : alct288bp.v
-// Timestamp : Tue Apr 19 16:44:51 2022
+// Timestamp : Thu Aug 27 17:56:29 2026
 
 module alct288bp
 (
@@ -65,6 +65,7 @@ module alct288bp
     gbt_clk40_p,
     gbt_clk40_n,
     gbt_txrdy,
+    gbt_reset_ex,
     sl_cn_done,
     clkp
 );
@@ -141,6 +142,7 @@ module alct288bp
     input gbt_clk40_p;
     input gbt_clk40_n;
     input gbt_txrdy;
+    output gbt_reset_ex;
     input sl_cn_done;
     input clkp;
 
@@ -354,7 +356,7 @@ initial hard_rst = 0;
     assign mx_oe = 0;
     // Mux OE
     // JTAG port instantiation
-    assign virtex_id = {4'd4, 5'd19, 12'd2022, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b1, 1'b0, 3'h2, 6'h6};
+    assign virtex_id = {4'd8, 5'd27, 12'd2026, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b1, 1'b0, 3'h2, 6'h6};
     jtag TAP
     (
         tck2b,
@@ -591,6 +593,7 @@ initial hard_rst = 0;
         tst_pls_en[1] = tst_pls_en[0];
         tst_pls_en[0] = TstPlsEn;
     end
+    assign gbt_reset_ex = hard_rst;
     assign tst_pls = (TrigReg[4:2] == 0) ? tst_plss : (TrigReg[4:2] == 1) ? SyncAdb2 : (TrigReg[4:2] == 2) ? AsyncAdb : (TrigReg[4:2] == 3) ? tp_strt_ext : (TrigReg[4:2] == 4) ? !tst_plss : (TrigReg[4:2] == 5) ? !SyncAdb2 : (TrigReg[4:2] == 6) ? !AsyncAdb : (TrigReg[4:2] == 7) ? !tp_strt_ext : 0;
     daq_06 daq_06
     (

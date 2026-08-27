@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2022-04-25T18:44:40</DateModified>
+  <DateModified>2026-08-27T20:28:33</DateModified>
   <ModuleName>alct192</ModuleName>
   <SummaryTimeStamp>2019-04-29T09:10:09</SummaryTimeStamp>
-  <SavedFilePath>/home/madorsky/github/alct/ise/alct_LX150_192/iseconfig/alct192.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>/home/madorsky/github/alct/ise/alct_LX150_192/</ImplementationReportsDirectory>
+  <SavedFilePath>/home/ise/centos_shared/alct/ise/alct_LX150_192/iseconfig/alct192.xreport</SavedFilePath>
+  <ImplementationReportsDirectory>/home/ise/centos_shared/alct/ise/alct_LX150_192/</ImplementationReportsDirectory>
   <DateInitialized>2019-03-28T05:02:02</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>

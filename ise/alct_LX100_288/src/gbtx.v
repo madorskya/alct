@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : madorsky
+// Author    : ise
 // File name : gbtx.v
-// Timestamp : Tue Apr 19 16:45:23 2022
+// Timestamp : Thu Aug 27 17:57:10 2026
 
 module gbtx
 (
@@ -31,9 +31,9 @@ module gbtx
     input gbt_txrdy;
     input rst;
 
-    assign gbt_tx_datavalid = 1'b1;
-
-	 wire [18:0] daq_gbtx = daq_word ^ 19'b100_0000_0000_0000_0000;
+    assign gbt_tx_datavalid = 1'd1;
+    wire [18:0] daq_gbtx;
+    assign daq_gbtx = daq_word ^ 19'b100_0000_0000_0000_0000;
     wire gbt_clk40;
     wire gbt_clk160;
     wire [13:0] elink;

@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : madorsky
+// Author    : ise
 // File name : synchro.v
-// Timestamp : Tue Apr 19 16:44:22 2022
+// Timestamp : Thu Aug 27 17:55:59 2026
 
 module synchro
 (

@@ -14,7 +14,7 @@ Running ngcbuild...
 Writing VEO instantiation template for 'datafifo'...
 Writing Verilog behavioral simulation model for 'datafifo'...
 Delivered 4 files into directory
-/home/madorsky/github/alct/ise/alct_LX150T_576mirror/src/tmp/_cg/datafifo
+/home/ise/centos_shared/alct/ise/alct_LX150T_576mirror/src/tmp/_cg/datafifo
 Generating ASY schematic symbol...
 INFO:sim:949 - Finished generation of ASY schematic symbol.
 Generating SYM schematic symbol for 'datafifo'...
@@ -23,33 +23,33 @@ Generating ISE project...
 XCO file found: datafifo.xco
 XMDF file found: datafifo_xmdf.tcl
 Adding
-/home/madorsky/github/alct/ise/alct_LX150T_576mirror/src/tmp/_cg/datafifo.asy
+/home/ise/centos_shared/alct/ise/alct_LX150T_576mirror/src/tmp/_cg/datafifo.asy
 -view all -origin_type imported
 Adding
-/home/madorsky/github/alct/ise/alct_LX150T_576mirror/src/tmp/_cg/datafifo.ngc
+/home/ise/centos_shared/alct/ise/alct_LX150T_576mirror/src/tmp/_cg/datafifo.ngc
 -view all -origin_type created
 Checking file
-"/home/madorsky/github/alct/ise/alct_LX150T_576mirror/src/tmp/_cg/datafifo.ngc"
-for project device match ...
+"/home/ise/centos_shared/alct/ise/alct_LX150T_576mirror/src/tmp/_cg/datafifo.ngc
+" for project device match ...
 File
-"/home/madorsky/github/alct/ise/alct_LX150T_576mirror/src/tmp/_cg/datafifo.ngc"
-device information matches project device.
+"/home/ise/centos_shared/alct/ise/alct_LX150T_576mirror/src/tmp/_cg/datafifo.ngc
+" device information matches project device.
 Adding
-/home/madorsky/github/alct/ise/alct_LX150T_576mirror/src/tmp/_cg/datafifo.sym
+/home/ise/centos_shared/alct/ise/alct_LX150T_576mirror/src/tmp/_cg/datafifo.sym
 -view all -origin_type imported
 Adding
-/home/madorsky/github/alct/ise/alct_LX150T_576mirror/src/tmp/_cg/datafifo.v
+/home/ise/centos_shared/alct/ise/alct_LX150T_576mirror/src/tmp/_cg/datafifo.v
 -view all -origin_type created
 INFO:HDLCompiler:1845 - Analyzing Verilog file
-   "/home/madorsky/github/alct/ise/alct_LX150T_576mirror/src/tmp/_cg/datafifo.v"
-   into library work
+   "/home/ise/centos_shared/alct/ise/alct_LX150T_576mirror/src/tmp/_cg/datafifo.
+   v" into library work
 INFO:ProjectMgmt - Parsing design hierarchy completed successfully.
 Adding
-/home/madorsky/github/alct/ise/alct_LX150T_576mirror/src/tmp/_cg/datafifo.veo
+/home/ise/centos_shared/alct/ise/alct_LX150T_576mirror/src/tmp/_cg/datafifo.veo
 -view all -origin_type imported
 Adding
-/home/madorsky/github/alct/ise/alct_LX150T_576mirror/src/tmp/_cg/fifo_generator_
-readme.txt -view all -origin_type imported
+/home/ise/centos_shared/alct/ise/alct_LX150T_576mirror/src/tmp/_cg/fifo_generato
+r_readme.txt -view all -origin_type imported
 INFO:TclTasksC:2116 - The automatic calculation of top has been turned-off.
    Please set the new top explicitly by running the "project set top" command.
    To re-calculate the new top automatically, set the "Auto Implementation Top"

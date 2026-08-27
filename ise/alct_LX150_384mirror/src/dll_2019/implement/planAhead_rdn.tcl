@@ -47,7 +47,7 @@
 # PART OF THIS FILE AT ALL TIMES.
 # 
 
-set device xc6slx100fgg676-3
+set device xc6slx150fgg900-3
 set projName dll_2019
 set design dll_2019
 set projDir [file dirname [info script]]

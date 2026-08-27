@@ -10,28 +10,28 @@ WARNING:sim - Component clk_wiz_v3_6 does not have a valid model name for
    Verilog synthesis
 Delivering EJava files for 'dll_2019'...
 Delivered 3 files into directory
-/home/madorsky/github/alct/ise/alct_LX150_192/src/tmp/_cg/dll_2019
+/home/ise/centos_shared/alct/ise/alct_LX150_192/src/tmp/_cg/dll_2019
 Delivered 1 file into directory
-/home/madorsky/github/alct/ise/alct_LX150_192/src/tmp/_cg/dll_2019
+/home/ise/centos_shared/alct/ise/alct_LX150_192/src/tmp/_cg/dll_2019
 Generating ASY schematic symbol...
 Loading device for application Rf_Device from file '6slx150.nph' in environment
-/home/madorsky/software/xilinx/14.7/ISE_DS/ISE/.
+/opt/Xilinx/14.7/ISE_DS/ISE/.
 INFO:sim:949 - Finished generation of ASY schematic symbol.
 Generating SYM schematic symbol for 'dll_2019'...
 Generating ISE project...
 XCO file found: dll_2019.xco
 XMDF file found: dll_2019_xmdf.tcl
-Adding /home/madorsky/github/alct/ise/alct_LX150_192/src/tmp/_cg/dll_2019.asy
+Adding /home/ise/centos_shared/alct/ise/alct_LX150_192/src/tmp/_cg/dll_2019.asy
 -view all -origin_type imported
-Adding /home/madorsky/github/alct/ise/alct_LX150_192/src/tmp/_cg/dll_2019.ucf
+Adding /home/ise/centos_shared/alct/ise/alct_LX150_192/src/tmp/_cg/dll_2019.ucf
 -view all -origin_type created
-Adding /home/madorsky/github/alct/ise/alct_LX150_192/src/tmp/_cg/dll_2019.v
+Adding /home/ise/centos_shared/alct/ise/alct_LX150_192/src/tmp/_cg/dll_2019.v
 -view all -origin_type created
 INFO:HDLCompiler:1845 - Analyzing Verilog file
-   "/home/madorsky/github/alct/ise/alct_LX150_192/src/tmp/_cg/dll_2019.v" into
+   "/home/ise/centos_shared/alct/ise/alct_LX150_192/src/tmp/_cg/dll_2019.v" into
    library work
 INFO:ProjectMgmt - Parsing design hierarchy completed successfully.
-Adding /home/madorsky/github/alct/ise/alct_LX150_192/src/tmp/_cg/dll_2019.veo
+Adding /home/ise/centos_shared/alct/ise/alct_LX150_192/src/tmp/_cg/dll_2019.veo
 -view all -origin_type imported
 INFO:TclTasksC:2116 - The automatic calculation of top has been turned-off.
    Please set the new top explicitly by running the "project set top" command.

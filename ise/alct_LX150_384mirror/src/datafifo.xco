@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Thu Feb  3 19:03:59 2022
+# Date: Wed Aug 26 23:07:06 2026
 #
 ##############################################################
 #
@@ -22,13 +22,13 @@ SET asysymbol = true
 SET busformat = BusFormatAngleBracketNotRipped
 SET createndf = false
 SET designentry = Verilog
-SET device = xc6slx100
+SET device = xc6slx150
 SET devicefamily = spartan6
 SET flowvendor = Other
 SET formalverification = false
 SET foundationsym = false
 SET implementationfiletype = Ngc
-SET package = fgg676
+SET package = fgg900
 SET removerpms = false
 SET simulationfiles = Behavioral
 SET speedgrade = -3
@@ -214,4 +214,4 @@ CSET wuser_width=1
 MISC pkg_timestamp=2013-10-13T18:02:50Z
 # END Extra information
 GENERATE
-# CRC: c01beca3
+# CRC:  ae98382

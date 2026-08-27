@@ -50,7 +50,7 @@
 set projDir [file dirname [info script]]
 set projName dll_2019
 set topName dll_2019_exdes
-set device xc6slx100fgg676-3
+set device xc6slx150fgg900-3
 
 create_project $projName $projDir/results/$projName -part $device
 

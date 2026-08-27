@@ -16,12 +16,12 @@ Running ngcbuild...
 Writing VEO instantiation template for 'gbtx_fifo'...
 Writing Verilog behavioral simulation model for 'gbtx_fifo'...
 WARNING:sim - Overwriting existing file
-   /home/madorsky/github/alct/ise/alct_LX100_288bp/src/tmp/_cg/gbtx_fifo/doc/fif
-   o_generator_v9_3_vinfo.html with file from view xilinx_documentation
+   /home/ise/centos_shared/alct/ise/alct_LX100_288bp/src/tmp/_cg/gbtx_fifo/doc/f
+   ifo_generator_v9_3_vinfo.html with file from view xilinx_documentation
 Delivered 3 files into directory
-/home/madorsky/github/alct/ise/alct_LX100_288bp/src/tmp/_cg/gbtx_fifo
+/home/ise/centos_shared/alct/ise/alct_LX100_288bp/src/tmp/_cg/gbtx_fifo
 Delivered 1 file into directory
-/home/madorsky/github/alct/ise/alct_LX100_288bp/src/tmp/_cg/gbtx_fifo
+/home/ise/centos_shared/alct/ise/alct_LX100_288bp/src/tmp/_cg/gbtx_fifo
 Generating ASY schematic symbol...
 INFO:sim:949 - Finished generation of ASY schematic symbol.
 Generating SYM schematic symbol for 'gbtx_fifo'...
@@ -30,24 +30,29 @@ Regenerating ISE project file for 'gbtx_fifo'...
 Generating ISE project...
 XCO file found: gbtx_fifo.xco
 XMDF file found: gbtx_fifo_xmdf.tcl
-Adding /home/madorsky/github/alct/ise/alct_LX100_288bp/src/tmp/_cg/gbtx_fifo.asy
+Adding
+/home/ise/centos_shared/alct/ise/alct_LX100_288bp/src/tmp/_cg/gbtx_fifo.asy
 -view all -origin_type imported
-Adding /home/madorsky/github/alct/ise/alct_LX100_288bp/src/tmp/_cg/gbtx_fifo.ngc
+Adding
+/home/ise/centos_shared/alct/ise/alct_LX100_288bp/src/tmp/_cg/gbtx_fifo.ngc
 -view all -origin_type created
 Checking file
-"/home/madorsky/github/alct/ise/alct_LX100_288bp/src/tmp/_cg/gbtx_fifo.ngc" for
-project device match ...
-File "/home/madorsky/github/alct/ise/alct_LX100_288bp/src/tmp/_cg/gbtx_fifo.ngc"
+"/home/ise/centos_shared/alct/ise/alct_LX100_288bp/src/tmp/_cg/gbtx_fifo.ngc"
+for project device match ...
+File
+"/home/ise/centos_shared/alct/ise/alct_LX100_288bp/src/tmp/_cg/gbtx_fifo.ngc"
 device information matches project device.
-Adding /home/madorsky/github/alct/ise/alct_LX100_288bp/src/tmp/_cg/gbtx_fifo.sym
+Adding
+/home/ise/centos_shared/alct/ise/alct_LX100_288bp/src/tmp/_cg/gbtx_fifo.sym
 -view all -origin_type imported
-Adding /home/madorsky/github/alct/ise/alct_LX100_288bp/src/tmp/_cg/gbtx_fifo.v
+Adding /home/ise/centos_shared/alct/ise/alct_LX100_288bp/src/tmp/_cg/gbtx_fifo.v
 -view all -origin_type created
 INFO:HDLCompiler:1845 - Analyzing Verilog file
-   "/home/madorsky/github/alct/ise/alct_LX100_288bp/src/tmp/_cg/gbtx_fifo.v"
+   "/home/ise/centos_shared/alct/ise/alct_LX100_288bp/src/tmp/_cg/gbtx_fifo.v"
    into library work
 INFO:ProjectMgmt - Parsing design hierarchy completed successfully.
-Adding /home/madorsky/github/alct/ise/alct_LX100_288bp/src/tmp/_cg/gbtx_fifo.veo
+Adding
+/home/ise/centos_shared/alct/ise/alct_LX100_288bp/src/tmp/_cg/gbtx_fifo.veo
 -view all -origin_type imported
 INFO:TclTasksC:2116 - The automatic calculation of top has been turned-off.
    Please set the new top explicitly by running the "project set top" command.

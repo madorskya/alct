@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : madorsky
+// Author    : ise
 // File name : alct192.v
-// Timestamp : Tue Apr 19 16:44:22 2022
+// Timestamp : Thu Aug 27 17:55:56 2026
 
 module alct192
 (
@@ -340,7 +340,7 @@ initial hard_rst = 0;
     assign mx_oe = 0;
     // Mux OE
     // JTAG port instantiation
-    assign virtex_id = {4'd4, 5'd19, 12'd2022, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0, 1'b1, 3'h1, 6'h6};
+    assign virtex_id = {4'd8, 5'd27, 12'd2026, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0, 1'b1, 3'h1, 6'h6};
     jtag TAP
     (
         tck2b,

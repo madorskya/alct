@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2022-04-19T15:40:11</DateModified>
+  <DateModified>2026-08-27T19:39:52</DateModified>
   <ModuleName>alct288bp</ModuleName>
   <SummaryTimeStamp>2019-03-20T21:43:11</SummaryTimeStamp>
-  <SavedFilePath>/home/madorsky/github/alct/ise/alct_LX100_288bp/iseconfig/alct288bp.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>/home/madorsky/github/alct/ise/alct_LX100_288bp/</ImplementationReportsDirectory>
+  <SavedFilePath>/home/ise/centos_shared/alct/ise/alct_LX100_288bp/iseconfig/alct288bp.xreport</SavedFilePath>
+  <ImplementationReportsDirectory>/home/ise/centos_shared/alct/ise/alct_LX100_288bp/</ImplementationReportsDirectory>
   <DateInitialized>2019-03-20T15:51:45</DateInitialized>
   <EnableMessageFiltering>true</EnableMessageFiltering>
  </header>
