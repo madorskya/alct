@@ -754,7 +754,9 @@ beginmodule
 		tst_pls_en(0) = TstPlsEn;
 	end
 
+#ifdef LX100
 	assign gbt_reset_ex = hard_rst;
+#endif
 
 	assign tst_pls = 
 		ifelse (TrigReg(4,2) == 0, tst_plss,
