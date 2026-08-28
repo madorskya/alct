@@ -10,7 +10,8 @@ void gtp_tux_c::operator()
 	Signal    refclk_p,
 	Signal    refclk_n,
 
-	Signal    reset
+	Signal    reset,
+	Signal    clk160
    
   )
 {
@@ -24,6 +25,7 @@ initio
     Input (refclk_n);
 
     Input    (reset);
+	Output   (clk160);
 
 beginmodule
 
@@ -36,6 +38,7 @@ beginmodule
             "\t\t.refclk_p (refclk_p),\n"
             "\t\t.refclk_n (refclk_n),\n"
             "\t\t.reset_i  (reset)\n"
+            "\t\t.clk160   (clk160)\n"
             "\t);\n");
 
 endmodule

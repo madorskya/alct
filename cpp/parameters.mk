@@ -2,7 +2,7 @@
 # Change any parameter and 'make' in this directory
 
 #version code - used only in DAQ06 format
-export FW_VERSION =-DFWVER="\"6\'h6\""
+export FW_VERSION =-DFWVER="\"6\'h7\""
 
 # uncomment to generate Verilog HDL code
 export	VERGEN =-DVGEN

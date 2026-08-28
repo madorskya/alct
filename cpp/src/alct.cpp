@@ -333,9 +333,10 @@ beginmodule
 	Wire_(dummy3, 2, 0);
 	Wire (zero_suppress);
 	Wire (clock_lac);
-  Wire_(shower_int, 1,0);
+    Wire_(shower_int, 1,0);
 	Wire_(shower_bits, 4,0);
 	Wire_(dummy_bxn, 4, 0);
+	Wire (clk160);
 
 #ifdef VGEN
 	printv("\n\tIBUFG ibufclk (.I(clkp), .O(clkb));");	// input clock buffer (instantiation required for DLL)
@@ -797,13 +798,50 @@ beginmodule
 #endif
 
 #ifdef DAQ06
-	Module (daq_06);
+  #if defined(LX150T) || defined(LX100)
+ 	Module (daq_gbtx_26); // optical DAQ
+	daq_gbtx_26
+	(
+    	lym[0], lym[1], lym[2], lym[3], lym[4], lym[5],
+	    (hn, validh, hfa, h),
+    	(ln, validl, lfa, l),
+		shower_int,
+	    bxn,                        
+    	fifo_tbins,                 
+	    daqo,                        
+    	l1a_delay,                   
+	    fifo_pretrig,
+    	fifo_mode,                  
+	    L1A2,
+    	hard_rst && (!l1a_cnt_reset),
+    	l1a_internal, 
+		l1a_window, 
+		l1a_offset,
+		l1awindowTP, 
+		l1aTP, 
+		validhd,
+		send_empty,
+		config_report,
+		bxn_before_reset,
+		virtex_id,
+		TrigReg(4,2),
+		ConfgReg,
+		HCmask,
+		collmask,
+		zero_suppress,
+		fmm_trig_stop,
+		seu_error,
+		clk,
+		clk160
+	);
+  #else	
+ 	Module (daq_06); // legacy copper DAQ
 	daq_06
 	(
     	lym[0], lym[1], lym[2], lym[3], lym[4], lym[5],
 	    (hn, validh, hfa, h),
     	(ln, validl, lfa, l),
-			shower_int,
+		shower_int,
 	    bxn,                        
     	fifo_tbins,                 
 	    daqo,                        
@@ -831,6 +869,7 @@ beginmodule
 		seu_error,
 	    clk
 	);
+  #endif
 #endif
 
 	// loopback module
@@ -1002,8 +1041,8 @@ beginmodule
 
 #ifdef LX100
 	// module for transmission via GBTX
-        Module (gbtx);
-        gbtx
+    Module (gbtx);
+    gbtx
 	(
 	   daqo,
 	   clk,
@@ -1015,8 +1054,9 @@ beginmodule
 	   gbt_clk40_n,
 	   gbt_txrdy,
 	   
-       !hard_rst
-        );
+       !hard_rst,
+	   clk160
+    );
 #endif
 
 #ifdef LX150T
@@ -1032,7 +1072,8 @@ beginmodule
 	    refclk_p,
 	    refclk_n,
 
-        !hard_rst
+        !hard_rst,
+		clk160
 	);
 #endif
 

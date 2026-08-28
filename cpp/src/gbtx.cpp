@@ -12,7 +12,8 @@ void gbtx_c::operator()
     Signal gbt_clk40_n,
     Signal gbt_txrdy,
 
-    Signal rst
+    Signal rst,
+	Signal clk160
 )
 {
 initio
@@ -28,6 +29,7 @@ initio
     Input  (gbt_txrdy); // GBTX ready flag
 
     Input  (rst);
+	Output (clk160);
 beginmodule
 
 	assign gbt_tx_datavalid = Signal(1,1);
@@ -84,5 +86,6 @@ beginmodule
 			idle_cnt++;
     end
 
+    assign clk160 = gbt_clk160;
 endmodule
 }

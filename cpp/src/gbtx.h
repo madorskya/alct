@@ -17,7 +17,8 @@ class gbtx_c: public module
     Signal gbt_clk40_n,
     Signal gbt_txrdy,
 
-    Signal rst
+    Signal rst,
+	Signal clk160
   );
 
   Signal daq_gbtx;

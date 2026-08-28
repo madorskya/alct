@@ -11,7 +11,8 @@ module optical_lx150t
   input        refclk_p,
   input        refclk_n,
 
-  input        reset_i
+  input        reset_i,
+  output       clk160
 
 );
 
@@ -128,6 +129,7 @@ module optical_lx150t
    (* keep = "true" *) wire [63:0] rx_expect1 = rx_expect[1];
 
    wire tx_clk160, rx_clk160;
+	assign clk160 = tx_clk160;
 
    //--------------------------------------------------------------------------------------------------------------------
    // PRBS RX

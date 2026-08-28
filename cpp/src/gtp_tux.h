@@ -15,7 +15,8 @@ class gtp_tux_c: public module
 	Signal    refclk_p,
 	Signal    refclk_n,
 
-	Signal    reset
+	Signal    reset,
+	Signal    clk160
    
   );
 };

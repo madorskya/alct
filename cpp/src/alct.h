@@ -11,7 +11,11 @@
 #endif
 
 #ifdef DAQ06
-#include "daq.h"
+  #if defined(LX100) || defined(LX150T)
+    #include "daq_gbtx.h"
+  #else
+    #include "daq.h"
+  #endif
 #endif
 
 #include "outfifo.h"
@@ -192,6 +196,7 @@ public:
 	Signal din_dly_int;
 	Signal shower_int, shower_bits;
 	Signal dummy_bxn;
+    Signal clk160;
 
 
 	dll  dll2x; // DLL for doubling the clock
@@ -202,7 +207,11 @@ public:
 #endif
 
 #ifdef DAQ06
+  #if defined(LX150T) || defined(LX100)
+    daq_gbtx daq_gbtx_26;
+  #else
 	daq daq_06;
+  #endif
 #endif
 
 	outfifo of;
