@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : mador
 // File name : alct576mirror.v
-// Timestamp : Thu Aug 27 17:57:57 2026
+// Timestamp : Mon Aug 31 18:42:42 2026
 
 module alct576mirror
 (
@@ -328,6 +328,7 @@ initial hard_rst = 0;
     wire [1:0] shower_int;
     wire [4:0] shower_bits;
     wire [4:0] dummy_bxn;
+    wire clk160;
 
 	IBUFG ibufclk (.I(clkp), .O(clkb));
 	IBUF buftck (.I(tck2), .O(tck2b)); // synthesis attribute buffer_type tck2 ibuf
@@ -389,7 +390,7 @@ din_dly_del
     assign mx_oe = 0;
     // Mux OE
     // JTAG port instantiation
-    assign virtex_id = {4'd8, 5'd27, 12'd2026, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b1, 1'b0, 1'b1, 3'h5, 6'h6};
+    assign virtex_id = {4'd8, 5'd31, 12'd2026, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b1, 1'b0, 1'b1, 3'h5, 6'h7};
     jtag TAP
     (
         tck2b,
@@ -663,7 +664,7 @@ din_dly_del
         tst_pls_en[0] = TstPlsEn;
     end
     assign tst_pls = (TrigReg[4:2] == 0) ? tst_plss : (TrigReg[4:2] == 1) ? SyncAdb2 : (TrigReg[4:2] == 2) ? AsyncAdb : (TrigReg[4:2] == 3) ? tp_strt_ext : (TrigReg[4:2] == 4) ? !tst_plss : (TrigReg[4:2] == 5) ? !SyncAdb2 : (TrigReg[4:2] == 6) ? !AsyncAdb : (TrigReg[4:2] == 7) ? !tp_strt_ext : 0;
-    daq_06 daq_06
+    daq_gbtx_26 daq_gbtx_26
     (
         lym0,
         lym1,
@@ -699,7 +700,8 @@ din_dly_del
         zero_suppress,
         fmm_trig_stop,
         seu_error,
-        clk
+        clk,
+        clk160
     );
     loopback lpback
     (
@@ -783,7 +785,8 @@ din_dly_del
         tx_n,
         refclk_p,
         refclk_n,
-        !hard_rst
+        !hard_rst,
+        clk160
     );
 
 wire [35:0] CONTROL;

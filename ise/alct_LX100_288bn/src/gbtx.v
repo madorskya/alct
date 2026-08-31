@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : mador
 // File name : gbtx.v
-// Timestamp : Thu Aug 27 17:56:16 2026
+// Timestamp : Mon Aug 31 18:39:57 2026
 
 module gbtx
 (
@@ -18,7 +18,8 @@ module gbtx
     gbt_clk40_p,
     gbt_clk40_n,
     gbt_txrdy,
-    rst
+    rst,
+    clk160
 );
 
     input [18:0] daq_word;
@@ -30,6 +31,7 @@ module gbtx
     input gbt_clk40_n;
     input gbt_txrdy;
     input rst;
+    output clk160;
 
     assign gbt_tx_datavalid = 1'd1;
     wire [18:0] daq_gbtx;
@@ -69,4 +71,5 @@ module gbtx
         end
         idle_cnt = idle_cnt + 1;
     end
+    assign clk160 = gbt_clk160;
 endmodule

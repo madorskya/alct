@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : mador
 // File name : l1a_maker_.v
-// Timestamp : Thu Aug 27 17:56:16 2026
+// Timestamp : Mon Aug 31 18:39:57 2026
 
 module l1a_maker_
 (

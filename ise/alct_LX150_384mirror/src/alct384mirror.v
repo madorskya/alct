@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : mador
 // File name : alct384mirror.v
-// Timestamp : Thu Aug 27 17:58:44 2026
+// Timestamp : Mon Aug 31 18:43:38 2026
 
 module alct384mirror
 (
@@ -316,6 +316,7 @@ initial hard_rst = 0;
     wire [1:0] shower_int;
     wire [4:0] shower_bits;
     wire [4:0] dummy_bxn;
+    wire clk160;
 
 	IBUFG ibufclk (.I(clkp), .O(clkb));
 	IBUF buftck (.I(tck2), .O(tck2b)); // synthesis attribute buffer_type tck2 ibuf
@@ -344,7 +345,7 @@ initial hard_rst = 0;
     assign mx_oe = 0;
     // Mux OE
     // JTAG port instantiation
-    assign virtex_id = {4'd8, 5'd27, 12'd2026, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b1, 1'b0, 1'b1, 3'h3, 6'h6};
+    assign virtex_id = {4'd8, 5'd31, 12'd2026, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b1, 1'b0, 1'b1, 3'h3, 6'h7};
     jtag TAP
     (
         tck2b,

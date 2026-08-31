@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : mador
 // File name : gtp_tux.v
-// Timestamp : Thu Aug 27 17:58:27 2026
+// Timestamp : Mon Aug 31 18:43:10 2026
 
 module gtp_tux
 (
@@ -16,7 +16,8 @@ module gtp_tux
     tx_n,
     refclk_p,
     refclk_n,
-    reset
+    reset,
+    clk160
 );
 
     input [18:0] daqo;
@@ -26,6 +27,7 @@ module gtp_tux
     input refclk_p;
     input refclk_n;
     input reset;
+    output clk160;
 
 	optical_lx150t gtp
 	(
@@ -36,5 +38,6 @@ module gtp_tux
 		.refclk_p (refclk_p),
 		.refclk_n (refclk_n),
 		.reset_i  (reset)
+		.clk160   (clk160)
 	);
 endmodule

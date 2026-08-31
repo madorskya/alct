@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : mador
 // File name : l1a_bxn_fifo.v
-// Timestamp : Thu Aug 27 17:56:51 2026
+// Timestamp : Mon Aug 31 18:40:51 2026
 
 module l1a_bxn_fifo
 (
@@ -17,7 +17,8 @@ module l1a_bxn_fifo
     reset,
     empty,
     full,
-    clk
+    wclk,
+    rclk
 );
 
     input [11:0] din;
@@ -29,32 +30,41 @@ module l1a_bxn_fifo
     reg    empty;
     output full;
     reg    full;
-    input clk;
+    input wclk;
+    input rclk;
 
     reg [11:0] mem [255:0];
     // synthesis attribute ram_style of mem is distributed
     reg [7:0] waddr;
     reg [7:0] raddr;
     reg [7:0] raddrr;
-    always @(posedge clk) 
+    reg empty_r;
+    always @(posedge wclk) 
     begin
         if (wen && (!full)) 
         begin
             mem[waddr] = din;
             waddr = waddr + 1;
         end
-        if (ren && (!empty)) 
+        if (reset) 
+        begin
+            waddr = 0;
+        end
+        full = (waddr + 1) == raddr;
+        empty = waddr == raddr;
+    end
+    always @(posedge rclk) 
+    begin
+        if (ren && (!empty_r)) 
         begin
             raddrr = raddr;
             raddr = raddr + 1;
         end
         if (reset) 
         begin
-            waddr = 0;
             raddr = 0;
         end
-        full = (waddr + 1) == raddr;
-        empty = waddr == raddr;
+        empty_r = waddr == raddr;
     end
     assign dout = mem[raddrr];
 endmodule

@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : mador
 // File name : daq_06.v
-// Timestamp : Thu Aug 27 17:55:59 2026
+// Timestamp : Mon Aug 31 18:39:30 2026
 
 module daq_06
 (
@@ -366,7 +366,7 @@ module daq_06
                     lct_bins = (send_empty || have_lcts) ? l1a_window : 0;
                     raw_bins = (fifo_mode != 0) ? fifo_tbins : 0;
                     lct_bins_report = (lct_bins != 0) ? lct_bins + 4'b1 : 4'b0;
-                    daqw = {4'b0, 6'h6, lct_bins_report, raw_bins};
+                    daqw = {4'b0, 6'h7, lct_bins_report, raw_bins};
                     state = (config_report) ? 13 : (lct_bins != 0) ? 16 : (raw_bins != 0) ? 19 : 21;
                     conf_w_count = 0;
                     if (state == 16) 

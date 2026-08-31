@@ -32,7 +32,6 @@ FNAMES += \
 best_delay.v \
 best_memory.v \
 crcgen.v \
-daq_06.v \
 davgen.v \
 l1a_fifo.v \
 l1a_maker_.v \
@@ -52,12 +51,16 @@ Stage1_rl.v \
 shower.v
 endif
 
+ifeq ($(FLAVOR), -DLX150)
+FNAMES += daq_06.v
+endif
+
 ifeq ($(FLAVOR), -DLX100)
-FNAMES += gbtx.v
+FNAMES += gbtx.v daq_gbtx_26.v
 endif
 
 ifeq ($(FLAVOR), -DLX150T)
-FNAMES += gtp_tux.v
+FNAMES += gtp_tux.v daq_gbtx_26.v
 endif
 
 VERDIR = verilog

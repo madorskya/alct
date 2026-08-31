@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : mador
 // File name : trigger_rl.v
-// Timestamp : Thu Aug 27 17:58:44 2026
+// Timestamp : Mon Aug 31 18:43:38 2026
 
 module trigger_rl
 (

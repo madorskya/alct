@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : mador
 // File name : Flip.v
-// Timestamp : Thu Aug 27 17:57:22 2026
+// Timestamp : Mon Aug 31 18:41:46 2026
 
 function [7:0] Flip;
 
