@@ -60,24 +60,34 @@ endif
 
 ifeq ($(DAQFORM), -DDAQ06)
 CCFILES += \
-daq.cpp \
 dav06.cpp \
 daq_memory.cpp \
 delay_line.cpp \
 delay_line_valor.cpp \
-daq_fifo.cpp \
 l1a_maker.cpp \
 adaq.cpp \
 al1a_maker.cpp \
 dual_memory.cpp
 endif
 
+ifeq ($(FLAVOR), -DLX150)
+CCFILES += \
+daq.cpp \
+daq_fifo.cpp
+endif
+
 ifeq ($(FLAVOR), -DLX100)
-CCFILES += gbtx.cpp
+CCFILES += \
+gbtx.cpp \
+daq_gbtx.cpp \
+daq_fifo_2clk.cpp
 endif
 
 ifeq ($(FLAVOR), -DLX150T)
-CCFILES += gtp_tux.cpp
+CCFILES += \
+gtp_tux.cpp \
+daq_gbtx.cpp \
+daq_fifo_2clk.cpp
 endif
 
 ifdef TRIGWP 

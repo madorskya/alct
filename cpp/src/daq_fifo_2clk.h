@@ -14,7 +14,8 @@ public:
 		Signal reset,     
 		Signal empty,     
 		Signal full,
-		Signal clk      
+		Signal wclk,
+		Signal rclk
 	);
 
     Signal waddr, raddr, raddrr, empty_r;

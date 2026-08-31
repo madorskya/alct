@@ -1,4 +1,4 @@
-#include "daq.h"
+#include "daq_gbtx.h"
 
 // how many parts of hot channel mask to send (12 bits each)
 #define HCMASK_PARTS   (HCMASKBITS/12)   
@@ -524,7 +524,7 @@ beginmodule
 					// lct_bins+1 reported to account for padding
 					lct_bins_report = ifelse(lct_bins != 0, lct_bins + "4'b1", "4'b0");
 
-					daqw = ((Signal)"5'b0", FWVER[4:0], lct_bins_report, raw_bins);
+					daqw = ((Signal)"5'b0", ((Signal)FWVER)(4,0), lct_bins_report, raw_bins);
 
 					state = ifelse (config_report, SEND_CONFIG, 
 							ifelse (lct_bins != 0, SEND_LCTBINS,
