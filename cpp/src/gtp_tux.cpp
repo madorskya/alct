@@ -37,7 +37,7 @@ beginmodule
             "\t\t.tx_n     (tx_n),\n"
             "\t\t.refclk_p (refclk_p),\n"
             "\t\t.refclk_n (refclk_n),\n"
-            "\t\t.reset_i  (reset)\n"
+            "\t\t.reset_i  (reset),\n"
             "\t\t.clk160   (clk160)\n"
             "\t);\n");
 

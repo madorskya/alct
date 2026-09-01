@@ -6,7 +6,7 @@
 
 // Author    : mador
 // File name : gtp_tux.v
-// Timestamp : Mon Aug 31 18:43:10 2026
+// Timestamp : Mon Aug 31 19:41:00 2026
 
 module gtp_tux
 (
@@ -37,7 +37,7 @@ module gtp_tux
 		.tx_n     (tx_n),
 		.refclk_p (refclk_p),
 		.refclk_n (refclk_n),
-		.reset_i  (reset)
+		.reset_i  (reset),
 		.clk160   (clk160)
 	);
 endmodule

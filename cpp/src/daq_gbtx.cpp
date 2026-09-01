@@ -181,7 +181,9 @@ beginmodule
 	Reg_ (shower_d, 1, 0);
 	Wire_(shower_m, 1, 0);
 	Reg_ (shower_t, 1, 0);
+	Wire_(fwver, 5, 0);
 
+	assign fwver = FWVER;
 	int i;
 	
 	assign l1a_int_delay = l1a_delay - 1;
@@ -513,7 +515,7 @@ beginmodule
 
 				case1(SEND_HFEATURES)
 				begin
-				  daqw = ((Signal)"5'h0", FWVER[5], trig_reg, WP, PB, RL, KE, MR, NP, BF, WGN);	
+				  daqw = ((Signal)"5'h0", fwver(5), trig_reg, WP, PB, RL, KE, MR, NP, BF, WGN);	
 					state = SEND_BIN_NUM;
 				end
 
@@ -524,7 +526,7 @@ beginmodule
 					// lct_bins+1 reported to account for padding
 					lct_bins_report = ifelse(lct_bins != 0, lct_bins + "4'b1", "4'b0");
 
-					daqw = ((Signal)"5'b0", ((Signal)FWVER)(4,0), lct_bins_report, raw_bins);
+					daqw = ((Signal)"5'b0", fwver(4,0), lct_bins_report, raw_bins);
 
 					state = ifelse (config_report, SEND_CONFIG, 
 							ifelse (lct_bins != 0, SEND_LCTBINS,

@@ -85,6 +85,7 @@ class daq_gbtx:public module
 	Signal bxn_l1a,	l1a_bxn_fifo_empty,	l1a_bxn_fifo_full, bxnr, ly_zero, tb_zero;
 	Signal l1a_in_count, l1a_in_countf, valor, config_report, valorr;
 	Signal shower_e, shower_d, shower_m, shower_t;
+    Signal fwver;
 
 	dav davgen;
 	crc crcgen;
