@@ -304,7 +304,8 @@ beginmodule
 		best_we,
 		((Signal)"4'b0", l1a_window),
 		best_full,
-		clk
+		clk,
+		clk160
 	);
 
 	// raw hits to be reported in DAQ sequence are stored in this memory
@@ -321,7 +322,8 @@ beginmodule
 		raw_we,
 		((Signal)"3'b0", fifo_tbins),
 		raw_full,
-		clk
+		clk,
+		clk160
 	);
 
 	// CRC generator

@@ -18,7 +18,8 @@ class daq_memory: public module
 		Signal we,
 		Signal wblock,
 		Signal full,
-		Signal clk
+		Signal wclk,
+		Signal rclk
 	);
 
 	memory mem;

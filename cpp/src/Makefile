@@ -65,8 +65,6 @@ daq_memory.cpp \
 delay_line.cpp \
 delay_line_valor.cpp \
 l1a_maker.cpp \
-adaq.cpp \
-al1a_maker.cpp \
 dual_memory.cpp
 endif
 

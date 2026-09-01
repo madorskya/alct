@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : mador
+// Author    : ise
 // File name : alct576mirror.v
-// Timestamp : Mon Aug 31 19:40:33 2026
+// Timestamp : Tue Sep  1 18:41:21 2026
 
 module alct576mirror
 (
@@ -390,7 +390,7 @@ din_dly_del
     assign mx_oe = 0;
     // Mux OE
     // JTAG port instantiation
-    assign virtex_id = {4'd8, 5'd31, 12'd2026, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b1, 1'b0, 1'b1, 3'h5, 6'h7};
+    assign virtex_id = {4'd9, 5'd1, 12'd2026, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b1, 1'b0, 1'b1, 3'h5, 6'h7};
     jtag TAP
     (
         tck2b,

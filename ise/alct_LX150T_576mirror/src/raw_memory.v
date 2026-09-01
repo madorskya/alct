@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : mador
+// Author    : ise
 // File name : raw_memory.v
-// Timestamp : Mon Aug 31 19:40:33 2026
+// Timestamp : Tue Sep  1 18:41:27 2026
 
 module raw_memory
 (
@@ -18,7 +18,8 @@ module raw_memory
     we,
     wblock,
     full,
-    clk
+    wclk,
+    rclk
 );
 
     input [7:0] adw;
@@ -26,10 +27,12 @@ module raw_memory
     input [7:0] adb;
     input [575:0] dw;
     output [575:0] dr;
+    reg    [575:0] dr;
     input we;
     input [7:0] wblock;
     output full;
-    input clk;
+    input wclk;
+    input rclk;
 
     reg [7:0] adrr;
     reg [575:0] mem [255:0];
@@ -37,10 +40,10 @@ module raw_memory
     wire [7:0] diff;
     assign diff = adb - adw;
     assign full = !((diff > (wblock + 10)) || (adb == adw));
-    always @(posedge clk) 
+    always @(posedge wclk) 
     begin
         if (we) mem[adw] = dw;
         adrr = adr;
     end
-    assign dr = mem[adrr];
+    always @(posedge rclk) dr = mem[adrr];
 endmodule

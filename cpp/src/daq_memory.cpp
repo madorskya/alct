@@ -10,7 +10,8 @@ void daq_memory::operator()
 	Signal we,
 	Signal wblock,
 	Signal full,
-	Signal clk
+	Signal wclk,
+	Signal rclk
 )
 {
 initio
@@ -19,11 +20,12 @@ initio
 	Input_(adr, bwad-1, 0); // read address
 	Input_(adb, bwad-1, 0); // block address - cannot write past this address
 	Input_(dw,  bwd-1, 0); // write data
-	Output_(dr, bwd-1, 0); // read data
+	OutReg_(dr, bwd-1, 0); // read data
 	Input (we); // write enable
 	Input_(wblock, bwad-1, 0); // write block length
 	Output (full); // full - cannot write
-	Input (clk);
+	Input (wclk);
+	Input (rclk);
 
 beginmodule
 	Reg_(adrr,bwad-1, 0); // registered read address - need that so XST can infer block memory
@@ -34,16 +36,17 @@ beginmodule
  	assign diff = adb - adw; 
     assign full = !((diff > (wblock + 10)) || (adb == adw));	
 
-    always (posedge (clk))
+    always (posedge (wclk))
     begin
         If (we)	mem[adw] = dw;
 		adrr = adr;
     end
 
-	assign dr = mem[adrr];
+    always (posedge (rclk))
+	    dr = mem[adrr];
 
 #ifdef _VDEBUG
-	if (posedge(clk).getbool() && (adrr == adw).getbool())
+	if (posedge(wclk).getbool() && (adrr == adw).getbool())
 	{
 		cerr << "daq_memory: Possible problem: simultaneously reading and writing the same memory address: " << adw << "\n";
 	}

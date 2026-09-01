@@ -555,5 +555,7 @@ NET "clkp" TNM_NET = "clkp";
 TIMESPEC "TS_clkp" = PERIOD "clkp" 21 ns HIGH 50 %;
 NET "refclk_p" TNM_NET = "refclk_p";
 TIMESPEC "TS_refclk_p" = PERIOD "refclk_p" 12.5 ns HIGH 50 %;
+NET "clk160" TNM_NET = "clk160";
+TIMESPEC "TS_clk160" = PERIOD "clk160" 6.25 ns HIGH 50 %;
 
 NET "tck2" CLOCK_DEDICATED_ROUTE = FALSE;

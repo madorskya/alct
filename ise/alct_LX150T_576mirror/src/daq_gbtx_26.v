@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : mador
+// Author    : ise
 // File name : daq_gbtx_26.v
-// Timestamp : Mon Aug 31 19:40:33 2026
+// Timestamp : Tue Sep  1 18:41:27 2026
 
 module daq_gbtx_26
 (
@@ -251,7 +251,8 @@ module daq_gbtx_26
         best_we,
         {4'b0, l1a_window},
         best_full,
-        clk
+        clk,
+        clk160
     );
     raw_memory raw_memory
     (
@@ -263,7 +264,8 @@ module daq_gbtx_26
         raw_we,
         {3'b0, fifo_tbins},
         raw_full,
-        clk
+        clk,
+        clk160
     );
     crcgen crcgen
     (
