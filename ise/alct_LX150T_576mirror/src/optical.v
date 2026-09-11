@@ -331,24 +331,24 @@ module optical_lx150t
    (* keep = "true" *) wire tx_fifo_empty;
 
    fifo_cms_to_gtx data_synchronizer_out (
-      .rst                           (reset),                           // input rst
-      .wr_clk                        (clock_async),                           // input wr_clk
-      .rd_clk                        (tx_clk160),                        // input rd_clk
-      .din                           ({
-                                       tx_data_1 [15: 0],txcharisk[1:0] ,
-                                       tx_data   [15: 0],txcharisk[1:0] ,
-                                       tx_data_1 [31:16],txcharisk[3:2] , //
-                                       tx_data   [31:16],txcharisk[3:2] , //
-                                       tx_data_1 [47:32],txcharisk[5:4] , //
-                                       tx_data   [47:32],txcharisk[5:4] , //
-                                       tx_data_1 [63:48],txcharisk[7:6] , // input
-                                       tx_data   [63:48],txcharisk[7:6]   // input
-                                       }),                             //
-      .wr_en                         (1'b1),                           // input wr_en
-      .rd_en                         (1'b1),                           // input rd_en
-      .dout                          ({tx_data_sync_1,tx_charisk_sync_1, tx_data_sync,tx_charisk_sync}), // output [15 : 0] dout
-      .full                          (),                               // output full
-      .empty                         (tx_fifo_empty)                   // output empty
+      .rst    (reset),                           // input rst
+      .wr_clk (clock_async),                           // input wr_clk
+      .rd_clk (tx_clk160),                        // input rd_clk
+      .din    ({
+                tx_data_1 [15: 0],txcharisk[1:0] ,
+                tx_data   [15: 0],txcharisk[1:0] ,
+                tx_data_1 [31:16],txcharisk[3:2] , //
+                tx_data   [31:16],txcharisk[3:2] , //
+                tx_data_1 [47:32],txcharisk[5:4] , //
+                tx_data   [47:32],txcharisk[5:4] , //
+                tx_data_1 [63:48],txcharisk[7:6] , // input
+                tx_data   [63:48],txcharisk[7:6]   // input
+                }),                             //
+      .wr_en  (1'b1),                           // input wr_en
+      .rd_en  (1'b1),                           // input rd_en
+      .dout   ({tx_data_sync_1,tx_charisk_sync_1, tx_data_sync,tx_charisk_sync}), // output [15 : 0] dout
+      .full   (),                               // output full
+      .empty  (tx_fifo_empty)                   // output empty
    );
 
 
@@ -382,15 +382,15 @@ module optical_lx150t
          end
 
          fifo_gtx_to_cms data_synchronizer_rx (
-            .rst                           (reset),                                 // input rst
-            .wr_clk                        (rx_clk160),                              // input wr_clk
-            .rd_clk                        (clock_async),                                 // input rd_clk
-            .wr_en                         (rx_frame[i]==2'd0),                     // input wr_en
-            .rd_en                         (1'b1),                                  // input rd_en
-            .din                           ({rx_data_r3  [i], rx_charisk_r3  [i]}), // write 64 bits @ 40 MHz
-            .dout                          ({rx_data_sync[i], rx_charisk_sync[i]}), // read  64 bits @ 40 MHz
-            .full                          (),                                      // output full
-            .empty                         ()                                       // output empty
+            .rst    (reset),                                 // input rst
+            .wr_clk (rx_clk160),                              // input wr_clk
+            .rd_clk (clock_async),                                 // input rd_clk
+            .wr_en  (rx_frame[i]==2'd0),                     // input wr_en
+            .rd_en  (1'b1),                                  // input rd_en
+            .din    ({rx_data_r3  [i], rx_charisk_r3  [i]}), // write 64 bits @ 40 MHz
+            .dout   ({rx_data_sync[i], rx_charisk_sync[i]}), // read  64 bits @ 40 MHz
+            .full   (),                                      // output full
+            .empty  ()                                       // output empty
          );
 
       end
@@ -466,27 +466,26 @@ module optical_lx150t
    // before here should be common with dmb
    //-------------------------------------------------------------------------------------------------------------------
 
-	// simplified link test logic
+	// simplified link logic
+    // no need to resync daq_word since DAQ module works off tx_clk160
 	reg [16:0] link_tst_cnt = 0;
 	reg [15:0] link_tst_data [1:0];
 	reg [1:0] link_tst_k;
+	reg [18:0] daq_word_r;
 	always@(posedge tx_clk160)
 	begin
-		
-		if (link_tst_cnt[0] == 0)
-		begin
-			link_tst_data[0] = 16'h50bc; 
-			link_tst_data[1] = 16'h503c; 
-			link_tst_k = 2'b01;
+	    if (daq_word_r[18] == 1'b1) // no data, send IDLE
+		begin  
+		   link_tst_data[0] = 16'h50bc; 
+		   link_tst_data[1] = 16'h503c; 
+		   link_tst_k = 2'b01;
 		end
-		else
+	    else
 		begin
-			link_tst_data[0] = link_tst_cnt[16:1]; 
-			link_tst_data[1] = link_tst_cnt[16:1]; 
-			link_tst_k = 2'b00;
-		end
-		
-		link_tst_cnt = link_tst_cnt + 1;
+		   link_tst_data[0] = daq_word_r[15:0];
+		   link_tst_data[1] = daq_word_r[15:0];
+ 		end	 
+		daq_word_r = daq_word;
 	end
 
    assign rx_clk160 = tx_clk160;
