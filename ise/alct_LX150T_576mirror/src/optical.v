@@ -472,7 +472,6 @@ module optical_lx150t
 	reg [1:0] link_tst_k;
 	always@(posedge tx_clk160)
 	begin
-		link_tst_cnt = link_tst_cnt + 1;
 		
 		if (link_tst_cnt[0] == 0)
 		begin
@@ -487,8 +486,7 @@ module optical_lx150t
 			link_tst_k = 2'b00;
 		end
 		
-		
-		
+		link_tst_cnt = link_tst_cnt + 1;
 	end
 
    assign rx_clk160 = tx_clk160;

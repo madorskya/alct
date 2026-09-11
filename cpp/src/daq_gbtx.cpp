@@ -653,7 +653,8 @@ beginmodule
 				case1(SEND_RAWBINS)
 				begin
 
-					ly_zero = zero_suppress && (lyt[ly_cnt] == 0); // entire layer is 0
+				    ly_zero = 0; //zero_suppress && (lyt[ly_cnt] == 0); // entire layer is 0
+				    // disabled to fix timing errors
 
 				// entire time bin suppression is not working so far because of raw_memory latency 
 //				    tb_zero = zero_suppress && lyt[0] == 0 && lyt[1] == 0 && lyt[2] == 0 && lyt[3] == 0 && lyt[4] == 0 && lyt[5] == 0; // entire time bin is 0

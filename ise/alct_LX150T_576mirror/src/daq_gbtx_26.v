@@ -501,7 +501,7 @@ module daq_gbtx_26
                 end
                 19 : 
                 begin
-                    ly_zero = zero_suppress && (lyt[ly_cnt] == 0);
+                    ly_zero = 1'b0; //zero_suppress && (lyt[ly_cnt] == 0);
                     if (!ly_zero) 
                     begin
                         if (wg_cnt == 0) daqw = {7'b0, lyt[ly_cnt][11:0]};
