@@ -3,7 +3,8 @@ module optical_lx150t
 (
 
   input        clock, // 40 mhz logic clock
-  input [18:0] daq_word,
+  input [27:0] daq_word,
+  input        daq_valid,
 
   output [1:0] tx_p,
   output [1:0] tx_n,
@@ -471,10 +472,10 @@ module optical_lx150t
 	reg [16:0] link_tst_cnt = 0;
 	reg [15:0] link_tst_data [1:0];
 	reg [1:0] link_tst_k;
-	reg [18:0] daq_word_r;
+	reg [27:0] daq_word_r;
 	always@(posedge tx_clk160)
 	begin
-	    if (daq_word_r[18] == 1'b1) // no data, send IDLE
+	    if (daq_valid == 1'b0) // no data, send IDLE
 		begin  
 		   link_tst_data[0] = 16'h50bc; 
 		   link_tst_data[1] = 16'h503c; 
@@ -482,8 +483,8 @@ module optical_lx150t
 		end
 	    else
 		begin
-		   link_tst_data[0] = daq_word_r[15:0];
-		   link_tst_data[1] = daq_word_r[15:0];
+		   link_tst_data[0] = {2'b00, daq_word_r[13:0]};
+		   link_tst_data[1] = {2'b00, daq_word_r[27:14]};
  		end	 
 		daq_word_r = daq_word;
 	end

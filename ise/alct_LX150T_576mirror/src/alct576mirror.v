@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : mador
 // File name : alct576mirror.v
-// Timestamp : Tue Sep  1 18:41:21 2026
+// Timestamp : Thu Oct  8 16:45:29 2026
 
 module alct576mirror
 (
@@ -329,6 +329,8 @@ initial hard_rst = 0;
     wire [4:0] shower_bits;
     wire [4:0] dummy_bxn;
     wire clk160;
+    wire [27:0] daq_opt;
+    wire daq_gbtx_valid;
 
 	IBUFG ibufclk (.I(clkp), .O(clkb));
 	IBUF buftck (.I(tck2), .O(tck2b)); // synthesis attribute buffer_type tck2 ibuf
@@ -390,7 +392,7 @@ din_dly_del
     assign mx_oe = 0;
     // Mux OE
     // JTAG port instantiation
-    assign virtex_id = {4'd9, 5'd1, 12'd2026, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b1, 1'b0, 1'b1, 3'h5, 6'h7};
+    assign virtex_id = {4'd10, 5'd8, 12'd2026, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b1, 1'b0, 1'b1, 3'h5, 6'h7};
     jtag TAP
     (
         tck2b,
@@ -677,7 +679,8 @@ din_dly_del
         shower_int,
         bxn,
         fifo_tbins,
-        daqo,
+        daq_opt,
+        daq_gbtx_valid,
         l1a_delay,
         fifo_pretrig,
         fifo_mode,
@@ -703,6 +706,7 @@ din_dly_del
         clk,
         clk160
     );
+    assign daqo = 19'b100_0000_0000_0000_0000;
     loopback lpback
     (
         seq_cmd_r,
@@ -779,7 +783,8 @@ din_dly_del
 	POST_CRC_INTERNAL p_c_i (.CRCERROR(seu_error));
     gtp_tux gtp_tux
     (
-        daqo,
+        daq_opt,
+        daq_gbtx_valid,
         clk,
         tx_p,
         tx_n,

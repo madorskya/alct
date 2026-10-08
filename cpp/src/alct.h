@@ -197,6 +197,10 @@ public:
 	Signal shower_int, shower_bits;
 	Signal dummy_bxn;
     Signal clk160;
+#if defined(LX150T) || defined(LX100)
+    Signal daq_opt; // 28-bit optical DAQ word, clk160 domain
+    Signal daq_gbtx_valid; // 1 during optical DAQ block transmission, aligned with daq_opt
+#endif
 
 
 	dll  dll2x; // DLL for doubling the clock

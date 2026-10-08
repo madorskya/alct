@@ -337,6 +337,10 @@ beginmodule
 	Wire_(shower_bits, 4,0);
 	Wire_(dummy_bxn, 4, 0);
 	Wire (clk160);
+#if defined(LX150T) || defined(LX100)
+	Wire_(daq_opt, 27, 0); // 28-bit optical DAQ word, clk160 domain
+	Wire (daq_gbtx_valid); // 1 during optical DAQ block transmission, aligned with daq_opt
+#endif
 
 #ifdef VGEN
 	printv("\n\tIBUFG ibufclk (.I(clkp), .O(clkb));");	// input clock buffer (instantiation required for DLL)
@@ -808,7 +812,8 @@ beginmodule
 		shower_int,
 	    bxn,                        
     	fifo_tbins,                 
-	    daqo,                        
+	    daq_opt,                        
+	    daq_gbtx_valid,
     	l1a_delay,                   
 	    fifo_pretrig,
     	fifo_mode,                  
@@ -834,6 +839,8 @@ beginmodule
 		clk,
 		clk160
 	);
+	// DAQ is sent via optical link only, copper DAQ outputs and output FIFO see idle (bit 18 = 1 means no data)
+	assign daqo = "19'b100_0000_0000_0000_0000";
   #else	
  	Module (daq_06); // legacy copper DAQ
 	daq_06
@@ -1044,8 +1051,7 @@ beginmodule
     Module (gbtx);
     gbtx
 	(
-	   daqo,
-	   clk,
+	   daq_opt,
 	   
 	   elink_p,
 	   elink_n,
@@ -1054,7 +1060,6 @@ beginmodule
 	   gbt_clk40_n,
 	   gbt_txrdy,
 	   
-       !hard_rst,
 	   clk160
     );
 #endif
@@ -1064,7 +1069,8 @@ beginmodule
 	Module (gtp_tux);
 	gtp_tux
 	(
-	    daqo,
+	    daq_opt,
+	    daq_gbtx_valid,
 	    clk,
 
 	    tx_p,

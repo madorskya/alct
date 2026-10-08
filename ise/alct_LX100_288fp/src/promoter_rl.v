@@ -6,7 +6,7 @@
 
 // Author    : mador
 // File name : promoter_rl.v
-// Timestamp : Mon Aug 31 19:38:44 2026
+// Timestamp : Thu Oct  8 16:43:28 2026
 
 module promoter_rl
 (

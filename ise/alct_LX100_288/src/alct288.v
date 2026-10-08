@@ -6,7 +6,7 @@
 
 // Author    : mador
 // File name : alct288.v
-// Timestamp : Mon Aug 31 19:39:10 2026
+// Timestamp : Thu Oct  8 16:44:00 2026
 
 module alct288
 (
@@ -329,6 +329,8 @@ initial hard_rst = 0;
     wire [4:0] shower_bits;
     wire [4:0] dummy_bxn;
     wire clk160;
+    wire [27:0] daq_opt;
+    wire daq_gbtx_valid;
 
 	IBUFG ibufclk (.I(clkp), .O(clkb));
 	IBUF buftck (.I(tck2), .O(tck2b)); // synthesis attribute buffer_type tck2 ibuf
@@ -357,7 +359,7 @@ initial hard_rst = 0;
     assign mx_oe = 0;
     // Mux OE
     // JTAG port instantiation
-    assign virtex_id = {4'd8, 5'd31, 12'd2026, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0, 1'b1, 3'h2, 6'h7};
+    assign virtex_id = {4'd10, 5'd8, 12'd2026, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0, 1'b1, 3'h2, 6'h7};
     jtag TAP
     (
         tck2b,
@@ -609,7 +611,8 @@ initial hard_rst = 0;
         shower_int,
         bxn,
         fifo_tbins,
-        daqo,
+        daq_opt,
+        daq_gbtx_valid,
         l1a_delay,
         fifo_pretrig,
         fifo_mode,
@@ -635,6 +638,7 @@ initial hard_rst = 0;
         clk,
         clk160
     );
+    assign daqo = 19'b100_0000_0000_0000_0000;
     loopback lpback
     (
         seq_cmd_r,
@@ -711,15 +715,13 @@ initial hard_rst = 0;
 	POST_CRC_INTERNAL p_c_i (.CRCERROR(seu_error));
     gbtx gbtx
     (
-        daqo,
-        clk,
+        daq_opt,
         elink_p,
         elink_n,
         gbt_tx_datavalid,
         gbt_clk40_p,
         gbt_clk40_n,
         gbt_txrdy,
-        !hard_rst,
         clk160
     );
 

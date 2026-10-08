@@ -78,14 +78,18 @@ ifeq ($(FLAVOR), -DLX100)
 CCFILES += \
 gbtx.cpp \
 daq_gbtx.cpp \
-daq_fifo_2clk.cpp
+daq_fifo_2clk.cpp \
+daq_memory_2clk.cpp \
+crc_gbtx.cpp
 endif
 
 ifeq ($(FLAVOR), -DLX150T)
 CCFILES += \
 gtp_tux.cpp \
 daq_gbtx.cpp \
-daq_fifo_2clk.cpp
+daq_fifo_2clk.cpp \
+daq_memory_2clk.cpp \
+crc_gbtx.cpp
 endif
 
 ifdef TRIGWP 
@@ -158,6 +162,15 @@ daq.o: daq.cpp daq.h $(VPPDIR)/vlib.h $(VPPDIR)/vmac.h daq_memory.h alctver.h de
   daq_fifo.h l1a_maker.h crc.h dav06.h Makefile ../parameters.mk
 
 dav06.o: dav06.cpp dav06.h alctver.h $(VPPDIR)/vlib.h $(VPPDIR)/vmac.h Makefile ../parameters.mk
+
+daq_gbtx.o: daq_gbtx.cpp daq_gbtx.h $(VPPDIR)/vlib.h $(VPPDIR)/vmac.h daq_memory_2clk.h alctver.h delay_line.h \
+  delay_line_valor.h daq_fifo_2clk.h l1a_maker.h crc_gbtx.h Makefile ../parameters.mk
+
+daq_memory_2clk.o: daq_memory_2clk.cpp daq_memory_2clk.h alctver.h $(VPPDIR)/vlib.h $(VPPDIR)/vmac.h Makefile ../parameters.mk
+
+daq_fifo_2clk.o: daq_fifo_2clk.cpp daq_fifo_2clk.h alctver.h $(VPPDIR)/vlib.h $(VPPDIR)/vmac.h Makefile ../parameters.mk
+
+crc_gbtx.o: crc_gbtx.cpp crc_gbtx.h alctver.h $(VPPDIR)/vlib.h $(VPPDIR)/vmac.h Makefile ../parameters.mk
 
 daq_memory.o: daq_memory.cpp daq_memory.h alctver.h $(VPPDIR)/vlib.h $(VPPDIR)/vmac.h Makefile ../parameters.mk
 

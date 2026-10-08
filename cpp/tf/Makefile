@@ -33,7 +33,12 @@ ifeq ($(DAQFORM), -DDAQ01)
 endif
 
 ifeq ($(DAQFORM), -DDAQ06)
+ifeq ($(FLAVOR), -DLX150)
 CCFILES += daqtf.cpp
+else
+# optical DAQ test fixture (LX100, LX150T)
+CCFILES += daq_gbtxtf.cpp
+endif
 endif
 
 ifdef TRIGWP
@@ -68,6 +73,12 @@ adaqtf.exe: adaqtf.o ../lib/libalct.a
 text_reverse.exe: text_reverse.o ../lib/libalct.a
 
 daqtf.exe: daqtf.o ../lib/libalct.a
+
+daq_gbtxtf.exe: daq_gbtxtf.o ../lib/libalct.a
+
+daq_gbtxtf.o: daq_gbtxtf.cpp ../src/daq_gbtx.h ../src/alctver.h $(VPPDIR)/vlib.h $(VPPDIR)/vmac.h \
+  ../src/daq_memory_2clk.h ../src/daq_fifo_2clk.h ../src/crc_gbtx.h ../src/delay_line.h \
+  ../src/l1a_maker.h Makefile ../src/Makefile ../parameters.mk
 
 alcttf.o: alcttf.cpp ../src/alct.h ../src/alctver.h $(VPPDIR)/vlib.h \
   $(VPPDIR)/vmac.h ../src/dlls.h ../src/jtag.h ../src/daq.h \

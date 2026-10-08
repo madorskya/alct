@@ -4,7 +4,8 @@ echo "ALCT simulation and generation code compile script"
 # legacy versions removed. See compile_legacy script for legacy versions.
 # lists of versions and their parameters
 type=(ALCT192 ALCT288 ALCT288 ALCT288 ALCT288 ALCT384 ALCT384 ALCT576 ALCT672 ALCT384)
-rval=(8       9       9       9       9       12      12      18      21      12)
+# optical versions (LX100, LX150T) need one extra rval word: raw hit memory stores 6 layer-empty flags with the hits
+rval=(8       10      10      10      10      13      13      19      22      12)
 me11=(NO      ME11BN  ME11BP  ME11FP  NO      NO      NO      NO      NO      NO)
 mirr=(NO      NO      NO      NO      NO      MIRROR  NO      MIRROR  NO      MIRROR)
 chip=(S6      S6      S6      S6      S6      S6      S6      S6      S6      S6)

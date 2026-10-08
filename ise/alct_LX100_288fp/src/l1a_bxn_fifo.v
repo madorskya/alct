@@ -6,7 +6,7 @@
 
 // Author    : mador
 // File name : l1a_bxn_fifo.v
-// Timestamp : Mon Aug 31 19:38:44 2026
+// Timestamp : Thu Oct  8 16:43:29 2026
 
 module l1a_bxn_fifo
 (
@@ -38,7 +38,17 @@ module l1a_bxn_fifo
     reg [7:0] waddr;
     reg [7:0] raddr;
     reg [7:0] raddrr;
-    reg empty_r;
+    reg [7:0] wgray;
+    reg [7:0] rgray;
+    reg [7:0] wgray_r1;
+    reg [7:0] wgray_r2;
+    reg [7:0] rgray_r1;
+    reg [7:0] rgray_r2;
+    reg [7:0] waddr_n;
+    // synthesis attribute ASYNC_REG of wgray_r1 is TRUE
+    // synthesis attribute ASYNC_REG of wgray_r2 is TRUE
+    // synthesis attribute ASYNC_REG of rgray_r1 is TRUE
+    // synthesis attribute ASYNC_REG of rgray_r2 is TRUE
     always @(posedge wclk) 
     begin
         if (wen && (!full)) 
@@ -50,12 +60,15 @@ module l1a_bxn_fifo
         begin
             waddr = 0;
         end
-        full = (waddr + 1) == raddr;
-        empty = waddr == raddr;
+        wgray = waddr ^ {1'd0, waddr[7:1]};
+        waddr_n = waddr + 1;
+        rgray_r2 = rgray_r1;
+        rgray_r1 = rgray;
+        full = (waddr_n ^ {1'd0, waddr_n[7:1]}) == rgray_r2;
     end
     always @(posedge rclk) 
     begin
-        if (ren && (!empty_r)) 
+        if (ren && (!empty)) 
         begin
             raddrr = raddr;
             raddr = raddr + 1;
@@ -64,7 +77,10 @@ module l1a_bxn_fifo
         begin
             raddr = 0;
         end
-        empty_r = waddr == raddr;
+        rgray = raddr ^ {1'd0, raddr[7:1]};
+        wgray_r2 = wgray_r1;
+        wgray_r1 = wgray;
+        empty = wgray_r2 == rgray;
     end
     assign dout = mem[raddrr];
 endmodule

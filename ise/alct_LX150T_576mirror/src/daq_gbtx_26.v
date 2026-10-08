@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : mador
 // File name : daq_gbtx_26.v
-// Timestamp : Tue Sep  1 18:41:27 2026
+// Timestamp : Thu Oct  8 16:45:30 2026
 
 module daq_gbtx_26
 (
@@ -22,6 +22,7 @@ module daq_gbtx_26
     bxn,
     fifo_tbins,
     daqp,
+    daq_gbtx_valid,
     l1a_delay,
     fifo_pretrig,
     fifo_mode,
@@ -59,7 +60,9 @@ module daq_gbtx_26
     input [1:0] shower_int;
     input [11:0] bxn;
     input [4:0] fifo_tbins;
-    output [18:0] daqp;
+    output [27:0] daqp;
+    output daq_gbtx_valid;
+    reg    daq_gbtx_valid;
     input [7:0] l1a_delay;
     input [4:0] fifo_pretrig;
     input [1:0] fifo_mode;
@@ -88,89 +91,86 @@ module daq_gbtx_26
     wire [10:0] best1e;
     wire [10:0] best2e;
     wire [11:0] bxne;
+    wire [1:0] shower_e;
     reg [10:0] best1d;
     reg [10:0] best2d;
     reg [11:0] bxnd;
-    wire [10:0] best1m;
-    wire [10:0] best2m;
-    wire [11:0] bxnm;
+    reg [1:0] shower_d;
     wire [95:0] lyd0;
     wire [95:0] lyd1;
     wire [95:0] lyd2;
     wire [95:0] lyd3;
     wire [95:0] lyd4;
     wire [95:0] lyd5;
+    wire [5:0] lyzd;
+    wire [7:0] l1a_int_delay;
+    wire l1a_proc;
+    wire best_we;
+    wire raw_we;
+    wire valor;
+    reg l1a_procr;
+    reg [11:0] bxnr;
+    reg [7:0] best_adw;
+    reg [7:0] raw_adw;
+    wire best_full;
+    wire raw_full;
+    wire [11:0] l1a_in_count;
+    reg [6:0] rst_cnt;
+    wire l1a_procd;
+    wire [11:0] l1a_in_countd;
+    wire best_fulld;
+    wire raw_fulld;
+    wire [7:0] best_adwd;
+    wire [7:0] raw_adwd;
+    wire [11:0] bxnrd;
+    wire l1a_fifo_we;
+    wire l1a_fifo_full;
+    wire l1a_bxn_fifo_full;
+    reg l1a_fifo_re;
+    wire l1a_fifo_empty;
+    wire l1a_bxn_fifo_empty;
+    wire [11:0] l1a_in_countf;
+    wire best_fullf;
+    wire raw_fullf;
+    wire [7:0] best_adwf;
+    wire [7:0] raw_adwf;
+    wire [11:0] bxn_l1a;
+    wire [10:0] best1m;
+    wire [10:0] best2m;
+    wire [11:0] bxnm;
+    wire [1:0] shower_m;
     wire [95:0] lym0;
     wire [95:0] lym1;
     wire [95:0] lym2;
     wire [95:0] lym3;
     wire [95:0] lym4;
     wire [95:0] lym5;
-    reg l1a_fifo_re;
-    wire l1a_fifo_empty;
-    wire l1a_fifo_full;
-    wire l1a_proc;
-    wire best_we;
-    wire raw_we;
-    reg [7:0] best_adw;
-    wire [7:0] best_adwf;
+    wire [5:0] lyzm;
     reg [7:0] best_adr;
     reg [7:0] best_adb;
-    reg [7:0] raw_adw;
-    wire [7:0] raw_adwf;
     reg [7:0] raw_adr;
     reg [7:0] raw_adb;
-    wire best_full;
-    wire raw_full;
-    wire best_fullf;
-    wire raw_fullf;
-    wire [11:0] l1a_in_count;
-    wire [11:0] l1a_in_countf;
     reg [11:0] readout_count;
     reg [4:0] state;
-    wire [7:0] l1a_int_delay;
-    wire [3:0] l1a_int_offset;
+    reg [2:0] idle_cnt;
+    reg [1:0] wphase;
     reg [3:0] best_cnt;
-    reg have_lcts;
-    reg [11:0] bxn_track;
     reg [3:0] lct_bins;
     reg [3:0] lct_bins_report;
     reg [4:0] raw_bins;
-    reg [5:0] cmpart_cnt;
-    reg [10:0] best1t;
-    reg [10:0] best2t;
-    reg best_first;
     reg [95:0] lyt [5:0];
+    reg [5:0] lzt;
     reg [5:0] raw_cnt;
     reg [2:0] ly_cnt;
     reg [3:0] wg_cnt;
-    reg [2:0] crccalc;
-    reg [18:0] daqw;
-    wire davv;
-    reg [10:0] frame_count;
-    reg l1a_procr;
-    reg [14:0] config_word [7:0];
-    reg [3:0] conf_w_count;
-    reg [13:0] collmask_word [23:0];
-    reg [12:0] hot_word [47:0];
-    reg [5:0] hot_w_count;
-    wire [11:0] bxn_l1a;
-    wire l1a_bxn_fifo_empty;
-    wire l1a_bxn_fifo_full;
-    reg [11:0] bxnr;
     reg ly_zero;
-    reg tb_zero;
-    wire valor;
-    reg valorr;
-    reg config_report;
-    wire [1:0] shower_e;
-    reg [1:0] shower_d;
-    wire [1:0] shower_m;
-    reg [1:0] shower_t;
+    reg [2:0] crccalc;
+    reg [27:0] daqw;
+    reg daqv_w;
+    reg [10:0] frame_count;
     wire [5:0] fwver;
     assign fwver = 6'h7;
     assign l1a_int_delay = l1a_delay - 1;
-    assign l1a_int_offset = l1a_offset - 1;
     assign L1AWindow = best_we;
     assign l1aTP = l1a_proc;
     assign validhd = best1d[3];
@@ -196,30 +196,7 @@ module daq_gbtx_26
         trig_stop,
         clk
     );
-    l1a_fifo l1a_fifo
-    (
-        {l1a_in_count, best_full, raw_full, best_adw, raw_adw},
-        {l1a_in_countf, best_fullf, raw_fullf, best_adwf, raw_adwf},
-        l1a_procr,
-        l1a_fifo_re,
-        !hard_rst,
-        l1a_fifo_empty,
-        l1a_fifo_full,
-        clk,
-        clk160
-    );
-    l1a_bxn_fifo l1a_bxn_fifo
-    (
-        bxnr,
-        bxn_l1a,
-        l1a_procr,
-        l1a_fifo_re,
-        !hard_rst,
-        l1a_bxn_fifo_empty,
-        l1a_bxn_fifo_full,
-        clk,
-        clk160
-    );
+    assign lyzd = {lyd5 == 0, lyd4 == 0, lyd3 == 0, lyd2 == 0, lyd1 == 0, lyd0 == 0};
     l1a_maker_ l1a_maker_
     (
         L1A,
@@ -241,6 +218,59 @@ module daq_gbtx_26
         hard_rst,
         clk
     );
+    l1a_dly l1a_dly
+    (
+        {l1a_procr, l1a_in_count, best_full, raw_full, best_adw, raw_adw, bxnr},
+        {l1a_procd, l1a_in_countd, best_fulld, raw_fulld, best_adwd, raw_adwd, bxnrd},
+        6'd34,
+        1'b1,
+        1'b0,
+        clk
+    );
+    assign l1a_fifo_we = l1a_procd && rst_cnt[6];
+    always @(posedge clk) 
+    begin
+        if (!hard_rst) 
+        begin
+            best_adw = 1;
+            raw_adw = 1;
+            l1a_procr = 0;
+            rst_cnt = 0;
+        end
+        else 
+        begin
+            if (best_we) best_adw = best_adw + 1;
+            if (raw_we) raw_adw = raw_adw + 1;
+            if (!rst_cnt[6]) rst_cnt = rst_cnt + 1;
+            l1a_procr = l1a_proc;
+            {shower_d, best1d, best2d, bxnd} = {shower_e, best1e, best2e, bxne};
+            bxnr = bxn;
+        end
+    end
+    l1a_fifo l1a_fifo
+    (
+        {l1a_in_countd, best_fulld, raw_fulld, best_adwd, raw_adwd},
+        {l1a_in_countf, best_fullf, raw_fullf, best_adwf, raw_adwf},
+        l1a_fifo_we,
+        l1a_fifo_re,
+        !hard_rst,
+        l1a_fifo_empty,
+        l1a_fifo_full,
+        clk,
+        clk160
+    );
+    l1a_bxn_fifo l1a_bxn_fifo
+    (
+        bxnrd,
+        bxn_l1a,
+        l1a_fifo_we,
+        l1a_fifo_re,
+        !hard_rst,
+        l1a_bxn_fifo_empty,
+        l1a_bxn_fifo_full,
+        clk,
+        clk160
+    );
     best_memory best_memory
     (
         best_adw,
@@ -259,8 +289,8 @@ module daq_gbtx_26
         raw_adw,
         raw_adr,
         raw_adb,
-        {lyd0, lyd1, lyd2, lyd3, lyd4, lyd5},
-        {lym0, lym1, lym2, lym3, lym4, lym5},
+        {lyzd, lyd0, lyd1, lyd2, lyd3, lyd4, lyd5},
+        {lyzm, lym0, lym1, lym2, lym3, lym4, lym5},
         raw_we,
         {3'b0, fifo_tbins},
         raw_full,
@@ -272,34 +302,12 @@ module daq_gbtx_26
         daqw,
         daqp,
         crccalc,
-        davv,
-        clk
+        clk160
     );
-    davgen davgen
-    (
-        l1a_proc,
-        davv,
-        clk
-    );
-    always @(posedge clk) 
-    begin
-        if (!hard_rst) 
-        begin
-            best_adw = 1;
-            raw_adw = 1;
-        end
-        else 
-        begin
-            if (best_we) best_adw = best_adw + 1;
-            if (raw_we) raw_adw = raw_adw + 1;
-            l1a_procr = l1a_proc;
-            valorr = valor;
-            {shower_d, best1d, best2d, bxnd} = {shower_e, best1e, best2e, bxne};
-            bxnr = bxn;
-        end
-    end
     always @(posedge clk160) 
     begin
+        wphase = wphase + 1;
+        daq_gbtx_valid = daqv_w;
         if (!hard_rst) 
         begin
             readout_count = l1a_offset;
@@ -307,19 +315,25 @@ module daq_gbtx_26
             best_adb = 0;
             raw_adb = 0;
             crccalc = 0;
-            config_report = 0;
-            ly_zero = 0;
+            idle_cnt = 0;
+            daqw = 28'h051E57A;
+            daqv_w = 0;
         end
         else 
         begin
-            daqw = 19'b100_0010_0101_1010_0101;
+            daqv_w = (state >= 5) && (state <= 15);
+            daqw = 28'h051E57A;
             l1a_fifo_re = 0;
             case (state)
                 0 : 
                 begin
-                    state = (l1a_fifo_empty) ? 0 : 1;
-                    l1a_fifo_re = !l1a_fifo_empty;
                     crccalc = 0;
+                    if (((!l1a_fifo_empty) && (idle_cnt == 4)) && (wphase == 3)) 
+                    begin
+                        state = 1;
+                        l1a_fifo_re = 1;
+                    end
+                    if (idle_cnt != 4) idle_cnt = idle_cnt + 1;
                 end
                 1 : 
                 begin
@@ -329,7 +343,6 @@ module daq_gbtx_26
                 begin
                     raw_adr = raw_adwf;
                     raw_adb = raw_adwf;
-                    best_cnt = 0;
                     state = 3;
                 end
                 3 : 
@@ -338,191 +351,88 @@ module daq_gbtx_26
                 end
                 4 : 
                 begin
-                    have_lcts = 1;
-                    best_cnt = best_cnt + 1;
-                    state = 5;
                     best_adr = best_adwf;
                     best_adb = best_adwf;
+                    best_cnt = 0;
                     frame_count = 0;
+                    lct_bins = (best_fullf) ? 0 : l1a_window;
+                    raw_bins = ((fifo_mode != 0) && (!raw_fullf)) ? fifo_tbins : 0;
+                    lct_bins_report = (lct_bins != 0) ? lct_bins + 4'b1 : 4'b0;
+                    state = 5;
                 end
                 5 : 
                 begin
-                    daqw = 19'hdb0a;
+                    daqw = 28'h5E750FF;
                     state = 6;
                     crccalc = 1;
                 end
                 6 : 
                 begin
-                    daqw = {7'hd, bxn_l1a};
+                    daqw = {2'b01, bxn_l1a, 2'b00, l1a_in_countf};
                     state = 7;
                 end
                 7 : 
                 begin
-                    daqw = {6'h6, 1'b1, l1a_in_countf};
-                    bxn_track = bxnm;
+                    daqw = {2'b01, readout_count, 2'b00, bxnm};
                     state = 8;
                 end
                 8 : 
                 begin
-                    daqw = {5'h3, config_report, seu_error, readout_count};
+                    daqw = {2'b01, bxn_before_reset, 2'b00, 3'b000, lct_bins_report, raw_bins};
+                    best_adr = best_adr + 1;
                     state = 9;
                 end
                 9 : 
                 begin
-                    daqw = {5'b0, 1'b0, 1'b0, bxn_track};
-                    state = 10;
+                    daqw = {1'b0, trig_reg, 1'b0, 2'b00, 1'b1, 1'b1, 1'b0, 1'b1, 3'h5, 2'b00, fwver, 1'b1, 1'b0, seu_error, best_fullf, raw_fullf, zero_suppress};
+                    best_adr = best_adr + 1;
+                    raw_cnt = 0;
+                    ly_cnt = 0;
+                    wg_cnt = 0;
+                    if (lct_bins != 0) state = 10;
+                    else 
+                    begin
+                        lyt[0] = lym0;
+                        lyt[1] = lym1;
+                        lyt[2] = lym2;
+                        lyt[3] = lym3;
+                        lyt[4] = lym4;
+                        lyt[5] = lym5;
+                        lzt = lyzm;
+                        raw_adr = raw_adr + 1;
+                        state = (raw_bins != 0) ? 11 : (frame_count[1:0] == 1) ? 13 : 12;
+                    end
                 end
                 10 : 
                 begin
-                    daqw = {6'h0, zero_suppress, bxn_before_reset};
-                    state = 11;
+                    if (best_cnt == lct_bins) daqw = 28'h0;
+                    else daqw = {2'b00, best2m[10:4], 1'b0, best2m[2:0], best2m[3], shower_m, best1m[10:4], 1'b0, best1m[2:0], best1m[3]};
+                    best_adr = best_adr + 1;
+                    if (best_cnt == lct_bins) 
+                    begin
+                        lyt[0] = lym0;
+                        lyt[1] = lym1;
+                        lyt[2] = lym2;
+                        lyt[3] = lym3;
+                        lyt[4] = lym4;
+                        lyt[5] = lym5;
+                        lzt = lyzm;
+                        raw_adr = raw_adr + 1;
+                        state = (raw_bins != 0) ? 11 : (frame_count[1:0] == 1) ? 13 : 12;
+                    end
+                    best_cnt = best_cnt + 1;
                 end
                 11 : 
                 begin
-                    daqw = {5'h0, fwver[5], trig_reg, 1'b0, 1'b0, 1'b1, 1'b1, 1'b1, 1'b0, 1'b1, 3'h5};
-                    state = 12;
-                end
-                12 : 
-                begin
-                    lct_bins = (send_empty || have_lcts) ? l1a_window : 0;
-                    raw_bins = (fifo_mode != 0) ? fifo_tbins : 0;
-                    lct_bins_report = (lct_bins != 0) ? lct_bins + 4'b1 : 4'b0;
-                    daqw = {5'b0, fwver[4:0], lct_bins_report, raw_bins};
-                    state = (config_report) ? 13 : (lct_bins != 0) ? 16 : (raw_bins != 0) ? 19 : 21;
-                    conf_w_count = 0;
-                    if (state == 16) 
+                    ly_zero = zero_suppress && lzt[0];
+                    if (ly_zero) daqw = 28'h4000000;
+                    else daqw = {2'b00, lyt[0][23:12], 2'b00, lyt[0][11:0]};
+                    if (ly_zero || (wg_cnt == 3)) 
                     begin
-                        best1t = best1m;
-                        best2t = best2m;
-                        shower_t = shower_m;
-                        best_adr = best_adr + 1;
-                        best_cnt = 0;
-                        best_first = 1;
-                    end
-                    if (state == 19) 
-                    begin
-                        lyt[0] = lym0;
-                        lyt[1] = lym1;
-                        lyt[2] = lym2;
-                        lyt[3] = lym3;
-                        lyt[4] = lym4;
-                        lyt[5] = lym5;
-                        raw_adr = raw_adr + 1;
-                        raw_cnt = 0;
-                        ly_cnt = 0;
                         wg_cnt = 0;
-                    end
-                end
-                13 : 
-                begin
-                    daqw = config_word[conf_w_count];
-                    conf_w_count = conf_w_count + 1;
-                    if (conf_w_count == 4'h8) 
-                    begin
-                        cmpart_cnt = 0;
-                        state = 14;
-                    end
-                end
-                14 : 
-                begin
-                    daqw = {4'h0, collmask_word[cmpart_cnt]};
-                    cmpart_cnt = cmpart_cnt + 1;
-                    if (cmpart_cnt == 24) 
-                    begin
-                        state = 15;
-                        hot_w_count = 0;
-                    end
-                end
-                15 : 
-                begin
-                    daqw = {7'b0, hot_word[hot_w_count]};
-                    hot_w_count = hot_w_count + 1;
-                    if (hot_w_count == 48) 
-                    begin
-                        state = (lct_bins != 0) ? 16 : (raw_bins != 0) ? 19 : 21;
-                        best1t = best1m;
-                        best2t = best2m;
-                        shower_t = shower_m;
-                        best_adr = best_adr + 1;
-                        best_cnt = 0;
-                        best_first = 1;
-                        if (state == 19) 
+                        if (ly_cnt == 5) 
                         begin
-                            lyt[0] = lym0;
-                            lyt[1] = lym1;
-                            lyt[2] = lym2;
-                            lyt[3] = lym3;
-                            lyt[4] = lym4;
-                            lyt[5] = lym5;
-                            raw_adr = raw_adr + 1;
-                            raw_cnt = 0;
                             ly_cnt = 0;
-                            wg_cnt = 0;
-                        end
-                    end
-                end
-                16 : 
-                begin
-                    if (best_first) daqw = {5'b0, shower_t, best1t[10:4], 1'b0, best1t[2:0], best1t[3]};
-                    else daqw = {5'b0, shower_t, best2t[10:4], 1'b0, best2t[2:0], best2t[3]};
-                    if (!best_first) 
-                    begin
-                        best_adr = best_adr + 1;
-                        best1t = best1m;
-                        best2t = best2m;
-                        shower_t = shower_m;
-                        best_cnt = best_cnt + 1;
-                    end
-                    best_first = !best_first;
-                    if (best_cnt == lct_bins) 
-                    begin
-                        state = 17;
-                        lyt[0] = lym0;
-                        lyt[1] = lym1;
-                        lyt[2] = lym2;
-                        lyt[3] = lym3;
-                        lyt[4] = lym4;
-                        lyt[5] = lym5;
-                        raw_adr = raw_adr + 1;
-                        raw_cnt = 0;
-                        ly_cnt = 0;
-                        wg_cnt = 0;
-                    end
-                end
-                17 : 
-                begin
-                    daqw = 19'd0;
-                    state = 18;
-                end
-                18 : 
-                begin
-                    daqw = 19'd0;
-                    state = (raw_bins != 0) ? 19 : 21;
-                end
-                19 : 
-                begin
-                    ly_zero = 1'b0; //zero_suppress && (lyt[ly_cnt] == 0);
-                    if (!ly_zero) 
-                    begin
-                        if (wg_cnt == 0) daqw = {7'b0, lyt[ly_cnt][11:0]};
-                        if (wg_cnt == 1) daqw = {7'b0, lyt[ly_cnt][23:12]};
-                        if (wg_cnt == 2) daqw = {7'b0, lyt[ly_cnt][35:24]};
-                        if (wg_cnt == 3) daqw = {7'b0, lyt[ly_cnt][47:36]};
-                        if (wg_cnt == 4) daqw = {7'b0, lyt[ly_cnt][59:48]};
-                        if (wg_cnt == 5) daqw = {7'b0, lyt[ly_cnt][71:60]};
-                        if (wg_cnt == 6) daqw = {7'b0, lyt[ly_cnt][83:72]};
-                    end
-                    if ((wg_cnt == 7) || ly_zero) 
-                    begin
-                        if (!ly_zero) daqw = {7'b0, lyt[ly_cnt][95:84]};
-                        else daqw = 19'h1000;
-                        wg_cnt = 0;
-                        ly_cnt = ly_cnt + 1;
-                        if ((ly_cnt == 6) || tb_zero) 
-                        begin
-                            if (tb_zero) daqw = 19'h2000;
-                            ly_cnt = 0;
-                            raw_adr = raw_adr + 1;
                             raw_cnt = raw_cnt + 1;
                             lyt[0] = lym0;
                             lyt[1] = lym1;
@@ -530,44 +440,51 @@ module daq_gbtx_26
                             lyt[3] = lym3;
                             lyt[4] = lym4;
                             lyt[5] = lym5;
-                            if (raw_cnt == raw_bins) 
-                            begin
-                                if (frame_count[1:0] == 0) state = 21;
-                                else state = 20;
-                            end
+                            lzt = lyzm;
+                            raw_adr = raw_adr + 1;
+                            if (raw_cnt == raw_bins) state = (frame_count[1:0] == 1) ? 13 : 12;
+                        end
+                        else 
+                        begin
+                            ly_cnt = ly_cnt + 1;
+                            lyt[0] = lyt[1];
+                            lyt[1] = lyt[2];
+                            lyt[2] = lyt[3];
+                            lyt[3] = lyt[4];
+                            lyt[4] = lyt[5];
+                            lzt = {1'b0, lzt[5:1]};
                         end
                     end
-                    else wg_cnt = wg_cnt + 1;
+                    else 
+                    begin
+                        wg_cnt = wg_cnt + 1;
+                        lyt[0] = {24'd0, lyt[0][95:24]};
+                    end
                 end
-                20 : 
+                12 : 
                 begin
-                    daqw = 19'h3000;
-                    if (frame_count[1:0] == 0) state = 21;
+                    daqw = 28'hC000000;
+                    if (frame_count[1:0] == 1) state = 13;
                 end
-                21 : 
+                13 : 
                 begin
-                    state = 22;
-                    daqw = 19'hde0d;
+                    state = 14;
+                    daqw = 28'hDECEA5E;
                     crccalc = 4;
                 end
-                22 : 
+                14 : 
                 begin
-                    state = 23;
-                    daqw = 19'h0;
+                    state = 15;
+                    daqw = 28'h0;
                     crccalc = 2;
                 end
-                23 : 
-                begin
-                    state = 24;
-                    daqw = 19'h0;
-                    crccalc = 3;
-                end
-                24 : 
+                15 : 
                 begin
                     state = 0;
-                    daqw = {8'b00111010, frame_count};
+                    daqw = {3'b010, 14'h0, frame_count};
                     readout_count = readout_count + 1;
                     crccalc = 0;
+                    idle_cnt = 0;
                 end
                 default : state = 0;
             endcase

@@ -4,9 +4,9 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : mador
 // File name : LyOneShot.v
-// Timestamp : Tue Sep  1 18:41:24 2026
+// Timestamp : Thu Oct  8 16:45:29 2026
 
 module LyOneShot
 (

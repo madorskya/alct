@@ -4,13 +4,14 @@
 // model,  please  modify  the model and re-generate this file.
 // VPP library web-page: http://www.phys.ufl.edu/~madorsky/vpp/
 
-// Author    : ise
+// Author    : mador
 // File name : gtp_tux.v
-// Timestamp : Tue Sep  1 18:41:28 2026
+// Timestamp : Thu Oct  8 16:45:30 2026
 
 module gtp_tux
 (
     daqo,
+    daq_gbtx_valid,
     clk,
     tx_p,
     tx_n,
@@ -20,7 +21,8 @@ module gtp_tux
     clk160
 );
 
-    input [18:0] daqo;
+    input [27:0] daqo;
+    input daq_gbtx_valid;
     input clk;
     output [1:0] tx_p;
     output [1:0] tx_n;
@@ -31,13 +33,14 @@ module gtp_tux
 
 	optical_lx150t gtp
 	(
-		.clock    (clk),
-		.daq_word (daqo),
-		.tx_p     (tx_p),
-		.tx_n     (tx_n),
-		.refclk_p (refclk_p),
-		.refclk_n (refclk_n),
-		.reset_i  (reset),
-		.clk160   (clk160)
+		.clock     (clk),
+		.daq_word  (daqo),
+		.daq_valid (daq_gbtx_valid),
+		.tx_p      (tx_p),
+		.tx_n      (tx_n),
+		.refclk_p  (refclk_p),
+		.refclk_n  (refclk_n),
+		.reset_i   (reset),
+		.clk160    (clk160)
 	);
 endmodule

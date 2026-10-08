@@ -8,6 +8,7 @@ class gtp_tux_c: public module
   void operator()
   (
 	Signal    daqo,
+	Signal    daq_gbtx_valid,
 	Signal    clk,
 
 	Signal    tx_p,

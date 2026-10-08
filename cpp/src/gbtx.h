@@ -8,7 +8,6 @@ class gbtx_c: public module
   void operator()
   (
     Signal daq_word,
-    Signal clk,
 
     Signal elink_p,
     Signal elink_n,
@@ -17,19 +16,11 @@ class gbtx_c: public module
     Signal gbt_clk40_n,
     Signal gbt_txrdy,
 
-    Signal rst,
 	Signal clk160
   );
 
-  Signal daq_gbtx;
-  Signal gbt_clk40;
   Signal gbt_clk160;
   Signal elink;
-  Signal el0, el1;
   Signal el0_r;
   Signal el1_r;
-  Signal dv;
-  Signal dv_r;
-	Signal idle_cnt;
-
 };

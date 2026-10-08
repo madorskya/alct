@@ -6,7 +6,7 @@
 
 // Author    : mador
 // File name : best_memory.v
-// Timestamp : Mon Aug 31 19:39:11 2026
+// Timestamp : Thu Oct  8 16:44:00 2026
 
 module best_memory
 (
@@ -18,7 +18,8 @@ module best_memory
     we,
     wblock,
     full,
-    clk
+    wclk,
+    rclk
 );
 
     input [7:0] adw;
@@ -26,21 +27,34 @@ module best_memory
     input [7:0] adb;
     input [35:0] dw;
     output [35:0] dr;
+    reg    [35:0] dr;
     input we;
     input [7:0] wblock;
     output full;
-    input clk;
+    input wclk;
+    input rclk;
 
     reg [7:0] adrr;
     reg [35:0] mem [255:0];
     // synthesis attribute ram_style of mem is block
+    reg [7:0] adb_r1;
+    reg [7:0] adb_r2;
+    reg [7:0] adb_s;
+    // synthesis attribute ASYNC_REG of adb_r1 is TRUE
+    // synthesis attribute ASYNC_REG of adb_r2 is TRUE
     wire [7:0] diff;
-    assign diff = adb - adw;
-    assign full = !((diff > (wblock + 10)) || (adb == adw));
-    always @(posedge clk) 
+    assign diff = adb_s - adw;
+    assign full = !((diff > (wblock + 10)) || (adb_s == adw));
+    always @(posedge wclk) 
     begin
         if (we) mem[adw] = dw;
+        if (adb_r1 == adb_r2) adb_s = adb_r2;
+        adb_r2 = adb_r1;
+        adb_r1 = adb;
+    end
+    always @(posedge rclk) 
+    begin
+        dr = mem[adrr];
         adrr = adr;
     end
-    assign dr = mem[adrr];
 endmodule

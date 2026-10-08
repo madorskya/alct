@@ -5,6 +5,7 @@
 #include "vlib.h"
 #include "vmac.h"
 
+// single-clock DAQ memory, used by legacy (copper) DAQ
 class daq_memory: public module
 {
  public:
@@ -18,8 +19,7 @@ class daq_memory: public module
 		Signal we,
 		Signal wblock,
 		Signal full,
-		Signal wclk,
-		Signal rclk
+		Signal clk
 	);
 
 	memory mem;

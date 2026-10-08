@@ -6,7 +6,7 @@
 
 // Author    : mador
 // File name : alct192.v
-// Timestamp : Mon Aug 31 19:36:35 2026
+// Timestamp : Thu Oct  8 16:41:56 2026
 
 module alct192
 (
@@ -341,7 +341,7 @@ initial hard_rst = 0;
     assign mx_oe = 0;
     // Mux OE
     // JTAG port instantiation
-    assign virtex_id = {4'd8, 5'd31, 12'd2026, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0, 1'b1, 3'h1, 6'h7};
+    assign virtex_id = {4'd10, 5'd8, 12'd2026, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0, 1'b1, 3'h1, 6'h7};
     jtag TAP
     (
         tck2b,

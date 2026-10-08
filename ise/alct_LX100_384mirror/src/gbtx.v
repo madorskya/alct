@@ -6,70 +6,41 @@
 
 // Author    : mador
 // File name : gbtx.v
-// Timestamp : Mon Aug 31 19:39:38 2026
+// Timestamp : Thu Oct  8 16:44:30 2026
 
 module gbtx
 (
     daq_word,
-    clk,
     elink_p,
     elink_n,
     gbt_tx_datavalid,
     gbt_clk40_p,
     gbt_clk40_n,
     gbt_txrdy,
-    rst,
     clk160
 );
 
-    input [18:0] daq_word;
-    input clk;
+    input [27:0] daq_word;
     output [13:0] elink_p;
     output [13:0] elink_n;
     output gbt_tx_datavalid;
     input gbt_clk40_p;
     input gbt_clk40_n;
     input gbt_txrdy;
-    input rst;
     output clk160;
 
     assign gbt_tx_datavalid = 1'd1;
-    wire [18:0] daq_gbtx;
-    assign daq_gbtx = daq_word ^ 19'b100_0000_0000_0000_0000;
-    wire gbt_clk40;
     wire gbt_clk160;
     wire [13:0] elink;
-    wire [13:0] el0;
-    wire [13:0] el1;
     reg [13:0] el0_r;
     reg [13:0] el1_r;
-    wire dv;
-    reg [2:0] idle_cnt;
 	dll_gbtx dllg (.CLK_IN1_P(gbt_clk40_p), .CLK_IN1_N(gbt_clk40_n), .CLK_OUT1(gbt_clk160), .RESET(0), .LOCKED());
 	OBUFDS elink_buf[13:0] (.I(elink), .O(elink_p), .OB(elink_n));
 	ODDR2 elink_oddr[13:0] (.D0(el0_r), .D1(el1_r), .C0(gbt_clk160), .C1(!gbt_clk160), .CE(1'b1), .R(1'b0), .S(1'b0), .Q(elink));
-	gbtx_fifo gbtxf (
-		.rst      (rst),
-		.wr_clk   (clk),
-		.rd_clk   (gbt_clk160),
-		.din      ({5'b00000, daq_gbtx[18:10], 4'b0000, daq_gbtx[9:0]}),
-		.wr_en    (daq_gbtx[18]),
-		.rd_en    (1'b1),
-		.dout     ({el1, el0}),
-		.full     (),
-		.valid    (dv),
-		.empty    ()
-	);
     always @(posedge gbt_clk160) 
     begin
-        el0_r = {1'd1, idle_cnt, 10'd0};
-        el1_r = {1'd0, idle_cnt, 10'd0};
-        if (dv) 
-        begin
-            el0_r = el0_r | el0;
-            el1_r = el1_r | el1;
-        end
-        idle_cnt = idle_cnt + 1;
+        el0_r = daq_word[13:0];
+        el1_r = daq_word[27:14];
     end
     assign clk160 = gbt_clk160;
 endmodule
