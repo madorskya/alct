@@ -1052,6 +1052,7 @@ beginmodule
     gbtx
 	(
 	   daq_opt,
+	   daq_gbtx_valid,
 	   
 	   elink_p,
 	   elink_n,

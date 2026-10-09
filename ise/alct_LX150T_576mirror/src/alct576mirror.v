@@ -6,7 +6,7 @@
 
 // Author    : mador
 // File name : alct576mirror.v
-// Timestamp : Thu Oct  8 16:45:29 2026
+// Timestamp : Fri Oct  9 16:20:54 2026
 
 module alct576mirror
 (
@@ -392,7 +392,7 @@ din_dly_del
     assign mx_oe = 0;
     // Mux OE
     // JTAG port instantiation
-    assign virtex_id = {4'd10, 5'd8, 12'd2026, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b1, 1'b0, 1'b1, 3'h5, 6'h7};
+    assign virtex_id = {4'd10, 5'd9, 12'd2026, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b1, 1'b0, 1'b1, 3'h5, 6'h7};
     jtag TAP
     (
         tck2b,

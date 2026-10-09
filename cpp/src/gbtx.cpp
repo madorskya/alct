@@ -3,6 +3,7 @@
 void gbtx_c::operator()
 (
     Signal daq_word,
+    Signal daq_gbtx_valid,
 
     Signal elink_p,
     Signal elink_n,
@@ -17,6 +18,7 @@ void gbtx_c::operator()
 initio
   
     Input_  (daq_word, 27, 0); // DAQ word from optical DAQ module, clk160 domain
+    Input   (daq_gbtx_valid); // 1 during DAQ block transmission, aligned with daq_word; not used here
 
     Output_ (elink_p, 13, 0); // output to GBTX
     Output_ (elink_n, 13, 0);

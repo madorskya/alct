@@ -6,7 +6,7 @@
 
 // Author    : mador
 // File name : crcgen.v
-// Timestamp : Thu Oct  8 16:41:57 2026
+// Timestamp : Fri Oct  9 16:16:57 2026
 
 module crcgen
 (

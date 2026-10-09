@@ -6,11 +6,12 @@
 
 // Author    : mador
 // File name : gbtx.v
-// Timestamp : Thu Oct  8 16:43:29 2026
+// Timestamp : Fri Oct  9 16:18:35 2026
 
 module gbtx
 (
     daq_word,
+    daq_gbtx_valid,
     elink_p,
     elink_n,
     gbt_tx_datavalid,
@@ -21,6 +22,7 @@ module gbtx
 );
 
     input [27:0] daq_word;
+    input daq_gbtx_valid;
     output [13:0] elink_p;
     output [13:0] elink_n;
     output gbt_tx_datavalid;

@@ -8,6 +8,7 @@ class gbtx_c: public module
   void operator()
   (
     Signal daq_word,
+    Signal daq_gbtx_valid,
 
     Signal elink_p,
     Signal elink_n,

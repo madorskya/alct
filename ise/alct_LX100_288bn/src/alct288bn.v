@@ -6,7 +6,7 @@
 
 // Author    : mador
 // File name : alct288bn.v
-// Timestamp : Thu Oct  8 16:42:27 2026
+// Timestamp : Fri Oct  9 16:17:28 2026
 
 module alct288bn
 (
@@ -359,7 +359,7 @@ initial hard_rst = 0;
     assign mx_oe = 0;
     // Mux OE
     // JTAG port instantiation
-    assign virtex_id = {4'd10, 5'd8, 12'd2026, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0, 1'b0, 3'h2, 6'h7};
+    assign virtex_id = {4'd10, 5'd9, 12'd2026, 1'h0, sl_cn_done, seu_error, 1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0, 1'b0, 3'h2, 6'h7};
     jtag TAP
     (
         tck2b,
@@ -716,6 +716,7 @@ initial hard_rst = 0;
     gbtx gbtx
     (
         daq_opt,
+        daq_gbtx_valid,
         elink_p,
         elink_n,
         gbt_tx_datavalid,
